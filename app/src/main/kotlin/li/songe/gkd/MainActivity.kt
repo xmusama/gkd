@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
@@ -49,6 +50,7 @@ import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
+import androidx.core.os.LocaleListCompat
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
@@ -225,13 +227,16 @@ class MainActivity : ComponentActivity() {
             type = contentType
         }).data?.data
         if (u == null) {
-            toast("未选择文件")
+            toast(li.songe.gkd.i18n.t("k_dbb4430dc089"))
         }
         return u
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
+        AppCompatDelegate.setApplicationLocales(
+            LocaleListCompat.forLanguageTags(storeFlow.value.language)
+        )
         enableEdgeToEdge()
         fixSomeProblems()
         super.onCreate(savedInstanceState)
@@ -417,14 +422,14 @@ private fun ShizukuErrorDialog(stateFlow: MutableStateFlow<Throwable?>) {
         val installed = appInfoCache.contains(shizukuAppId)
         AlertDialog(
             onDismissRequest = { stateFlow.value = null },
-            title = { Text(text = "授权错误") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_9c8db95f1272")) },
             text = {
                 Column {
                     Text(
                         text = if (installed) {
-                            "Shizuku 授权失败，请检查是否运行"
+                            li.songe.gkd.i18n.t("k_f08db2ab6e9b")
                         } else {
-                            "Shizuku 授权失败，检测到 Shizuku 未安装，请先下载后安装，如果你是通过其它方式授权，请忽略此提示自行查找原因"
+                            li.songe.gkd.i18n.t("k_6dc32911b1cd")
                         }
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -467,20 +472,20 @@ private fun ShizukuErrorDialog(stateFlow: MutableStateFlow<Throwable?>) {
                         stateFlow.value = null
                         openApp(shizukuAppId)
                     }) {
-                        Text(text = "打开 Shizuku")
+                        Text(text = li.songe.gkd.i18n.t("k_894a72442f41"))
                     }
                 } else {
                     TextButton(onClick = {
                         stateFlow.value = null
                         openUri(ShortUrlSet.URL4)
                     }) {
-                        Text(text = "去下载")
+                        Text(text = li.songe.gkd.i18n.t("k_21654037e21c"))
                     }
                 }
             },
             dismissButton = {
                 TextButton(onClick = { stateFlow.value = null }) {
-                    Text(text = "我知道了")
+                    Text(text = li.songe.gkd.i18n.t("k_dd3760c80abe"))
                 }
             }
         )
@@ -503,17 +508,17 @@ fun AccessRestrictedSettingsDlg() {
     val isA11yPage = mainVm.topRoute is AuthA11yRoute
     LaunchedEffect(isA11yPage, accessRestrictedSettingsShow) {
         if (isA11yPage && accessRestrictedSettingsShow && !a11yRunning) {
-            toast("请重新授权以解除限制")
+            toast(li.songe.gkd.i18n.t("k_a0995a1cf809"))
             accessRestrictedSettingsShowFlow.value = false
         }
     }
     if (accessRestrictedSettingsShow && !isA11yPage && !a11yRunning) {
         AlertDialog(
             title = {
-                Text(text = "权限受限")
+                Text(text = li.songe.gkd.i18n.t("k_17bfc950b710"))
             },
             text = {
-                Text(text = "当前操作权限「访问受限设置」已被限制, 请先解除限制")
+                Text(text = li.songe.gkd.i18n.t("k_1262ae439f57"))
             },
             onDismissRequest = {
                 accessRestrictedSettingsShowFlow.value = false
@@ -523,14 +528,14 @@ fun AccessRestrictedSettingsDlg() {
                     accessRestrictedSettingsShowFlow.value = false
                     mainVm.navigateWebPage(ShortUrlSet.URL2)
                 }) {
-                    Text(text = "解除")
+                    Text(text = li.songe.gkd.i18n.t("k_ec7ae06b0999"))
                 }
             },
             dismissButton = {
                 TextButton({
                     accessRestrictedSettingsShowFlow.value = false
                 }) {
-                    Text(text = "关闭")
+                    Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                 }
             },
         )
@@ -544,15 +549,15 @@ fun UiAutomationAlreadyRegisteredDlg() {
             onDismissRequest = {
                 automationRegisteredExceptionFlow.value = null
             },
-            title = { Text(text = "启动失败") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_65525f0f4417")) },
             text = {
-                Text(text = "自动化服务启动失败，检测到自动化服务已被其他应用占用，请先关闭已有服务后重试\n\n注：自动化服务只能同时运行一个，请确保没有其他应用或测试框架占用后再启动")
+                Text(text = li.songe.gkd.i18n.t("k_914a3f7e1522"))
             },
             confirmButton = {
                 TextButton(onClick = {
                     automationRegisteredExceptionFlow.value = null
                 }) {
-                    Text(text = "我知道了")
+                    Text(text = li.songe.gkd.i18n.t("k_dd3760c80abe"))
                 }
             }
         )

@@ -34,7 +34,7 @@ private fun Animatable<Float, AnimationVector1D>.calc(start: Float, end: Float):
 fun BackCloseIcon(
     backOrClose: Boolean,
     modifier: Modifier = Modifier,
-    contentDescription: String = if (backOrClose) "返回" else "关闭",
+    contentDescription: String = if (backOrClose) li.songe.gkd.i18n.t("k_11d024154013") else li.songe.gkd.i18n.t("k_6c14bd7f6f9e"),
     tint: Color = LocalContentColor.current
 ) = TooltipIconButtonBox(
     contentDescription = contentDescription,

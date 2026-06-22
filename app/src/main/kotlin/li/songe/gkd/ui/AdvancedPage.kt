@@ -103,13 +103,13 @@ fun AdvancedPage() {
     var showEditPortDlg by vm.showEditPortDlgFlow.asMutableState()
     if (showEditPortDlg) {
         val portRange = remember { 1000 to 65535 }
-        val placeholderText = remember { "请输入 ${portRange.first}-${portRange.second} 的整数" }
+        val placeholderText = remember { li.songe.gkd.i18n.t("k_69bab6a24108", portRange.first, portRange.second) }
         var value by remember {
             mutableStateOf(store.httpServerPort.toString())
         }
         AlertDialog(
             properties = DialogProperties(dismissOnClickOutside = false),
-            title = { Text(text = "服务端口") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_6f77ee7c5c99")) },
             text = {
                 OutlinedTextField(
                     value = value,
@@ -150,19 +150,19 @@ fun AdvancedPage() {
                             storeFlow.value = store.copy(
                                 httpServerPort = newPort
                             )
-                            toast("更新成功")
+                            toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                         }
                     }
                 ) {
                     Text(
-                        text = "确认", modifier = Modifier
+                        text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"), modifier = Modifier
                     )
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showEditPortDlg = false }) {
                     Text(
-                        text = "取消"
+                        text = li.songe.gkd.i18n.t("k_4d0b4688c787")
                     )
                 }
             }
@@ -173,7 +173,7 @@ fun AdvancedPage() {
     if (showShizukuState) {
         val onDismissRequest = { showShizukuState = false }
         AlertDialog(
-            title = { Text(text = "授权状态") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_ac3cc79f9199")) },
             text = {
                 val states = shizukuContextFlow.collectAsState().value.states
                 Column {
@@ -188,7 +188,7 @@ fun AdvancedPage() {
             onDismissRequest = onDismissRequest,
             confirmButton = {
                 TextButton(onClick = onDismissRequest) {
-                    Text(text = "我知道了")
+                    Text(text = li.songe.gkd.i18n.t("k_dd3760c80abe"))
                 }
             },
         )
@@ -206,7 +206,7 @@ fun AdvancedPage() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(text = "截屏快照")
+                    Text(text = li.songe.gkd.i18n.t("k_ee5db675e1f0"))
                     PerfIconButton(
                         imageVector = PerfIcon.HelpOutline,
                         onClick = throttle {
@@ -221,9 +221,9 @@ fun AdvancedPage() {
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     CustomOutlinedTextField(
-                        label = { Text("应用ID") },
+                        label = { Text(li.songe.gkd.i18n.t("k_be8af550f337")) },
                         value = appIdValue,
-                        placeholder = { Text(text = "请输入目标应用ID") },
+                        placeholder = { Text(text = li.songe.gkd.i18n.t("k_9fccef00274d")) },
                         onValueChange = {
                             appIdValue = it
                         },
@@ -232,9 +232,9 @@ fun AdvancedPage() {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     CustomOutlinedTextField(
-                        label = { Text("特征事件选择器") },
+                        label = { Text(li.songe.gkd.i18n.t("k_a08049752bcb")) },
                         value = eventSelectorValue,
-                        placeholder = { Text(text = "请输入特征事件选择器") },
+                        placeholder = { Text(text = li.songe.gkd.i18n.t("k_ea72227d80d9")) },
                         onValueChange = {
                             eventSelectorValue = it
                         },
@@ -255,13 +255,13 @@ fun AdvancedPage() {
                         return@throttle
                     }
                     if (appIdValue.isNotEmpty() && !appInfoMapFlow.value.contains(appIdValue)) {
-                        toast("无效应用ID")
+                        toast(li.songe.gkd.i18n.t("k_34e21ea99c13"))
                         return@throttle
                     }
                     if (eventSelectorValue.isNotEmpty()) {
                         val s = Selector.parseOrNull(eventSelectorValue)
                         if (s == null) {
-                            toast("无效事件选择器")
+                            toast(li.songe.gkd.i18n.t("k_8c9fbc6ef927"))
                             return@throttle
                         }
                     }
@@ -271,18 +271,18 @@ fun AdvancedPage() {
                             screenshotEventSelector = eventSelectorValue,
                         )
                     }
-                    toast("更新成功")
+                    toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                     showCaptureScreenshotDlg = false
                 }) {
                     Text(
-                        text = "确认",
+                        text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"),
                     )
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showCaptureScreenshotDlg = false }) {
                     Text(
-                        text = "取消",
+                        text = li.songe.gkd.i18n.t("k_4d0b4688c787"),
                     )
                 }
             })
@@ -300,7 +300,7 @@ fun AdvancedPage() {
                         mainVm.popPage()
                     })
                 },
-                title = { Text(text = "高级设置") },
+                title = { Text(text = li.songe.gkd.i18n.t("k_dd07e641ca66")) },
             )
         }
     ) { contentPadding ->
@@ -325,29 +325,29 @@ fun AdvancedPage() {
                 PerfIcon(
                     modifier = Modifier
                         .clip(MaterialTheme.shapes.extraSmall)
-                        .clickable(onClickLabel = "打开 Shizuku 状态弹窗", onClick = throttle {
+                        .clickable(onClickLabel = li.songe.gkd.i18n.t("k_3b8328c91c81"), onClick = throttle {
                             showShizukuState = true
                         })
                         .iconTextSize(textStyle = MaterialTheme.typography.titleSmall),
                     imageVector = PerfIcon.Api,
                     tint = MaterialTheme.colorScheme.primary,
-                    contentDescription = "Shizuku 状态",
+                    contentDescription = li.songe.gkd.i18n.t("k_74c184306108"),
                 )
             }
             val shizukuGranted by shizukuGrantedState.stateFlow.collectAsState()
             AnimatedVisibility(store.enableShizuku && !shizukuGranted) {
                 AuthCard(
-                    title = "未授权",
-                    subtitle = "点击授权以优化体验",
+                    title = li.songe.gkd.i18n.t("k_86bddceb9d5f"),
+                    subtitle = li.songe.gkd.i18n.t("k_a7bd6fc9bbb6"),
                     onAuthClick = {
                         mainVm.requestShizuku()
                     }
                 )
             }
             TextSwitch(
-                title = "启用优化",
-                subtitle = "提升权限优化体验",
-                suffix = "了解更多",
+                title = li.songe.gkd.i18n.t("k_6b0ad26edfa3"),
+                subtitle = li.songe.gkd.i18n.t("k_a3e561c7c6db"),
+                suffix = li.songe.gkd.i18n.t("k_c0c78a429097"),
                 suffixUnderline = true,
                 onSuffixClick = { mainVm.navigateWebPage(ShortUrlSet.URL14) },
                 checked = store.enableShizuku,
@@ -376,16 +376,16 @@ fun AdvancedPage() {
                 color = MaterialTheme.colorScheme.primary,
             )
             TextSwitch(
-                title = "HTTP服务",
-                subtitle = "在浏览器下连接调试",
+                title = li.songe.gkd.i18n.t("k_6a43e3e09d7e"),
+                subtitle = li.songe.gkd.i18n.t("k_e330f2e53cef"),
                 suffixIcon = {
                     PerfCustomIconButton(
                         size = 32.dp,
                         iconSize = 20.dp,
-                        onClickLabel = "打开HTTP设置弹窗",
+                        onClickLabel = li.songe.gkd.i18n.t("k_66b10cf5e534"),
                         onClick = { showHttpSettingDlg = !showHttpSettingDlg },
                         id = R.drawable.ic_page_info,
-                        contentDescription = "HTTP设置",
+                        contentDescription = li.songe.gkd.i18n.t("k_c5f42f5a0f9e"),
                         tint = if (showHttpSettingDlg) MaterialTheme.colorScheme.primary else LocalContentColor.current,
                     )
                 },
@@ -407,7 +407,7 @@ fun AdvancedPage() {
                     Column(
                         modifier = Modifier.itemPadding()
                     ) {
-                        Text(text = "点击下方链接即可连接")
+                        Text(text = li.songe.gkd.i18n.t("k_354462977b15"))
                         Row {
                             val localUrl = "http://127.0.0.1:${store.httpServerPort}"
                             Text(
@@ -419,7 +419,7 @@ fun AdvancedPage() {
                                 }),
                             )
                             Spacer(modifier = Modifier.width(2.dp))
-                            Text(text = "仅本设备访问")
+                            Text(text = li.songe.gkd.i18n.t("k_89738e0ca1be"))
                         }
                         localNetworkIps.forEach { host ->
                             val lanUrl = "http://${host}:${store.httpServerPort}"
@@ -438,18 +438,18 @@ fun AdvancedPage() {
             AnimatedVisibility(visible = showHttpSettingDlg) {
                 Column {
                     SettingItem(
-                        title = "服务端口",
+                        title = li.songe.gkd.i18n.t("k_6f77ee7c5c99"),
                         subtitle = store.httpServerPort.toString(),
                         imageVector = PerfIcon.Edit,
-                        onClickLabel = "编辑服务端口",
+                        onClickLabel = li.songe.gkd.i18n.t("k_07a62b1e96aa"),
                         onClick = {
                             showHttpSettingDlg = false
                             showEditPortDlg = true
                         }
                     )
                     TextSwitch(
-                        title = "清除订阅",
-                        subtitle = "关闭服务时删除内存订阅",
+                        title = li.songe.gkd.i18n.t("k_6b582fbb9dba"),
+                        subtitle = li.songe.gkd.i18n.t("k_97424615a70e"),
                         checked = store.autoClearMemorySubs,
                         onCheckedChange = {
                             storeFlow.update {
@@ -461,15 +461,15 @@ fun AdvancedPage() {
             }
 
             Text(
-                text = "快照",
+                text = li.songe.gkd.i18n.t("k_83caf1badce1"),
                 modifier = Modifier.titleItemPadding(),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
 
             SettingItem(
-                title = "快照记录",
-                subtitle = "应用界面节点信息及截图",
+                title = li.songe.gkd.i18n.t("k_26c9e586fcb9"),
+                subtitle = li.songe.gkd.i18n.t("k_8eddb6bd87e7"),
                 onClick = {
                     mainVm.navigatePage(SnapshotPageRoute)
                 }
@@ -478,8 +478,8 @@ fun AdvancedPage() {
             if (!AndroidTarget.R) {
                 val screenshotRunning by ScreenshotService.isRunning.collectAsState()
                 TextSwitch(
-                    title = "截屏服务",
-                    subtitle = "生成快照需要获取屏幕截图",
+                    title = li.songe.gkd.i18n.t("k_df95c4025b9c"),
+                    subtitle = li.songe.gkd.i18n.t("k_0933e86c0e76"),
                     checked = screenshotRunning,
                     onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                         if (it) {
@@ -499,8 +499,8 @@ fun AdvancedPage() {
             }
 
             TextSwitch(
-                title = "快照按钮",
-                subtitle = "显示按钮点击保存快照",
+                title = li.songe.gkd.i18n.t("k_addb3c2ba231"),
+                subtitle = li.songe.gkd.i18n.t("k_ef5f9af6036d"),
                 checked = ButtonService.isRunning.collectAsState().value,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {
@@ -515,8 +515,8 @@ fun AdvancedPage() {
             )
 
             TextSwitch(
-                title = "音量快照",
-                subtitle = "音量变化时保存快照",
+                title = li.songe.gkd.i18n.t("k_97f98cd92266"),
+                subtitle = li.songe.gkd.i18n.t("k_7790dc931f09"),
                 checked = store.captureVolumeChange,
                 onCheckedChange = {
                     storeFlow.value = store.copy(
@@ -526,19 +526,19 @@ fun AdvancedPage() {
             )
 
             TextSwitch(
-                title = "截屏快照",
-                subtitle = "截屏时保存快照",
+                title = li.songe.gkd.i18n.t("k_ee5db675e1f0"),
+                subtitle = li.songe.gkd.i18n.t("k_492729f7f9ca"),
                 checked = store.captureScreenshot,
                 suffixIcon = {
                     PerfCustomIconButton(
                         size = 32.dp,
                         iconSize = 20.dp,
-                        onClickLabel = "打开配置截屏快照弹窗",
+                        onClickLabel = li.songe.gkd.i18n.t("k_c41137ca16f9"),
                         onClick = throttle {
                             showCaptureScreenshotDlg = true
                         },
                         id = R.drawable.ic_page_info,
-                        contentDescription = "截屏快照设置",
+                        contentDescription = li.songe.gkd.i18n.t("k_bd7b6c1ed157"),
                     )
                 },
                 onCheckedChange = {
@@ -546,14 +546,14 @@ fun AdvancedPage() {
                         captureScreenshot = it
                     )
                     if (it && store.screenshotTargetAppId.isEmpty() || store.screenshotEventSelector.isEmpty()) {
-                        toast("请配置目标应用和特征事件选择器")
+                        toast(li.songe.gkd.i18n.t("k_c456ae248712"))
                     }
                 }
             )
 
             TextSwitch(
-                title = "隐藏状态栏",
-                subtitle = "隐藏快照截图状态栏",
+                title = li.songe.gkd.i18n.t("k_c7dddf757afe"),
+                subtitle = li.songe.gkd.i18n.t("k_37fbc765c690"),
                 checked = store.hideSnapshotStatusBar,
                 onCheckedChange = {
                     storeFlow.value = store.copy(
@@ -563,8 +563,8 @@ fun AdvancedPage() {
             )
 
             TextSwitch(
-                title = "保存提示",
-                subtitle = "提示「正在保存快照」",
+                title = li.songe.gkd.i18n.t("k_108a9199f280"),
+                subtitle = li.songe.gkd.i18n.t("k_24feb0f040e9"),
                 checked = store.showSaveSnapshotToast,
                 onCheckedChange = {
                     storeFlow.value = store.copy(
@@ -575,8 +575,8 @@ fun AdvancedPage() {
 
             SettingItem(
                 title = "Github Cookie",
-                subtitle = "生成快照/日志链接",
-                suffix = "获取教程",
+                subtitle = li.songe.gkd.i18n.t("k_58a79cef9954"),
+                suffix = li.songe.gkd.i18n.t("k_ecc8ae752f3b"),
                 suffixUnderline = true,
                 onSuffixClick = {
                     mainVm.navigateWebPage(ShortUrlSet.URL1)
@@ -588,21 +588,21 @@ fun AdvancedPage() {
             )
 
             Text(
-                text = "日志",
+                text = li.songe.gkd.i18n.t("k_4de50894b8c1"),
                 modifier = Modifier.titleItemPadding(),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
             SettingItem(
-                title = "界面日志",
-                subtitle = "界面切换日志",
+                title = li.songe.gkd.i18n.t("k_48ff47e21fda"),
+                subtitle = li.songe.gkd.i18n.t("k_3e5e447fd343"),
                 onClick = {
                     mainVm.navigatePage(ActivityLogRoute)
                 }
             )
             TextSwitch(
-                title = "界面服务",
-                subtitle = "显示当前界面信息",
+                title = li.songe.gkd.i18n.t("k_fcfcb10e4c90"),
+                subtitle = li.songe.gkd.i18n.t("k_6c572506c2c6"),
                 checked = ActivityService.isRunning.collectAsState().value,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {
@@ -616,15 +616,15 @@ fun AdvancedPage() {
                 }
             )
             SettingItem(
-                title = "事件日志",
-                subtitle = "无障碍事件日志",
+                title = li.songe.gkd.i18n.t("k_12b64fb2df35"),
+                subtitle = li.songe.gkd.i18n.t("k_69dc314d81b5"),
                 onClick = {
                     mainVm.navigatePage(A11yEventLogRoute)
                 }
             )
             TextSwitch(
-                title = "事件服务",
-                subtitle = "显示无障碍事件",
+                title = li.songe.gkd.i18n.t("k_25af58e6873e"),
+                subtitle = li.songe.gkd.i18n.t("k_8d864071da95"),
                 checked = EventService.isRunning.collectAsState().value,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {

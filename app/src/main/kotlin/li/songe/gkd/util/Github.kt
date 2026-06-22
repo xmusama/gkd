@@ -101,7 +101,7 @@ suspend fun uploadFileToGithub(
         }))
     }
     if (policiesRawResp.status == HttpStatusCode.Unauthorized) {
-        throw GithubCookieException("检测到 cookie 失效, 请更换")
+        throw GithubCookieException(li.songe.gkd.i18n.t("k_31a80ea0ab8c"))
     }
     val policiesResp = policiesRawResp.body<UploadPoliciesAssetsResponse>()
 
@@ -231,7 +231,7 @@ fun EditGithubCookieDlg() {
                     onValueChange = {
                         value = it.filter { c -> c != '\n' && c != '\r' }
                     },
-                    placeholder = { Text(text = "请输入 Github Cookie") },
+                    placeholder = { Text(text = li.songe.gkd.i18n.t("k_46de88b050a1")) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .autoFocus(),
@@ -242,14 +242,14 @@ fun EditGithubCookieDlg() {
                 TextButton(onClick = {
                     mainVm.showEditCookieDlgFlow.value = false
                     mainVm.githubCookieFlow.value = value.trim()
-                    toast("更新成功")
+                    toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                 }) {
-                    Text(text = "确认")
+                    Text(text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { mainVm.showEditCookieDlgFlow.value = false }) {
-                    Text(text = "取消")
+                    Text(text = li.songe.gkd.i18n.t("k_4d0b4688c787"))
                 }
             }
         )

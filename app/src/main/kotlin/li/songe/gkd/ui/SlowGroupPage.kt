@@ -55,15 +55,15 @@ fun SlowGroupPage() {
                         mainVm.popPage()
                     })
                 },
-                title = { Text(text = "缓慢查询") },
+                title = { Text(text = li.songe.gkd.i18n.t("k_9b30ccd61d8b")) },
                 actions = {
                     PerfIconButton(imageVector = PerfIcon.Info, onClick = throttle {
                         mainVm.dialogFlow.updateDialogOptions(
-                            title = "缓慢查询",
+                            title = li.songe.gkd.i18n.t("k_9b30ccd61d8b"),
                             text = arrayOf(
-                                "任意单个规则同时满足以下 3 个条件即判定为缓慢查询",
-                                "1. 选择器右侧无法快速查询且不是主动查询, 或内部使用<<且无法快速查询\n2. preKeys 为空\n3. matchTime 为空或大于 10s",
-                                "缓慢查询可能导致触发缓慢或更多耗电, 一些可能优化的建议操作\n1. 降低选择器获取新节点次数\n2. 降低或限制规则查询时间或次数"
+                                li.songe.gkd.i18n.t("k_ec16bcc06956"),
+                                li.songe.gkd.i18n.t("k_56c84be1b64f"),
+                                li.songe.gkd.i18n.t("k_cfac5026d2d5")
                             ).joinToString("\n\n"),
                         )
                     })
@@ -90,7 +90,7 @@ fun SlowGroupPage() {
                         })
                         .itemPadding(),
                     title = group.name,
-                    desc = "${rule.rawSubs.name}/全局规则"
+                    desc = li.songe.gkd.i18n.t("k_d65437092b94", rule.rawSubs.name)
                 )
             }
             items(
@@ -110,13 +110,13 @@ fun SlowGroupPage() {
                         })
                         .itemPadding(),
                     title = group.name,
-                    desc = "${rule.rawSubs.name}/应用规则/${appInfoCache[rule.app.id]?.name ?: rule.app.name ?: rule.app.id}"
+                    desc = li.songe.gkd.i18n.t("k_f2d422d96609", rule.rawSubs.name, appInfoCache[rule.app.id]?.name ?: rule.app.name ?: rule.app.id)
                 )
             }
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (ruleSummary.slowGroupCount == 0) {
-                    EmptyText(text = "暂无规则")
+                    EmptyText(text = li.songe.gkd.i18n.t("k_cff584d9ab83"))
                 }
             }
         }

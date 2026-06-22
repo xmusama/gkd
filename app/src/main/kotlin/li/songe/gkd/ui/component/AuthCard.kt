@@ -39,7 +39,7 @@ fun AuthCard(
         }
         Spacer(modifier = Modifier.width(8.dp))
         OutlinedButton(onClick = throttle(fn = onAuthClick)) {
-            Text(text = "授权")
+            Text(text = li.songe.gkd.i18n.t("k_3a6e607f0c8d"))
         }
     }
 }

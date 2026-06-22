@@ -71,7 +71,7 @@ android {
             useSupportLibrary = true
         }
         androidResources {
-            localeFilters += listOf("zh", "en")
+            localeFilters += listOf("zh", "en", "id")
         }
         ndk {
             // noinspection ChromeOsAbiSupport

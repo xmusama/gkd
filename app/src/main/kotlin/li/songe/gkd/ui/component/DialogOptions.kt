@@ -98,9 +98,9 @@ fun MutableStateFlow<AlertDialogOptions?>.updateDialogOptions(
     )
 }
 
-private const val DEFAULT_IK_TEXT = "我知道了"
-private const val DEFAULT_CONFIRM_TEXT = "确定"
-private const val DEFAULT_DISMISS_TEXT = "取消"
+private val DEFAULT_IK_TEXT get() = li.songe.gkd.i18n.t("k_52c14d53885b")
+private val DEFAULT_CONFIRM_TEXT get() = li.songe.gkd.i18n.t("k_b56d9ac6c5a0")
+private val DEFAULT_DISMISS_TEXT get() = li.songe.gkd.i18n.t("k_4d0b4688c787")
 
 suspend fun MutableStateFlow<AlertDialogOptions?>.getResult(
     title: String,

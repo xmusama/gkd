@@ -77,7 +77,7 @@ class HttpService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
     init {
         useLogLifecycle()
         useAliveFlow(isRunning)
-        useAliveToast("HTTP服务")
+        useAliveToast(li.songe.gkd.i18n.t("k_6a43e3e09d7e"))
         StopServiceReceiver.autoRegister()
         onCreated {
             scope.launchTry(Dispatchers.IO) {
@@ -102,21 +102,21 @@ class HttpService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
                         value = null
                     }
                     if (!isPortAvailable(port)) {
-                        toast("端口 $port 被占用，请更换后重试")
+                        toast(li.songe.gkd.i18n.t("k_a4d1cbd63604", port))
                         stopSelf()
                         return@collect
                     }
                     httpServerFlow.value = try {
                         scope.createServer(port).apply { start() }
                     } catch (e: Exception) {
-                        toast("HTTP服务启动失败:${e.stackTraceToString()}")
-                        LogUtils.d("HTTP服务启动失败", e)
+                        toast(li.songe.gkd.i18n.t("k_d6662d30fae0", e.stackTraceToString()))
+                        LogUtils.d(li.songe.gkd.i18n.t("k_cc9f7ab1320c"), e)
                         null
                     }
                     if (httpServerFlow.value == null) {
                         stopSelf()
                     } else if (isReboot) {
-                        toast("HTTP服务重启成功")
+                        toast(li.songe.gkd.i18n.t("k_a9dbd60ae132"))
                     }
                 }
             }
@@ -180,7 +180,7 @@ private fun CoroutineScope.createServer(port: Int) = embeddedServer(CIO, port) {
                 val data = call.receive<ReqId>()
                 val fp = SnapshotExt.snapshotFile(data.id)
                 if (!fp.exists()) {
-                    throw RpcError("对应快照不存在")
+                    throw RpcError(li.songe.gkd.i18n.t("k_3f2a86062614"))
                 }
                 call.respondFile(fp)
             }
@@ -188,7 +188,7 @@ private fun CoroutineScope.createServer(port: Int) = embeddedServer(CIO, port) {
                 val data = call.receive<ReqId>()
                 val fp = SnapshotExt.screenshotFile(data.id)
                 if (!fp.exists()) {
-                    throw RpcError("对应截图不存在")
+                    throw RpcError(li.songe.gkd.i18n.t("k_eccfe65865ec"))
                 }
                 call.respondFile(fp)
             }
@@ -212,9 +212,9 @@ private fun CoroutineScope.createServer(port: Int) = embeddedServer(CIO, port) {
                 if (snapshot != null) {
                     SnapshotExt.removeSnapshot(data.id)
                     DbSet.snapshotDao.delete(snapshot)
-                    call.respond(RpcOk("快照删除成功"))
+                    call.respond(RpcOk(li.songe.gkd.i18n.t("k_5974104d7e07")))
                 } else {
-                    throw RpcError("快照不存在或已被删除")
+                    throw RpcError(li.songe.gkd.i18n.t("k_384d48238687"))
                 }
             }
             post("/updateSubscription") {
@@ -222,7 +222,7 @@ private fun CoroutineScope.createServer(port: Int) = embeddedServer(CIO, port) {
                     RawSubscription.parse(call.receiveText(), json5 = false)
                         .copy(
                             id = LOCAL_HTTP_SUBS_ID,
-                            name = "内存订阅",
+                            name = li.songe.gkd.i18n.t("k_39f02052a93b"),
                             version = 0,
                             author = "@gkd-kit/inspect"
                         )

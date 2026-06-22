@@ -83,11 +83,11 @@ class UpdateStatus(val scope: CoroutineScope) {
         checkUpdatingMutex.whenUnLock {
             lastCheckTime = System.currentTimeMillis()
             if (!NetworkUtils.isAvailable()) {
-                error("网络不可用")
+                error(li.songe.gkd.i18n.t("k_f1b1586c08dd"))
             }
             val newVersion = client.get(UPDATE_URL).body<NewVersion>()
             if (newVersion.versionCode <= META.versionCode) {
-                if (manual) toast("暂无更新")
+                if (manual) toast(li.songe.gkd.i18n.t("k_f0ece473ea89"))
                 return@launchTry
             }
             if (!manual && ignoreVersionListFlow.value.contains(newVersion.versionCode)) return@launchTry
@@ -152,7 +152,7 @@ class UpdateStatus(val scope: CoroutineScope) {
             }
             AlertDialog(
                 title = {
-                    Text(text = "新版本")
+                    Text(text = li.songe.gkd.i18n.t("k_b0b9270849c7"))
                 },
                 text = {
                     Text(
@@ -169,12 +169,12 @@ class UpdateStatus(val scope: CoroutineScope) {
                         newVersionFlow.value = null
                         startDownload(newVersionVal)
                     }) {
-                        Text(text = "下载更新")
+                        Text(text = li.songe.gkd.i18n.t("k_c1f18f4e0a0d"))
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = { newVersionFlow.value = null }) {
-                        Text(text = "取消")
+                        Text(text = li.songe.gkd.i18n.t("k_4d0b4688c787"))
                     }
                     if (!lastManual) {
                         TextButton(onClick = {
@@ -182,9 +182,9 @@ class UpdateStatus(val scope: CoroutineScope) {
                             ignoreVersionListFlow.update {
                                 it + newVersionVal.versionCode
                             }
-                            toast("已忽略此版本")
+                            toast(li.songe.gkd.i18n.t("k_d1dcaf9ad6a1"))
                         }) {
-                            Text(text = "忽略")
+                            Text(text = li.songe.gkd.i18n.t("k_d84129b8beb2"))
                         }
                     }
                 },
@@ -195,7 +195,7 @@ class UpdateStatus(val scope: CoroutineScope) {
             when (downloadStatusVal) {
                 is LoadStatus.Loading -> {
                     AlertDialog(
-                        title = { Text(text = "下载中") },
+                        title = { Text(text = li.songe.gkd.i18n.t("k_327d59b5bd11")) },
                         text = {
                             LinearProgressIndicator(
                                 progress = { downloadStatusVal.progress },
@@ -205,10 +205,10 @@ class UpdateStatus(val scope: CoroutineScope) {
                         confirmButton = {
                             TextButton(onClick = {
                                 downloadStatusFlow.value = LoadStatus.Failure(
-                                    Exception("终止下载")
+                                    Exception(li.songe.gkd.i18n.t("k_20bf3bc4efec"))
                                 )
                             }) {
-                                Text(text = "终止下载")
+                                Text(text = li.songe.gkd.i18n.t("k_20bf3bc4efec"))
                             }
                         },
                     )
@@ -216,7 +216,7 @@ class UpdateStatus(val scope: CoroutineScope) {
 
                 is LoadStatus.Failure -> {
                     AlertDialog(
-                        title = { Text(text = "下载失败") },
+                        title = { Text(text = li.songe.gkd.i18n.t("k_e0dab22b1a28")) },
                         text = {
                             Text(text = downloadStatusVal.exception.let {
                                 it.message ?: it.toString()
@@ -227,7 +227,7 @@ class UpdateStatus(val scope: CoroutineScope) {
                             TextButton(onClick = {
                                 downloadStatusFlow.value = null
                             }) {
-                                Text(text = "关闭")
+                                Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                             }
                         },
                     )
@@ -235,23 +235,23 @@ class UpdateStatus(val scope: CoroutineScope) {
 
                 is LoadStatus.Success -> {
                     AlertDialog(
-                        title = { Text(text = "下载完毕") },
+                        title = { Text(text = li.songe.gkd.i18n.t("k_9edcdf6586d9")) },
                         text = {
-                            Text(text = "可继续选择安装新版本")
+                            Text(text = li.songe.gkd.i18n.t("k_12abdcba31d6"))
                         },
                         onDismissRequest = {},
                         dismissButton = {
                             TextButton(onClick = {
                                 downloadStatusFlow.value = null
                             }) {
-                                Text(text = "关闭")
+                                Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                             }
                         },
                         confirmButton = {
                             TextButton(onClick = throttle {
                                 installApk(downloadStatusVal.result)
                             }) {
-                                Text(text = "安装")
+                                Text(text = li.songe.gkd.i18n.t("k_087db63ab10b"))
                             }
                         })
                 }

@@ -67,7 +67,7 @@ object BackupUtils {
     }
 
     suspend fun importBackUpData(uri: Uri) {
-        toast("导入备份中...")
+        toast(li.songe.gkd.i18n.t("k_04c7e609136d"))
         val tempDir = createGkdTempDir()
         val zipFile = tempDir.resolve("file.zip").apply {
             writeBytes(UriUtils.uri2Bytes(uri))
@@ -78,7 +78,7 @@ object BackupUtils {
             zipFile.delete()
         } catch (e: Exception) {
             LogUtils.d("importBackUpData.unzipFile", e)
-            toast("解压失败，非法备份文件")
+            toast(li.songe.gkd.i18n.t("k_e1a72c42f8dc"))
             tempDir.deleteRecursively()
             return
         }
@@ -125,7 +125,7 @@ object BackupUtils {
                 }
             }
         }
-        toast("导入成功")
+        toast(li.songe.gkd.i18n.t("k_425516b37306"))
         tempDir.deleteRecursively()
         delay(1000)
         checkSubsUpdate(false)

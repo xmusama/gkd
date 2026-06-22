@@ -53,7 +53,7 @@ fun RuleGroupDialog(
     val mainVm = LocalMainViewModel.current
     AlertDialog(
         onDismissRequest = onDismissRequest,
-        title = { Text(text = "规则详情") },
+        title = { Text(text = li.songe.gkd.i18n.t("k_86c2d6d2830b")) },
         text = {
             Box(
                 modifier = Modifier.fillMaxWidth()
@@ -68,7 +68,7 @@ fun RuleGroupDialog(
                         .background(MaterialTheme.colorScheme.secondaryContainer)
                         .verticalScroll(rememberScrollState())
                         .clearAndSetSemantics {
-                            contentDescription = "规则内容"
+                            contentDescription = li.songe.gkd.i18n.t("k_3bfca18791cb")
                         }
                 ) {
                     SelectionContainer {
@@ -163,7 +163,7 @@ fun RuleGroupDialog(
                 }
                 PerfIconButton(
                     imageVector = PerfIcon.Block,
-                    onClickLabel = "编辑规则排除名单",
+                    onClickLabel = li.songe.gkd.i18n.t("k_8c9888b12e1a"),
                     onClick = throttle(onClickEditExclude),
                 )
                 AnimatedVisibility(
@@ -171,7 +171,7 @@ fun RuleGroupDialog(
                 ) {
                     PerfIconButton(
                         imageVector = ResetSettings,
-                        onClickLabel = "重置开关状态至默认值",
+                        onClickLabel = li.songe.gkd.i18n.t("k_08279aa97c54"),
                         onClick = throttle(onClickResetSwitch ?: {}),
                     )
                 }

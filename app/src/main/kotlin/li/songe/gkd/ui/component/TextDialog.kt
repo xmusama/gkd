@@ -24,7 +24,7 @@ fun TextDialog(
         AlertDialog(
             onDismissRequest = onDismissRequest,
             title = {
-                Text(text = if (isUri) "查看链接" else "查看文本")
+                Text(text = if (isUri) li.songe.gkd.i18n.t("k_a8d539001046") else li.songe.gkd.i18n.t("k_cd05c7b50f88"))
             },
             text = {
                 CopyTextCard(text = text)
@@ -35,11 +35,11 @@ fun TextDialog(
                         onDismissRequest()
                         openUri(text)
                     }) {
-                        Text(text = "打开")
+                        Text(text = li.songe.gkd.i18n.t("k_65fc81e16119"))
                     }
                 } else {
                     TextButton(onClick = onDismissRequest) {
-                        Text(text = "关闭")
+                        Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                     }
                 }
             },

@@ -217,7 +217,7 @@ fun AppConfigPage(route: AppConfigRoute) {
                             if (isSelectedMode) {
                                 DropdownMenuItem(
                                     text = {
-                                        Text(text = "全选")
+                                        Text(text = li.songe.gkd.i18n.t("k_3e44b2a93338"))
                                     },
                                     onClick = {
                                         expanded = false
@@ -226,7 +226,7 @@ fun AppConfigPage(route: AppConfigRoute) {
                                 )
                                 DropdownMenuItem(
                                     text = {
-                                        Text(text = "反选")
+                                        Text(text = li.songe.gkd.i18n.t("k_ae0588041180"))
                                     },
                                     onClick = {
                                         expanded = false
@@ -234,7 +234,7 @@ fun AppConfigPage(route: AppConfigRoute) {
                                     }
                                 )
                             } else {
-                                MenuGroupCard(inTop = true, title = "排序") {
+                                MenuGroupCard(inTop = true, title = li.songe.gkd.i18n.t("k_dc35af8d69c5")) {
                                     val handleItem: (RuleSortOption) -> Unit = throttle { v ->
                                         storeFlow.update { s -> s.copy(appRuleSort = v.value) }
                                     }
@@ -248,9 +248,9 @@ fun AppConfigPage(route: AppConfigRoute) {
                                         )
                                     }
                                 }
-                                MenuGroupCard(title = "筛选") {
+                                MenuGroupCard(title = li.songe.gkd.i18n.t("k_dcce9a144a40")) {
                                     MenuItemCheckbox(
-                                        text = "未启用",
+                                        text = li.songe.gkd.i18n.t("k_8bb38ef00ccc"),
                                         stateFlow = vm.showDisabledRuleFlow,
                                     )
                                 }
@@ -273,7 +273,7 @@ fun AppConfigPage(route: AppConfigRoute) {
                     )
                 },
                 imageVector = PerfIcon.Add,
-                contentDescription = "添加规则"
+                contentDescription = li.songe.gkd.i18n.t("k_d2fc32282a57")
             )
         },
     ) { contentPadding ->
@@ -378,7 +378,7 @@ fun AppConfigPage(route: AppConfigRoute) {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (groupSize == 0 && !firstLoading) {
-                    EmptyText(text = if (vm.showDisabledRuleFlow.collectAsState().value) "暂无数据" else "暂无数据，或修改筛选")
+                    EmptyText(text = if (vm.showDisabledRuleFlow.collectAsState().value) li.songe.gkd.i18n.t("k_b246458f20c8") else li.songe.gkd.i18n.t("k_53e5dc587c92"))
                 }
             }
         }

@@ -90,7 +90,7 @@ fun ActivityLogPage() {
             },
             title = {
                 Text(
-                    text = "界面日志",
+                    text = li.songe.gkd.i18n.t("k_48ff47e21fda"),
                     modifier = Modifier.noRippleClickable { resetKey.intValue++ },
                 )
             },
@@ -100,12 +100,12 @@ fun ActivityLogPage() {
                         imageVector = PerfIcon.Delete,
                         onClick = throttle(fn = vm.viewModelScope.launchAsFn {
                             mainVm.dialogFlow.waitResult(
-                                title = "删除日志",
-                                text = "确定删除所有界面日志?",
+                                title = li.songe.gkd.i18n.t("k_0c42f43e4703"),
+                                text = li.songe.gkd.i18n.t("k_76e76680f186"),
                                 error = true,
                             )
                             DbSet.activityLogDao.deleteAll()
-                            toast("删除成功")
+                            toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                         })
                     )
                 }
@@ -131,7 +131,7 @@ fun ActivityLogPage() {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (logCount == 0 && list.loadState.refresh !is LoadState.Loading) {
-                    EmptyText(text = "暂无数据")
+                    EmptyText(text = li.songe.gkd.i18n.t("k_b246458f20c8"))
                 }
             }
         }

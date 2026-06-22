@@ -157,7 +157,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 LogUtils.d(e)
-                toast("下载订阅文件失败\n${e.message}".trimEnd())
+                toast(li.songe.gkd.i18n.t("k_b7362ddb8662", e.message).trimEnd())
                 return@launchTry
             }
             val newSubsRaw = try {
@@ -165,22 +165,22 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 LogUtils.d(e)
-                toast("解析订阅文件失败\n${e.message}".trimEnd())
+                toast(li.songe.gkd.i18n.t("k_7ed723070dc0", e.message).trimEnd())
                 return@launchTry
             }
             if (oldItem == null) {
                 if (subItems.any { it.id == newSubsRaw.id }) {
-                    toast("订阅已存在")
+                    toast(li.songe.gkd.i18n.t("k_60cd8a5af2f3"))
                     return@launchTry
                 }
             } else {
                 if (oldItem.id != newSubsRaw.id) {
-                    toast("订阅id不对应")
+                    toast(li.songe.gkd.i18n.t("k_8dc09bd1b4d6"))
                     return@launchTry
                 }
             }
             if (newSubsRaw.id < 0) {
-                toast("订阅id不可为${newSubsRaw.id}\n负数id为内部使用")
+                toast(li.songe.gkd.i18n.t("k_80147b8a7ba3", newSubsRaw.id))
                 return@launchTry
             }
             val newItem = oldItem?.copy(updateUrl = url) ?: SubsItem(
@@ -191,10 +191,10 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
             updateSubscription(newSubsRaw)
             if (oldItem == null) {
                 DbSet.subsItemDao.insert(newItem)
-                toast("成功添加订阅")
+                toast(li.songe.gkd.i18n.t("k_c1ce5e41d35c"))
             } else {
                 DbSet.subsItemDao.update(newItem)
-                toast("成功修改订阅")
+                toast(li.songe.gkd.i18n.t("k_45749fed0f05"))
             }
         }
     }
@@ -224,7 +224,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
     }
 
     fun handleGkdUri(uri: Uri) {
-        val notFoundToast = { toast("未知URI\n${uri}") }
+        val notFoundToast = { toast(li.songe.gkd.i18n.t("k_830f467181b4", uri)) }
         when (uri.host) {
             "page" -> when (uri.path) {
                 "" -> {
@@ -290,7 +290,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
 
     fun switchEnableShizuku(value: Boolean) {
         if (updateBinderMutex.mutex.isLocked) {
-            toast("正在连接中，请稍后")
+            toast(li.songe.gkd.i18n.t("k_103787f23fed"))
             return
         }
         storeFlow.update { s -> s.copy(enableShizuku = value) }
@@ -299,7 +299,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
     fun requestShizuku() {
         if (shizukuContextFlow.value.ok) return
         if (updateBinderMutex.mutex.isLocked) {
-            toast("正在连接中，请稍后")
+            toast(li.songe.gkd.i18n.t("k_103787f23fed"))
             return
         }
         try {
@@ -350,7 +350,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
                     updateSubscription(
                         RawSubscription(
                             id = LOCAL_SUBS_ID,
-                            name = "本地订阅",
+                            name = li.songe.gkd.i18n.t("k_33ac8b1607f8"),
                             version = 0
                         )
                     )
@@ -382,7 +382,7 @@ class MainViewModel : BaseViewModel(), OnSimpleLife by DefaultSimpleLifeImpl() {
                 try {
                     json.decodeFromString<CrashData>(it.readText())
                 } catch (e: Exception) {
-                    LogUtils.d("解析崩溃日志失败: ${it.name}", e)
+                    LogUtils.d(li.songe.gkd.i18n.t("k_0ee79a81685c", it.name), e)
                     null
                 }
             }.sortedBy { -it.mtime }

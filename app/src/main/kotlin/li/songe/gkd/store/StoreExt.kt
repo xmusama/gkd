@@ -85,9 +85,9 @@ fun initStore() = appScope.launchTry(Dispatchers.IO) {
 
 fun switchStoreEnableMatch() {
     if (storeFlow.value.enableMatch) {
-        toast("暂停规则匹配")
+        toast(li.songe.gkd.i18n.t("k_2bd91e39a74d"))
     } else {
-        toast("开启规则匹配")
+        toast(li.songe.gkd.i18n.t("k_bb9c248fa174"))
     }
     storeFlow.update { it.copy(enableMatch = !it.enableMatch) }
 }

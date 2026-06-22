@@ -152,7 +152,7 @@ fun updateSubscription(subscription: RawSubscription) {
                 subsFolder.resolve("${subsId}.json")
                     .writeText(json.encodeToString(nextSubsRaw))
             }
-            LogUtils.d("更新订阅文件:id=${subsId},name=${subsName}")
+            LogUtils.d(li.songe.gkd.i18n.t("k_6f1569fab8c0", subsId, subsName))
         }
     }
 }
@@ -175,7 +175,7 @@ fun deleteSubscription(vararg subsIds: Long) {
                     }
                 }
                 subsMapFlow.value = newMap
-                toast("删除成功")
+                toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                 LogUtils.d("deleteSubscription", subsIds)
             }
         }
@@ -221,7 +221,7 @@ data class RuleSummary(
 
     val numText = if (globalGroups.size + appGroupSize > 0) {
         if (globalGroups.isNotEmpty()) {
-            "${globalGroups.size}全局" + if (appGroupSize > 0) {
+            li.songe.gkd.i18n.t("k_442b01674158", globalGroups.size) + if (appGroupSize > 0) {
                 "/"
             } else {
                 ""
@@ -229,7 +229,7 @@ data class RuleSummary(
         } else {
             ""
         } + if (appGroupSize > 0) {
-            "${appSize}应用/${appGroupSize}规则"
+            li.songe.gkd.i18n.t("k_706ab1599b4d", appSize, appGroupSize)
         } else {
             ""
         }
@@ -369,7 +369,7 @@ val ruleSummaryFlow by lazy {
 
 fun getSubsStatus(ruleSummary: RuleSummary, count: Long): String {
     return if (count > 0) {
-        "${ruleSummary.numText}/${count}触发"
+        li.songe.gkd.i18n.t("k_fbe228e2e9e3", ruleSummary.numText, count)
     } else {
         ruleSummary.numText
     }
@@ -382,26 +382,26 @@ private fun loadSubs(id: Long): RawSubscription {
         if (id == LOCAL_SUBS_ID) {
             return RawSubscription(
                 id = LOCAL_SUBS_ID,
-                name = "本地订阅",
+                name = li.songe.gkd.i18n.t("k_33ac8b1607f8"),
                 version = 0
             )
         }
         if (id == LOCAL_HTTP_SUBS_ID) {
             return RawSubscription(
                 id = LOCAL_HTTP_SUBS_ID,
-                name = "内存订阅",
+                name = li.songe.gkd.i18n.t("k_39f02052a93b"),
                 version = 0
             )
         }
-        error("订阅文件不存在")
+        error(li.songe.gkd.i18n.t("k_e09f0914e119"))
     }
     val subscription = try {
         RawSubscription.parse(file.readText(), json5 = false)
     } catch (e: Exception) {
-        throw Exception("订阅文件解析失败", e)
+        throw Exception(li.songe.gkd.i18n.t("k_acc297798221"), e)
     }
     if (subscription.id != id) {
-        error("订阅文件id不一致")
+        error(li.songe.gkd.i18n.t("k_2420cb166d95"))
     }
     return subscription
 }
@@ -454,7 +454,7 @@ private suspend fun cleanupSubsConfig(subsId: Long, subsRaw: RawSubscription): I
     }
     if (deleteList.isEmpty()) return 0
     DbSet.subsConfigDao.delete(*deleteList.toTypedArray())
-    LogUtils.d("清理已移除规则配置", "subsId=$subsId, delete=${deleteList.size}")
+    LogUtils.d(li.songe.gkd.i18n.t("k_e5055db55415"), "subsId=$subsId, delete=${deleteList.size}")
     return deleteList.size
 }
 
@@ -474,26 +474,26 @@ private suspend fun updateSubs(subsEntry: SubsEntry): RawSubscription? {
                 return null
             }
         } catch (e: Exception) {
-            LogUtils.d("快速检测更新失败", subsItem, e.message)
+            LogUtils.d(li.songe.gkd.i18n.t("k_5697ab6d3a43"), subsItem, e.message)
         }
     }
     val updateUrl = subsRaw?.updateUrl ?: subsItem.updateUrl
     val text = try {
         client.get(updateUrl).bodyAsText()
     } catch (e: Exception) {
-        throw Exception("请求更新链接失败", e)
+        throw Exception(li.songe.gkd.i18n.t("k_4e76d6b348fb"), e)
     }
     val newSubsRaw = try {
         RawSubscription.parse(text)
     } catch (e: Exception) {
-        throw Exception("解析文本失败", e)
+        throw Exception(li.songe.gkd.i18n.t("k_bc91e59dfbfe"), e)
     }
     if (newSubsRaw.id != subsItem.id) {
-        error("新id=${newSubsRaw.id}不匹配旧id=${subsItem.id}")
+        error(li.songe.gkd.i18n.t("k_a992b6e0d4fe", newSubsRaw.id, subsItem.id))
     }
     if (subsRaw != null && newSubsRaw.version <= subsRaw.version) {
         LogUtils.d(
-            "版本号不满足条件:id=${subsItem.id}",
+            li.songe.gkd.i18n.t("k_c7692414587f", subsItem.id),
             "${subsRaw.version} -> ${newSubsRaw.version}"
         )
         return null
@@ -508,11 +508,11 @@ fun checkSubsUpdate(showToast: Boolean = false) = appScope.launchTry(Dispatchers
     updateSubsMutex.withStateLock {
         if (subsEntriesFlow.value.any { !it.subsItem.isLocal } && !NetworkUtils.isAvailable()) {
             if (showToast) {
-                toast("网络不可用")
+                toast(li.songe.gkd.i18n.t("k_f1b1586c08dd"))
             }
             return@withStateLock
         }
-        LogUtils.d("开始检测更新")
+        LogUtils.d(li.songe.gkd.i18n.t("k_5dde3165e180"))
         // 文件不存在, 重新加载
         val changed = refreshRawSubsList(subsEntriesFlow.value.filter { it.subscription == null }
             .map { it.subsItem })
@@ -540,17 +540,17 @@ fun checkSubsUpdate(showToast: Boolean = false) = appScope.launchTry(Dispatchers
                         set(subsEntry.subsItem.id, e)
                     }
                 }
-                LogUtils.d("检测更新失败", e.message)
+                LogUtils.d(li.songe.gkd.i18n.t("k_0b5a21cd5e4f"), e.message)
             }
         }
         if (showToast) {
             if (successNum > 0) {
-                toast("更新 $successNum 条订阅")
+                toast(li.songe.gkd.i18n.t("k_d7bc02737ff2", successNum))
             } else {
-                toast("暂无更新")
+                toast(li.songe.gkd.i18n.t("k_f0ece473ea89"))
             }
         }
-        LogUtils.d("结束检测更新")
+        LogUtils.d(li.songe.gkd.i18n.t("k_3ed13c95f364"))
         delay(500)
     }
 }

@@ -128,7 +128,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                     TowLineText(
                         modifier = titleModifier,
                         title = subs.name,
-                        subtitle = "全局规则"
+                        subtitle = li.songe.gkd.i18n.t("k_9effd4ccc90a")
                     )
                 }
             }, actions = {
@@ -149,8 +149,8 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                                             Dispatchers.Default
                                         ) {
                                             mainVm.dialogFlow.waitResult(
-                                                title = "删除规则",
-                                                text = "删除当前所选规则?",
+                                                title = li.songe.gkd.i18n.t("k_f9ad34b946f6"),
+                                                text = li.songe.gkd.i18n.t("k_e0d623ba2924"),
                                                 error = true,
                                             )
                                             val keys = selectedDataSet.mapNotNull { g ->
@@ -168,7 +168,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                                                 subsItemId,
                                                 keys
                                             )
-                                            toast("删除成功")
+                                            toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                                         })
                                 )
                             }
@@ -191,7 +191,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                         ) {
                             DropdownMenuItem(
                                 text = {
-                                    Text(text = "全选")
+                                    Text(text = li.songe.gkd.i18n.t("k_3e44b2a93338"))
                                 },
                                 onClick = {
                                     expanded = false
@@ -204,7 +204,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                             )
                             DropdownMenuItem(
                                 text = {
-                                    Text(text = "反选")
+                                    Text(text = li.songe.gkd.i18n.t("k_ae0588041180"))
                                 },
                                 onClick = {
                                     expanded = false
@@ -235,7 +235,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
                         )
                     },
                     imageVector = PerfIcon.Add,
-                    contentDescription = "添加规则"
+                    contentDescription = li.songe.gkd.i18n.t("k_d2fc32282a57")
                 )
             }
         },
@@ -275,7 +275,7 @@ fun SubsGlobalGroupListPage(route: SubsGlobalGroupListRoute) {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (globalGroups.isEmpty()) {
-                    EmptyText(text = "暂无规则")
+                    EmptyText(text = li.songe.gkd.i18n.t("k_cff584d9ab83"))
                 }
             }
         }

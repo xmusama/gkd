@@ -58,6 +58,6 @@ fun AnimatedIconButton(
 }
 
 private fun getIconDesc(@DrawableRes id: Int, atEnd: Boolean): String? = when (id) {
-    R.drawable.ic_anim_search_close -> if (atEnd) "关闭搜索" else "打开搜索"
+    R.drawable.ic_anim_search_close -> if (atEnd) li.songe.gkd.i18n.t("k_e40a06c88b5b") else li.songe.gkd.i18n.t("k_5eed0595d596")
     else -> null
 }

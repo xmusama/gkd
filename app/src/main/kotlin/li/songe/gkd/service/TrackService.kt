@@ -310,7 +310,7 @@ class TrackService : LifecycleService(), SavedStateRegistryOwner,
         onCreated { service = this }
         onDestroyed { service = null }
         useAliveFlow(isRunning)
-        useAliveToast("轨迹提示")
+        useAliveToast(li.songe.gkd.i18n.t("k_6a1b839874f4"))
         StopServiceReceiver.autoRegister()
         onCreated { trackNotif.notifyService() }
     }

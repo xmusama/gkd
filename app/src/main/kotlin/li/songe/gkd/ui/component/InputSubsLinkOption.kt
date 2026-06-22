@@ -45,17 +45,17 @@ class InputSubsLinkOption {
     private fun submit() {
         val value = valueFlow.value
         if (!URLUtil.isNetworkUrl(value)) {
-            toast("非法链接")
+            toast(li.songe.gkd.i18n.t("k_e7e0ffcd50fb"))
             return
         }
         val initValue = initValueFlow.value
         if (initValue.isNotEmpty() && initValue == value) {
-            toast("未修改")
+            toast(li.songe.gkd.i18n.t("k_fff8cc4d9427"))
             resume(null)
             return
         }
         if (subsItemsFlow.value.any { it.updateUrl == value }) {
-            toast("已有相同链接订阅")
+            toast(li.songe.gkd.i18n.t("k_d41dda6f65c1"))
             return
         }
         resume(value)
@@ -87,10 +87,10 @@ class InputSubsLinkOption {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(text = if (initValue.isNotEmpty()) "修改订阅" else "添加订阅")
+                        Text(text = if (initValue.isNotEmpty()) li.songe.gkd.i18n.t("k_1508e32d3576") else li.songe.gkd.i18n.t("k_6debaa888532"))
                         PerfIconButton(
                             imageVector = PerfIcon.HelpOutline,
-                            contentDescription = "订阅帮助",
+                            contentDescription = li.songe.gkd.i18n.t("k_761d7af04af4"),
                             onClick = throttle {
                                 cancel()
                                 mainVm.navigatePage(WebViewRoute(initUrl = ShortUrlSet.URL5))
@@ -108,7 +108,7 @@ class InputSubsLinkOption {
                             .fillMaxWidth()
                             .autoFocus(),
                         placeholder = {
-                            Text(text = "请输入订阅链接")
+                            Text(text = li.songe.gkd.i18n.t("k_a00626547a1b"))
                         },
                         isError = value.isNotEmpty() && !URLUtil.isNetworkUrl(value),
                     )
@@ -123,12 +123,12 @@ class InputSubsLinkOption {
                             submit()
                         }),
                     ) {
-                        Text(text = "确定")
+                        Text(text = li.songe.gkd.i18n.t("k_f526c89937e1"))
                     }
                 },
                 dismissButton = {
                     TextButton(onClick = ::cancel) {
-                        Text(text = "取消")
+                        Text(text = li.songe.gkd.i18n.t("k_4d0b4688c787"))
                     }
                 },
             )

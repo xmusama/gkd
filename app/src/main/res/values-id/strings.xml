@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" debug_suffix="true">GKD</string>
+    <string name="a11y_desc">Layanan klik kustom layar berbasis selector lanjutan dan aturan langganan\n\nDengan selector kustom dan aturan langganan, kamu bisa mengeklik kontrol di posisi mana pun serta membuat aksi pintasan lanjutan.</string>
+    <string name="import_backup" debug_suffix="true">Impor cadangan</string>
+    <string name="capture_snapshot" debug_suffix="true">Tangkap snapshot</string>
+    <string name="http_server" debug_suffix="true">Layanan HTTP</string>
+    <string name="snapshot_button" debug_suffix="true">Tombol snapshot</string>
+    <string name="rule_match" debug_suffix="true">Pencocokan aturan</string>
+    <string name="record_activity" debug_suffix="true">Layanan aktivitas</string>
+    <string name="record_a11y_event" debug_suffix="true">Layanan event</string>
+</resources>

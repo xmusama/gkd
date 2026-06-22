@@ -123,7 +123,7 @@ class A11yContext(
         if (!activityRuleFlow.value.currentRules.any { it === rule }) return
         if (rule.isPriority()) return
         if (META.debuggable) {
-            Log.d("guardInterrupt", "中断 rule=${rule.statusText()}")
+            Log.d("guardInterrupt", li.songe.gkd.i18n.t("k_a65ee0a5591c", rule.statusText()))
         }
         throw InterruptRuleMatchException()
     }

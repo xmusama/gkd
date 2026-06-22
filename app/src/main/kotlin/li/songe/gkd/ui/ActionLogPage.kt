@@ -111,7 +111,7 @@ fun ActionLogPage(route: ActionLogRoute) {
                 )
             },
             title = {
-                val title = "触发记录"
+                val title = li.songe.gkd.i18n.t("k_50532745b5a4")
                 val titleModifier = Modifier.noRippleClickable {
                     resetKey.intValue++
                 }
@@ -141,14 +141,14 @@ fun ActionLogPage(route: ActionLogRoute) {
                         imageVector = PerfIcon.Delete,
                         onClick = throttle(fn = mainVm.viewModelScope.launchAsFn {
                             val text = if (subsId != null) {
-                                "确定删除当前订阅所有触发记录?"
+                                li.songe.gkd.i18n.t("k_1e540d190ce6")
                             } else if (appId != null) {
-                                "确定删除当前应用所有触发记录?"
+                                li.songe.gkd.i18n.t("k_c3a7a4825622")
                             } else {
-                                "确定删除所有触发记录?"
+                                li.songe.gkd.i18n.t("k_cffd230efd90")
                             }
                             mainVm.dialogFlow.waitResult(
-                                title = "删除记录",
+                                title = li.songe.gkd.i18n.t("k_8f22c9908ed4"),
                                 text = text,
                                 error = true,
                             )
@@ -159,7 +159,7 @@ fun ActionLogPage(route: ActionLogRoute) {
                             } else {
                                 DbSet.actionLogDao.deleteAll()
                             }
-                            toast("删除成功")
+                            toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                         })
                     )
                 }
@@ -193,7 +193,7 @@ fun ActionLogPage(route: ActionLogRoute) {
                 item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                     Spacer(modifier = Modifier.height(EmptyHeight))
                     if (list.itemCount == 0 && list.loadState.refresh !is LoadState.Loading) {
-                        EmptyText(text = "暂无数据")
+                        EmptyText(text = li.songe.gkd.i18n.t("k_b246458f20c8"))
                     }
                 }
             }
@@ -398,7 +398,7 @@ private fun ActionLogDialog(
             shape = RoundedCornerShape(16.dp),
         ) {
             ItemText(
-                text = "查看规则",
+                text = li.songe.gkd.i18n.t("k_ff668f83d5ba"),
                 onClick = {
                     onDismissRequest()
                     if (actionLog.groupType == SubsConfig.AppGroupType) {
@@ -435,7 +435,7 @@ private fun ActionLogDialog(
                 }
                 if (appChecked != null) {
                     ItemText(
-                        text = if (appChecked) "在此应用禁用" else "移除在此应用的禁用",
+                        text = if (appChecked) li.songe.gkd.i18n.t("k_cda492558366") else li.songe.gkd.i18n.t("k_d898e0730abf"),
                         onClick = vm.viewModelScope.launchAsFn {
                             val subsConfig = subsConfig ?: SubsConfig(
                                 type = SubsConfig.GlobalGroupType,
@@ -453,7 +453,7 @@ private fun ActionLogDialog(
                                     .stringify()
                             )
                             DbSet.subsConfigDao.insert(newSubsConfig)
-                            toast("更新成功")
+                            toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                         }
                     )
                     HorizontalDivider()
@@ -464,7 +464,7 @@ private fun ActionLogDialog(
                 val disabled =
                     oldExclude.activityIds.contains(actionLog.appId to actionLog.activityId)
                 ItemText(
-                    text = if (disabled) "移除在此页面的禁用" else "在此页面禁用",
+                    text = if (disabled) li.songe.gkd.i18n.t("k_c9be3b44237c") else li.songe.gkd.i18n.t("k_d66870c0559e"),
                     onClick = vm.viewModelScope.launchAsFn {
                         val subsConfig = if (actionLog.groupType == SubsConfig.AppGroupType) {
                             subsConfig ?: SubsConfig(
@@ -489,7 +489,7 @@ private fun ActionLogDialog(
                                 .stringify()
                         )
                         DbSet.subsConfigDao.insert(newSubsConfig)
-                        toast("更新成功")
+                        toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                     }
                 )
                 HorizontalDivider()

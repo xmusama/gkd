@@ -173,8 +173,8 @@ fun RuleGroupCard(
             .combinedClickable(
                 onClick = onClick,
                 onLongClick = onLongClick,
-                onClickLabel = "打开规则详情弹窗",
-                onLongClickLabel = "进入多选模式"
+                onClickLabel = li.songe.gkd.i18n.t("k_bf6269f7602b"),
+                onLongClickLabel = li.songe.gkd.i18n.t("k_d45124396303")
             ),
         shape = MaterialTheme.shapes.extraSmall,
         colors = CardDefaults.cardColors(
@@ -224,7 +224,7 @@ fun RuleGroupCard(
                         }
                     } else {
                         Text(
-                            text = group.errorDesc ?: "未知错误",
+                            text = group.errorDesc ?: li.songe.gkd.i18n.t("k_5f76edc5de7b"),
                             modifier = Modifier.fillMaxWidth(),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.error
@@ -267,7 +267,7 @@ fun RuleGroupCard(
             if (hasExcludeActivity) {
                 PerfIcon(
                     imageVector = PerfIcon.Block,
-                    contentDescription = "此规则已排除部分页面",
+                    contentDescription = li.songe.gkd.i18n.t("k_d8e83cfbba9d"),
                     tint = if (isSelectedMode) {
                         LocalContentColor.current.copy(alpha = 0.5f)
                     } else {
@@ -315,49 +315,49 @@ fun BatchActionButtonGroup(vm: ViewModel, selectedDataSet: Set<ShowGroupState>) 
     val mainVm = LocalMainViewModel.current
     PerfIconButton(
         imageVector = PerfIcon.ToggleOff,
-        contentDescription = "批量关闭规则",
+        contentDescription = li.songe.gkd.i18n.t("k_4f453fb43176"),
         onClick = throttle(vm.viewModelScope.launchAsFn(Dispatchers.Default) {
             mainVm.dialogFlow.waitResult(
-                title = "操作提示",
-                text = "是否将所选规则全部关闭?\n\n注: 也可在「订阅-规则类别」操作"
+                title = li.songe.gkd.i18n.t("k_93564a7ced83"),
+                text = li.songe.gkd.i18n.t("k_3d7090e33ed2")
             )
             val list = batchUpdateGroupEnable(selectedDataSet, false)
             if (list.isNotEmpty()) {
-                toast("已关闭 ${list.size} 条规则")
+                toast(li.songe.gkd.i18n.t("k_7c81ac8a30fd", list.size))
             } else {
-                toast("无规则被改变")
+                toast(li.songe.gkd.i18n.t("k_1e010b148d7f"))
             }
         })
     )
     PerfIconButton(
         imageVector = PerfIcon.ToggleOn,
-        contentDescription = "批量打开规则",
+        contentDescription = li.songe.gkd.i18n.t("k_627b07784f60"),
         onClick = throttle(vm.viewModelScope.launchAsFn(Dispatchers.Default) {
             mainVm.dialogFlow.waitResult(
-                title = "操作提示",
-                text = "是否将所选规则全部启用?\n\n注: 也可在「订阅-规则类别」操作"
+                title = li.songe.gkd.i18n.t("k_93564a7ced83"),
+                text = li.songe.gkd.i18n.t("k_f68f9ce68b46")
             )
             val list = batchUpdateGroupEnable(selectedDataSet, true)
             if (list.isNotEmpty()) {
-                toast("已启用 ${list.size} 条规则")
+                toast(li.songe.gkd.i18n.t("k_58f24b44a4e6", list.size))
             } else {
-                toast("无规则被改变")
+                toast(li.songe.gkd.i18n.t("k_1e010b148d7f"))
             }
         })
     )
     PerfIconButton(
         imageVector = ResetSettings,
-        contentDescription = "批量重置规则开关",
+        contentDescription = li.songe.gkd.i18n.t("k_35f7c52dddee"),
         onClick = throttle(vm.viewModelScope.launchAsFn(Dispatchers.Default) {
             mainVm.dialogFlow.waitResult(
-                title = "操作提示",
-                text = "是否将所选规则重置开关至默认值?\n\n注: 也可在「订阅-规则类别」操作"
+                title = li.songe.gkd.i18n.t("k_93564a7ced83"),
+                text = li.songe.gkd.i18n.t("k_e9707cfbb7a5")
             )
             val list = batchUpdateGroupEnable(selectedDataSet, null)
             if (list.isNotEmpty()) {
-                toast("重置 ${list.size} 规则")
+                toast(li.songe.gkd.i18n.t("k_86c5caba14bf", list.size))
             } else {
-                toast("无可重置规则")
+                toast(li.songe.gkd.i18n.t("k_8e1d999ba43d"))
             }
         })
     )

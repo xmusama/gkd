@@ -469,15 +469,15 @@ class A11yRuleEngine(val service: A11yCommonImpl) {
         suspend fun screenshot(): Bitmap? = service?.screenshot()
 
         suspend fun execAction(gkdAction: GkdAction): ActionResult {
-            val selector = Selector.parseOrNull(gkdAction.selector) ?: throw RpcError("非法选择器")
+            val selector = Selector.parseOrNull(gkdAction.selector) ?: throw RpcError(li.songe.gkd.i18n.t("k_845a701ae8b5"))
             runCatching { selector.checkType(typeInfo) }.exceptionOrNull()?.let {
-                throw RpcError("选择器类型错误:${it.message}")
+                throw RpcError(li.songe.gkd.i18n.t("k_64c27714b116", it.message))
             }
-            val s = instance ?: throw RpcError("服务未连接")
-            val a = s.safeActiveWindow ?: throw RpcError("界面没有节点信息")
+            val s = instance ?: throw RpcError(li.songe.gkd.i18n.t("k_035bb012203f"))
+            val a = s.safeActiveWindow ?: throw RpcError(li.songe.gkd.i18n.t("k_d4fd95c25342"))
             val targetNode = A11yContext(s, interruptable = false).querySelfOrSelector(
                 a, selector, MatchOption(fastQuery = gkdAction.fastQuery)
-            ) ?: throw RpcError("没有查询到节点")
+            ) ?: throw RpcError(li.songe.gkd.i18n.t("k_0b1f3a994353"))
             return withContext(Dispatchers.IO) {
                 ActionPerformer
                     .getAction(gkdAction.action ?: ActionPerformer.None.action)

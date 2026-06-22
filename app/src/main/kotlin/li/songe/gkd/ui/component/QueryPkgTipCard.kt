@@ -41,7 +41,7 @@ fun QueryPkgAuthCard(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = "如需显示所有应用\n请授予「读取应用列表权限」",
+            text = li.songe.gkd.i18n.t("k_44bd725407c1"),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -52,7 +52,7 @@ fun QueryPkgAuthCard(
                 requiredPermission(context, canQueryPkgState)
             })
         ) {
-            Text(text = "申请权限")
+            Text(text = li.songe.gkd.i18n.t("k_4a338bcd08f2"))
         }
     }
 }

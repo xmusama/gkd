@@ -99,7 +99,7 @@ fun useAppListPage(): ScaffoldExt {
     val ruleSummary by ruleSummaryFlow.collectAsState()
 
     val globalDesc = if (ruleSummary.globalGroups.isNotEmpty()) {
-        "${ruleSummary.globalGroups.size}全局"
+        li.songe.gkd.i18n.t("k_442b01674158", ruleSummary.globalGroups.size)
     } else {
         null
     }
@@ -149,7 +149,7 @@ fun useAppListPage(): ScaffoldExt {
                     AppBarTextField(
                         value = searchStr,
                         onValueChange = { newValue -> vm.searchStrFlow.value = newValue.trim() },
-                        hint = "请输入应用名称/ID",
+                        hint = li.songe.gkd.i18n.t("k_6d8630c59351"),
                         modifier = if (firstShowSearchBar) Modifier else Modifier.autoFocus(),
                     )
                 } else {
@@ -171,7 +171,7 @@ fun useAppListPage(): ScaffoldExt {
                         if (localEditWhiteListMode) {
                             Text(
                                 modifier = titleModifier,
-                                text = "应用白名单",
+                                text = li.songe.gkd.i18n.t("k_7395ba05d020"),
                             )
                         } else {
                             Text(
@@ -186,11 +186,11 @@ fun useAppListPage(): ScaffoldExt {
                     CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.error) {
                         PerfIconButton(
                             imageVector = PerfIcon.WarningAmber,
-                            contentDescription = canQueryPkgState.name + "异常",
+                            contentDescription = canQueryPkgState.name + li.songe.gkd.i18n.t("k_5caf27933926"),
                             onClick = throttle {
                                 mainVm.dialogFlow.updateDialogOptions(
-                                    title = "权限异常",
-                                    text = "检测到已授予「${canQueryPkgState.name}」但实际获取应用数量稀少，已使用其它方式获取但可能不全，在应用列表下拉刷新可重新获取，若无法解决可尝试关闭权限后重新授予或重启设备"
+                                    title = li.songe.gkd.i18n.t("k_a15a6fbc1603"),
+                                    text = li.songe.gkd.i18n.t("k_fab03e936d0b", canQueryPkgState.name)
                                 )
                             },
                         )
@@ -198,8 +198,8 @@ fun useAppListPage(): ScaffoldExt {
                 }
                 PerfIconButton(
                     imageVector = PerfIcon.Block,
-                    contentDescription = "切换白名单编辑模式",
-                    onClickLabel = if (editWhiteListMode) "退出编辑" else "进入编辑",
+                    contentDescription = li.songe.gkd.i18n.t("k_9d777a089226"),
+                    onClickLabel = if (editWhiteListMode) li.songe.gkd.i18n.t("k_bbbcc7565b84") else li.songe.gkd.i18n.t("k_f5f9da83dc79"),
                     colors = IconButtonDefaults.iconButtonColors(
                         contentColor = if (editWhiteListMode) {
                             CheckboxDefaults.colors().checkedBoxColor
@@ -225,12 +225,12 @@ fun useAppListPage(): ScaffoldExt {
                     },
                     id = R.drawable.ic_anim_search_close,
                     atEnd = showSearchBar,
-                    contentDescription = if (showSearchBar) "关闭搜索" else "搜索应用列表",
+                    contentDescription = if (showSearchBar) li.songe.gkd.i18n.t("k_e40a06c88b5b") else li.songe.gkd.i18n.t("k_c1d113df7daf"),
                 )
                 var expanded by remember { mutableStateOf(false) }
                 PerfIconButton(
                     imageVector = PerfIcon.Sort,
-                    contentDescription = "排序筛选",
+                    contentDescription = li.songe.gkd.i18n.t("k_e2b9cf17145c"),
                     onClick = {
                         expanded = true
                     }
@@ -243,7 +243,7 @@ fun useAppListPage(): ScaffoldExt {
                         expanded = expanded,
                         onDismissRequest = { expanded = false }
                     ) {
-                        MenuGroupCard(inTop = true, title = "排序") {
+                        MenuGroupCard(inTop = true, title = li.songe.gkd.i18n.t("k_dc35af8d69c5")) {
                             var sortType by vm.sortTypeFlow.asMutableState()
                             AppSortOption.objects.forEach { option ->
                                 MenuItemRadioButton(
@@ -253,7 +253,7 @@ fun useAppListPage(): ScaffoldExt {
                                 )
                             }
                         }
-                        MenuGroupCard(title = "分组") {
+                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_97d8a6c05b4c")) {
                             var appGroupType by vm.appGroupTypeFlow.asMutableState()
                             AppGroupOption.normalObjects.forEach { option ->
                                 val newValue = option.invert(appGroupType)
@@ -265,9 +265,9 @@ fun useAppListPage(): ScaffoldExt {
                                 )
                             }
                         }
-                        MenuGroupCard(title = "筛选") {
+                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_dcce9a144a40")) {
                             MenuItemCheckbox(
-                                text = "白名单",
+                                text = li.songe.gkd.i18n.t("k_8f74cd015bef"),
                                 stateFlow = vm.showBlockAppFlow,
                             )
                         }
@@ -278,7 +278,7 @@ fun useAppListPage(): ScaffoldExt {
         floatingActionButton = {
             AnimationFloatingActionButton(
                 visible = editWhiteListMode,
-                contentDescription = "编辑白名单",
+                contentDescription = li.songe.gkd.i18n.t("k_6b4f72a6e045"),
                 onClick = {
                     mainVm.navigatePage(EditBlockAppListRoute)
                 },
@@ -308,10 +308,10 @@ fun useAppListPage(): ScaffoldExt {
                         val appGroups = ruleSummary.appIdToAllGroups[appInfo.id] ?: emptyList()
                         val appDesc = if (appGroups.isNotEmpty()) {
                             when (val disabledCount = appGroups.count { g -> !g.enable }) {
-                                0 -> "${appGroups.size}组规则"
-                                appGroups.size -> "${appGroups.size}组规则/${disabledCount}关闭"
+                                0 -> li.songe.gkd.i18n.t("k_a4385b6df0e1", appGroups.size)
+                                appGroups.size -> li.songe.gkd.i18n.t("k_9799ba269576", appGroups.size, disabledCount)
                                 else -> {
-                                    "${appGroups.size}组规则/${appGroups.size - disabledCount}启用/${disabledCount}关闭"
+                                    li.songe.gkd.i18n.t("k_1162991670d6", appGroups.size, appGroups.size - disabledCount, disabledCount)
                                 }
                             }
                         } else {
@@ -335,7 +335,7 @@ fun useAppListPage(): ScaffoldExt {
                 item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                     Spacer(modifier = Modifier.height(EmptyHeight))
                     if (appInfos.isEmpty() && searchStr.isNotEmpty()) {
-                        EmptyText(text = if (vm.appFilter.showAllAppFlow.collectAsState().value) "暂无搜索结果" else "暂无搜索结果，或修改筛选")
+                        EmptyText(text = if (vm.appFilter.showAllAppFlow.collectAsState().value) li.songe.gkd.i18n.t("k_8f8274c754b5") else li.songe.gkd.i18n.t("k_9e7d3ee61c36"))
                         Spacer(modifier = Modifier.height(EmptyHeight / 2))
                     }
                 }
@@ -369,15 +369,15 @@ private fun AppItemCard(
                 contentDescription = if (editWhiteListMode) {
                     appInfo.name
                 } else {
-                    "应用：${appInfo.name}，${desc ?: appInfo.id}"
+                    li.songe.gkd.i18n.t("k_b70fea2bcdf5", appInfo.name, desc ?: appInfo.id)
                 }
                 if (inWhiteList) {
-                    stateDescription = "已加入白名单"
+                    stateDescription = li.songe.gkd.i18n.t("k_7ebb98d11c32")
                 } else if (editWhiteListMode) {
-                    stateDescription = "未加入白名单"
+                    stateDescription = li.songe.gkd.i18n.t("k_67ea0c37b84c")
                 }
                 onClick(
-                    label = if (editWhiteListMode) if (inWhiteList) "从白名单中移除" else "加入白名单" else "进入规则汇总页面",
+                    label = if (editWhiteListMode) if (inWhiteList) li.songe.gkd.i18n.t("k_056f9022c69f") else li.songe.gkd.i18n.t("k_10181905a094") else li.songe.gkd.i18n.t("k_7f04c8536d9b"),
                     action = null
                 )
             }

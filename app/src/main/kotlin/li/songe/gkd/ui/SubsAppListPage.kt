@@ -103,13 +103,13 @@ fun SubsAppListPage(route: SubsAppListRoute) {
                     AppBarTextField(
                         value = searchStr,
                         onValueChange = { newValue -> vm.searchStrFlow.value = newValue.trim() },
-                        hint = "请输入应用名称/ID",
+                        hint = li.songe.gkd.i18n.t("k_6d8630c59351"),
                         modifier = if (firstShowSearchBar) Modifier else Modifier.autoFocus(),
                     )
                 } else {
                     TowLineText(
                         title = useSubs(subsItemId)?.name ?: subsItemId.toString(),
-                        subtitle = "应用规则",
+                        subtitle = li.songe.gkd.i18n.t("k_da6a6dc1af19"),
                         modifier = Modifier.noRippleClickable {
                             vm.resetKey.intValue++
                         }
@@ -141,7 +141,7 @@ fun SubsAppListPage(route: SubsAppListRoute) {
                     modifier = Modifier.wrapContentSize(Alignment.TopStart)
                 ) {
                     DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                        MenuGroupCard(inTop = true, title = "排序") {
+                        MenuGroupCard(inTop = true, title = li.songe.gkd.i18n.t("k_dc35af8d69c5")) {
                             var sortType by vm.sortTypeFlow.asMutableState()
                             AppSortOption.objects.forEach { option ->
                                 MenuItemRadioButton(
@@ -151,7 +151,7 @@ fun SubsAppListPage(route: SubsAppListRoute) {
                                 )
                             }
                         }
-                        MenuGroupCard(title = "分组") {
+                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_97d8a6c05b4c")) {
                             var appGroupType by vm.appGroupTypeFlow.asMutableState()
                             AppGroupOption.allObjects.forEach { option ->
                                 val newValue = option.invert(appGroupType)
@@ -163,9 +163,9 @@ fun SubsAppListPage(route: SubsAppListRoute) {
                                 )
                             }
                         }
-                        MenuGroupCard(title = "筛选") {
+                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_dcce9a144a40")) {
                             MenuItemCheckbox(
-                                text = "白名单",
+                                text = li.songe.gkd.i18n.t("k_8f74cd015bef"),
                                 stateFlow = vm.showBlockAppFlow,
                             )
                         }
@@ -221,9 +221,9 @@ fun SubsAppListPage(route: SubsAppListRoute) {
                 if (appTripleList.isEmpty() && !firstLoading) {
                     EmptyText(
                         text = if (searchStr.isNotEmpty()) {
-                            if (vm.showAllAppFlow.collectAsState().value) "暂无搜索结果" else "暂无搜索结果，或修改筛选"
+                            if (vm.showAllAppFlow.collectAsState().value) li.songe.gkd.i18n.t("k_8f8274c754b5") else li.songe.gkd.i18n.t("k_9e7d3ee61c36")
                         } else {
-                            "暂无规则"
+                            li.songe.gkd.i18n.t("k_cff584d9ab83")
                         }
                     )
                     Spacer(modifier = Modifier.height(EmptyHeight / 2))

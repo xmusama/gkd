@@ -66,8 +66,8 @@ fun UpsertRuleGroupPage(route: UpsertRuleGroupRoute) {
         if (vm.hasTextChanged()) {
             context.justHideSoftInput()
             mainVm.dialogFlow.waitResult(
-                title = "提示",
-                text = "当前内容未保存，是否放弃编辑？",
+                title = li.songe.gkd.i18n.t("k_ab3656a956f5"),
+                text = li.songe.gkd.i18n.t("k_aebc19562108"),
             )
         } else {
             context.hideSoftInput()
@@ -105,7 +105,7 @@ fun UpsertRuleGroupPage(route: UpsertRuleGroupRoute) {
                 PerfIconButton(imageVector = PerfIcon.ArrowBack, onClick = checkIfSaveText)
             },
             title = {
-                Text(text = if (vm.isEdit) "编辑规则" else "添加规则")
+                Text(text = if (vm.isEdit) li.songe.gkd.i18n.t("k_13794d214157") else li.songe.gkd.i18n.t("k_d2fc32282a57"))
             },
             actions = {
                 PerfIconButton(
@@ -147,7 +147,7 @@ fun UpsertRuleGroupPage(route: UpsertRuleGroupRoute) {
                     colors = textColors,
                     visualTransformation = getJson5Transformation(LocalDarkTheme.current),
                     placeholder = {
-                        Text(text = if (vm.isApp) "请输入应用规则\n" else "请输入全局规则\n")
+                        Text(text = if (vm.isApp) li.songe.gkd.i18n.t("k_2b37101eb617") else li.songe.gkd.i18n.t("k_f4af79e75cf3"))
                     },
                 )
             }

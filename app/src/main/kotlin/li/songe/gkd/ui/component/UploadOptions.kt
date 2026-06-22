@@ -58,7 +58,7 @@ class UploadOptions(
     ) {
         val cookie = mainVm.githubCookieFlow.value
         if (cookie.isEmpty()) {
-            toast("请先设置 cookie 后再上传")
+            toast(li.songe.gkd.i18n.t("k_7f96c934152a"))
             mainVm.showEditCookieDlgFlow.value = true
             return
         }
@@ -71,7 +71,7 @@ class UploadOptions(
 
     private fun stopTask() {
         if (statusFlow.value is LoadStatus.Loading && job != null) {
-            job?.cancel("上传已取消")
+            job?.cancel(li.songe.gkd.i18n.t("k_91406f17dd68"))
             job = null
         }
     }
@@ -83,7 +83,7 @@ class UploadOptions(
             null -> {}
             is LoadStatus.Loading -> {
                 AlertDialog(
-                    title = { Text(text = "上传文件中") },
+                    title = { Text(text = li.songe.gkd.i18n.t("k_3219dbb398f2")) },
                     text = {
                         val showExactProgress = 0f < status.progress && status.progress < 1f
                         AnimatedContent(showExactProgress) { showExact ->
@@ -101,7 +101,7 @@ class UploadOptions(
                         TextButton(onClick = {
                             stopTask()
                         }) {
-                            Text(text = "终止上传")
+                            Text(text = li.songe.gkd.i18n.t("k_b387756d3176"))
                         }
                     },
                 )
@@ -110,14 +110,14 @@ class UploadOptions(
             is LoadStatus.Success -> {
                 val href = showHref(status.result)
                 AlertDialog(
-                    title = { Text(text = "上传完成") },
+                    title = { Text(text = li.songe.gkd.i18n.t("k_95bb0f726c8f")) },
                     text = { CopyTextCard(text = href) },
                     onDismissRequest = {},
                     confirmButton = {
                         TextButton(onClick = {
                             statusFlow.value = null
                         }) {
-                            Text(text = "关闭")
+                            Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                         }
                     }
                 )
@@ -125,7 +125,7 @@ class UploadOptions(
 
             is LoadStatus.Failure -> {
                 AlertDialog(
-                    title = { Text(text = "上传失败") },
+                    title = { Text(text = li.songe.gkd.i18n.t("k_a6f805694be5")) },
                     text = {
                         Text(text = status.exception.let {
                             it.message ?: it.toString()
@@ -137,7 +137,7 @@ class UploadOptions(
                             statusFlow.value = null
                             mainVm.showEditCookieDlgFlow.value = true
                         }) {
-                            Text(text = "更换 Cookie")
+                            Text(text = li.songe.gkd.i18n.t("k_f5d0d9c7f074"))
                         }
                     }) else {
                         null
@@ -146,7 +146,7 @@ class UploadOptions(
                         TextButton(onClick = {
                             statusFlow.value = null
                         }) {
-                            Text(text = "关闭")
+                            Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                         }
                     },
                 )

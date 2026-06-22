@@ -66,7 +66,7 @@ class ActivityService : OverlayWindowService(
                 val topActivity by topActivityFlow.collectAsState()
                 val hasAuth by activityOkFlow.collectAsState()
                 ClosableTitle(
-                    title = if (hasAuth) "记录服务" else "记录服务(无权限)"
+                    title = if (hasAuth) li.songe.gkd.i18n.t("k_14b8a7bf3c58") else li.songe.gkd.i18n.t("k_7a1cbaff4545")
                 )
                 if (hasAuth) {
                     Box {
@@ -100,7 +100,7 @@ class ActivityService : OverlayWindowService(
     init {
         useLogLifecycle()
         useAliveFlow(isRunning)
-        useAliveToast("记录服务")
+        useAliveToast(li.songe.gkd.i18n.t("k_14b8a7bf3c58"))
         StopServiceReceiver.autoRegister()
         onCreated { recordNotif.notifyService() }
         onCreated {

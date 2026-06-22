@@ -68,7 +68,7 @@ fun AppOpsAllowPage() {
                 mainVm.popPage()
             })
         }, title = {
-            Text(text = "解除限制")
+            Text(text = li.songe.gkd.i18n.t("k_ffa17c3049ea"))
         })
     }) { contentPadding ->
         Column(
@@ -84,7 +84,7 @@ fun AppOpsAllowPage() {
                         .fillMaxWidth(),
                 ) {
                     Text(
-                        text = "下列权限应默认授予，但可能因某些操作如系统升级，备份迁移等被限制",
+                        text = li.songe.gkd.i18n.t("k_0fd5f2bdd6f3"),
                         style = MaterialTheme.typography.bodyMedium,
                     )
                     Spacer(modifier = Modifier.height(24.dp))
@@ -98,24 +98,24 @@ fun AppOpsAllowPage() {
                     AuthButtonGroup(
                         modifier = Modifier.fillMaxWidth(),
                         buttons = listOf(
-                            "Shizuku 授权" to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
+                            li.songe.gkd.i18n.t("k_0f0c48af67b6") to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
                                 mainVm.guardShizukuContext()
-                                toast("授权成功")
+                                toast(li.songe.gkd.i18n.t("k_027b90522860"))
                             },
-                            "命令授权" to {
+                            li.songe.gkd.i18n.t("k_92cab3865173") to {
                                 vm.showCopyDlgFlow.value = true
                             },
-                            "卸载重装" to {
+                            li.songe.gkd.i18n.t("k_a50703b6a20d") to {
                                 mainVm.dialogFlow.updateDialogOptions(
-                                    title = "卸载重装",
-                                    text = "卸载后重新安装可让应用权限回归初始状态解除限制，先点击下方「导出应用」可将应用提前保存至下载，然后卸载应用，到文件管理中重新安装即可\n\n注意：卸载会删除所有数据，请自行备份数据",
-                                    dismissText = "导出应用",
+                                    title = li.songe.gkd.i18n.t("k_a50703b6a20d"),
+                                    text = li.songe.gkd.i18n.t("k_150e6661aa89"),
+                                    dismissText = li.songe.gkd.i18n.t("k_5cf7e76dbae6"),
                                     dismissAction = {
                                         mainVm.viewModelScope.launchTry(Dispatchers.IO) {
                                             context.saveFileToDownloads(getShareApkFile())
                                         }
                                     },
-                                    confirmText = "关闭",
+                                    confirmText = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"),
                                 )
                             }
                         )
@@ -125,7 +125,7 @@ fun AppOpsAllowPage() {
             Spacer(modifier = Modifier.height(EmptyHeight))
             if (!appOpsRestricted) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
-                EmptyText(text = "状态正常, 无需操作")
+                EmptyText(text = li.songe.gkd.i18n.t("k_26bb5711051b"))
             }
         }
     }

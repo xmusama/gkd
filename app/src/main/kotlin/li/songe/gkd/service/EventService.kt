@@ -94,7 +94,7 @@ class EventService : OverlayWindowService(positionKey = "event") {
                     .padding(4.dp)
             ) {
                 ClosableTitle(
-                    title = if (A11yService.isRunning.collectAsState().value || uiAutomationFlow.collectAsState().value != null) "事件服务" else "事件服务(无权限)"
+                    title = if (A11yService.isRunning.collectAsState().value || uiAutomationFlow.collectAsState().value != null) li.songe.gkd.i18n.t("k_25af58e6873e") else li.songe.gkd.i18n.t("k_44c31cdddaae")
                 )
                 val textStyle = MaterialTheme.typography.labelSmall
                 val numCharWidth = measureNumberTextWidth(textStyle)
@@ -181,7 +181,7 @@ class EventService : OverlayWindowService(positionKey = "event") {
 
         useLogLifecycle()
         useAliveFlow(isRunning)
-        useAliveToast("事件服务")
+        useAliveToast(li.songe.gkd.i18n.t("k_25af58e6873e"))
         StopServiceReceiver.autoRegister()
         onCreated { eventNotif.notifyService() }
     }

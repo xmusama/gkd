@@ -304,7 +304,7 @@ class RuleGroupState(
                                             ).stringify()
                                         )
                                     )
-                                    toast("已重置局部开关至默认值")
+                                    toast(li.songe.gkd.i18n.t("k_c080a484978d"))
                                 }
                             } else {
                                 null
@@ -313,7 +313,7 @@ class RuleGroupState(
                             subsConfig.enable?.let {
                                 mainVm.viewModelScope.launchAsFn {
                                     DbSet.subsConfigDao.update(subsConfig.copy(enable = null))
-                                    toast("已重置开关至默认值")
+                                    toast(li.songe.gkd.i18n.t("k_96f31b1d7881"))
                                 }
                             }
                         }
@@ -321,7 +321,7 @@ class RuleGroupState(
                         subsConfig.enable?.let {
                             mainVm.viewModelScope.launchAsFn {
                                 DbSet.subsConfigDao.update(subsConfig.copy(enable = null))
-                                toast("已重置开关至默认值")
+                                toast(li.songe.gkd.i18n.t("k_96f31b1d7881"))
                             }
                         }
                     }
@@ -329,8 +329,8 @@ class RuleGroupState(
                 onClickDelete = mainVm.viewModelScope.launchAsFn {
                     dismissGroupShow()
                     val r = mainVm.dialogFlow.getResult(
-                        title = "删除规则",
-                        text = "确定删除 ${showGroup.name} ?",
+                        title = li.songe.gkd.i18n.t("k_f9ad34b946f6"),
+                        text = li.songe.gkd.i18n.t("k_1e287cd93af4", showGroup.name),
                         error = true,
                     )
                     if (!r) {
@@ -365,7 +365,7 @@ class RuleGroupState(
                             showGroupState.groupKey
                         )
                     }
-                    toast("删除成功")
+                    toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                 }
             )
         }
@@ -382,8 +382,8 @@ class RuleGroupState(
                     val newValue = changedExcludeData
                     if (newValue != null) {
                         mainVm.dialogFlow.waitResult(
-                            title = "提示",
-                            text = "当前内容未保存，是否放弃编辑？",
+                            title = li.songe.gkd.i18n.t("k_ab3656a956f5"),
+                            text = li.songe.gkd.i18n.t("k_aebc19562108"),
                         )
                     }
                     dismissExcludeGroupShow()
@@ -401,14 +401,14 @@ class RuleGroupState(
                             title = {
                                 TowLineText(
                                     title = excludeGroup.name,
-                                    subtitle = "编辑禁用",
+                                    subtitle = li.songe.gkd.i18n.t("k_427bec757501"),
                                 )
                             },
                             actions = {
                                 PerfIconButton(imageVector = PerfIcon.Save, onClick = throttle {
                                     val newValue = changedExcludeData
                                     if (newValue == null) {
-                                        toast("无修改")
+                                        toast(li.songe.gkd.i18n.t("k_a2a69342dded"))
                                         dismissExcludeGroupShow()
                                     } else {
                                         val newSubsConfig =
@@ -423,7 +423,7 @@ class RuleGroupState(
                                         dismissExcludeGroupShow()
                                         mainVm.viewModelScope.launchTry {
                                             DbSet.subsConfigDao.insert(newSubsConfig)
-                                            toast("更新成功")
+                                            toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                                         }
                                     }
                                 })
@@ -434,7 +434,7 @@ class RuleGroupState(
                     MultiTextField(
                         modifier = Modifier.scaffoldPadding(contentPadding),
                         textFlow = excludeTextFlow,
-                        placeholderText = "请填入需要禁用的 activityId 列表\n每行一个",
+                        placeholderText = li.songe.gkd.i18n.t("k_37b6ce94982b"),
                     )
                 }
             }

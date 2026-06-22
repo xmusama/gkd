@@ -15,7 +15,7 @@ const val LOCAL_SUBS_ID = -2L
 const val LOCAL_HTTP_SUBS_ID = -1L
 val LOCAL_SUBS_IDS = arrayOf(LOCAL_SUBS_ID, LOCAL_HTTP_SUBS_ID)
 
-const val EMPTY_RULE_TIP = "暂无规则"
+val EMPTY_RULE_TIP get() = li.songe.gkd.i18n.t("k_e796d9161eae")
 
 object ShortUrlSet {
     const val URL1 = "https://gkd.li?r=1"

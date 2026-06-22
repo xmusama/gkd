@@ -76,7 +76,7 @@ class AutomationService private constructor() : A11yCommonImpl {
         uiAutomation.casted.connect(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES)
         uiAutomation.setOnAccessibilityEventListener(listener)
         connected = true
-        toast("自动化已启动")
+        toast(li.songe.gkd.i18n.t("k_42c363772237"))
         updateEnableAutomator(true)
         ruleEngine.onA11yConnected()
     }
@@ -90,9 +90,9 @@ class AutomationService private constructor() : A11yCommonImpl {
             uiAutomation.casted.disconnect()
         }
         if (tempShutdownFlag) {
-            toast("自动化局部关闭")
+            toast(li.songe.gkd.i18n.t("k_544facd55388"))
         } else {
-            toast("自动化已关闭")
+            toast(li.songe.gkd.i18n.t("k_a8ece9678b0e"))
             updateEnableAutomator(false)
         }
     }
@@ -126,13 +126,13 @@ class AutomationService private constructor() : A11yCommonImpl {
                     uiAutomationFlow.value = null
                     // https://github.com/android-cs/16/blob/main/services/accessibility/java/com/android/server/accessibility/UiAutomationManager.java#L110
                     if (e is IllegalStateException && e.message?.contains("already registered") == true) {
-                        toast("自动化启动失败，被其他应用占用")
+                        toast(li.songe.gkd.i18n.t("k_53836c4482f4"))
                         if (!silent) {
                             automationRegisteredExceptionFlow.value = e
                         }
                         LogUtils.d(e.message)
                     } else {
-                        toast("自动化启动失败：${e.message}")
+                        toast(li.songe.gkd.i18n.t("k_cf592a9da39e", e.message))
                         LogUtils.d(e)
                     }
                 }

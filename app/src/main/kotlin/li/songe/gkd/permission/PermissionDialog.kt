@@ -23,7 +23,7 @@ fun AuthDialog(authReasonFlow: MutableStateFlow<AuthReason?>) {
     if (authAction != null) {
         AlertDialog(
             title = {
-                Text(text = "权限请求")
+                Text(text = li.songe.gkd.i18n.t("k_bef597b2068a"))
             },
             text = {
                 Text(text = authAction.text())
@@ -34,12 +34,12 @@ fun AuthDialog(authReasonFlow: MutableStateFlow<AuthReason?>) {
                     authReasonFlow.value = null
                     authAction.confirm?.invoke(context)
                 }) {
-                    Text(text = "确认")
+                    Text(text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { authReasonFlow.value = null }) {
-                    Text(text = "取消")
+                    Text(text = li.songe.gkd.i18n.t("k_4d0b4688c787"))
                 }
             }
         )

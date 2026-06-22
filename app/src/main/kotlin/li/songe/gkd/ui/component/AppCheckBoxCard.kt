@@ -29,10 +29,10 @@ fun AppCheckBoxCard(
         modifier = Modifier
             .clickable(onClick = throttle(onCheckedChange))
             .clearAndSetSemantics {
-                contentDescription = "应用：${appInfo.name}"
-                stateDescription = if (checked) "已加入名单" else "未加入名单"
+                contentDescription = li.songe.gkd.i18n.t("k_36f762112c81", appInfo.name)
+                stateDescription = if (checked) li.songe.gkd.i18n.t("k_38ce417488a3") else li.songe.gkd.i18n.t("k_4c112b507941")
                 onClick(
-                    label = if (checked) "从名单中移除" else "加入名单",
+                    label = if (checked) li.songe.gkd.i18n.t("k_a3178e4e3d53") else li.songe.gkd.i18n.t("k_1223d7f54506"),
                     action = null
                 )
             }

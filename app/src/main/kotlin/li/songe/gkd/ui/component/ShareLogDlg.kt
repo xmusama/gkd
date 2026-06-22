@@ -42,18 +42,18 @@ fun ShareLogDlg(showShareLogDlgFlow: MutableStateFlow<Boolean>) {
                     .fillMaxWidth()
                     .padding(16.dp)
                 Text(
-                    text = "分享到其他应用", modifier = Modifier
+                    text = li.songe.gkd.i18n.t("k_ad1a01b57aef"), modifier = Modifier
                         .clickable(onClick = throttle {
                             visible = false
                             mainVm.viewModelScope.launchTry(Dispatchers.IO) {
                                 val logZipFile = buildLogFile()
-                                context.shareFile(logZipFile, "分享日志文件")
+                                context.shareFile(logZipFile, li.songe.gkd.i18n.t("k_da2d97d18349"))
                             }
                         })
                         .then(modifier)
                 )
                 Text(
-                    text = "保存到下载", modifier = Modifier
+                    text = li.songe.gkd.i18n.t("k_973f07187d90"), modifier = Modifier
                         .clickable(onClick = throttle {
                             visible = false
                             mainVm.viewModelScope.launchTry(Dispatchers.IO) {
@@ -64,7 +64,7 @@ fun ShareLogDlg(showShareLogDlgFlow: MutableStateFlow<Boolean>) {
                         .then(modifier)
                 )
                 Text(
-                    text = "生成链接(需科学上网)",
+                    text = li.songe.gkd.i18n.t("k_b9304f62944f"),
                     modifier = Modifier
                         .clickable(onClick = throttle {
                             visible = false

@@ -161,8 +161,8 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
                                 imageVector = PerfIcon.Delete,
                                 onClick = throttle(vm.viewModelScope.launchAsFn {
                                     mainVm.dialogFlow.waitResult(
-                                        title = "删除规则",
-                                        text = "删除当前所选规则?",
+                                        title = li.songe.gkd.i18n.t("k_f9ad34b946f6"),
+                                        text = li.songe.gkd.i18n.t("k_e0d623ba2924"),
                                         error = true,
                                     )
                                     val keys = selectedDataSet.mapNotNull { g -> g.groupKey }
@@ -195,7 +195,7 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
                                             keys
                                         )
                                     }
-                                    toast("删除成功")
+                                    toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                                 })
                             )
                         }
@@ -216,7 +216,7 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
                     ) {
                         DropdownMenuItem(
                             text = {
-                                Text(text = "全选")
+                                Text(text = li.songe.gkd.i18n.t("k_3e44b2a93338"))
                             },
                             onClick = {
                                 expanded = false
@@ -230,7 +230,7 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
                         )
                         DropdownMenuItem(
                             text = {
-                                Text(text = "反选")
+                                Text(text = li.songe.gkd.i18n.t("k_ae0588041180"))
                             },
                             onClick = {
                                 expanded = false
@@ -260,7 +260,7 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
                         )
                     )
                 },
-                contentDescription = "添加规则",
+                contentDescription = li.songe.gkd.i18n.t("k_d2fc32282a57"),
                 imageVector = PerfIcon.Add,
             )
         }
@@ -307,7 +307,7 @@ fun SubsAppGroupListPage(route: SubsAppGroupListRoute) {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (app.groups.isEmpty()) {
-                    EmptyText(text = "暂无规则")
+                    EmptyText(text = li.songe.gkd.i18n.t("k_cff584d9ab83"))
                 }
             }
         }

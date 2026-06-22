@@ -34,7 +34,7 @@ fun TextSwitch(
     enabled: Boolean = true,
     onCheckedChange: ((Boolean) -> Unit)? = null,
     onClick: (() -> Unit)? = { onCheckedChange?.invoke(!checked) },
-    onClickLabel: String? = "切换${title}状态",
+    onClickLabel: String? = li.songe.gkd.i18n.t("k_112b0090d62c", title),
 ) {
     val topModifier = if (onClick != null) {
         modifier.clickable(onClick = onClick, onClickLabel = onClickLabel)
@@ -91,7 +91,7 @@ fun TextSwitch(
             enabled = enabled,
             onCheckedChange = onCheckedChange?.let { throttle(fn = it) },
             modifier = Modifier.semantics {
-                this.stateDescription = title + if (checked) "已开启" else "已关闭"
+                this.stateDescription = title + if (checked) li.songe.gkd.i18n.t("k_d78cde076b67") else li.songe.gkd.i18n.t("k_f628761bf56a")
             }
         )
     }

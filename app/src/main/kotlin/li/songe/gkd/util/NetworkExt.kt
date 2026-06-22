@@ -8,7 +8,7 @@ fun getIpAddressInLocalNetwork(): List<String> {
         NetworkInterface.getNetworkInterfaces().asSequence()
     } catch (e: Exception) {
         // android.system.ErrnoException: getifaddrs failed: EACCES (Permission denied)
-        toast("获取HOST失败:" + e.message)
+        toast(li.songe.gkd.i18n.t("k_b85fd3f34285") + e.message)
         return emptyList()
     }
     val localAddresses = networkInterfaces.flatMap {

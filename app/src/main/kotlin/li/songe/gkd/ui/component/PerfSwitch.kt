@@ -25,7 +25,7 @@ fun PerfSwitch(
         checked = checked,
         onCheckedChange = onCheckedChange?.let { throttle(it) },
         modifier = modifier.semantics {
-            stateDescription = if (checked) "已开启" else "已关闭"
+            stateDescription = if (checked) li.songe.gkd.i18n.t("k_d78cde076b67") else li.songe.gkd.i18n.t("k_f628761bf56a")
         },
         thumbContent = thumbContent,
         enabled = enabled,

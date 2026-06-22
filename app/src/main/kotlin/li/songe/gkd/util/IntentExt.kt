@@ -51,7 +51,7 @@ suspend fun MainActivity.saveFileToDownloads(file: File) {
         }
         withContext(Dispatchers.IO) {
             val uri = contentResolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values)
-                ?: error("创建URI失败")
+                ?: error(li.songe.gkd.i18n.t("k_f596ef73f83a"))
             contentResolver.openOutputStream(uri)?.use { outputStream ->
                 outputStream.write(file.readBytes())
                 outputStream.flush()
@@ -65,7 +65,7 @@ suspend fun MainActivity.saveFileToDownloads(file: File) {
         )
         targetFile.writeBytes(file.readBytes())
     }
-    toast("已保存 ${file.name} 到下载")
+    toast(li.songe.gkd.i18n.t("k_b2cd15f5b7ac", file.name))
 }
 
 fun Context.tryStartActivity(intent: Intent) {
@@ -74,7 +74,7 @@ fun Context.tryStartActivity(intent: Intent) {
     } catch (e: Exception) {
         e.printStackTrace()
         LogUtils.d("tryStartActivity", e)
-        toast("跳转失败\n" + (e.message ?: e.stackTraceToString()))
+        toast(li.songe.gkd.i18n.t("k_5f3e6106c48a") + (e.message ?: e.stackTraceToString()))
     }
 }
 
@@ -83,7 +83,7 @@ fun openWeChatScaner() {
         putExtra("LauncherUI.From.Scaner.Shortcut", true)
     }
     if (intent == null) {
-        toast("请检查微信是否安装或禁用")
+        toast(li.songe.gkd.i18n.t("k_60d171dc1630"))
         return
     }
     app.tryStartActivity(intent)
@@ -108,7 +108,7 @@ fun openUri(uri: String) {
         uri.toUri()
     } catch (e: Exception) {
         e.printStackTrace()
-        toast("非法链接")
+        toast(li.songe.gkd.i18n.t("k_e7e0ffcd50fb"))
         return
     }
     openUri(u)
@@ -126,7 +126,7 @@ fun openApp(appId: String) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         app.tryStartActivity(intent)
     } else {
-        toast("请检查此应用是否安装或禁用")
+        toast(li.songe.gkd.i18n.t("k_a7e6272535bc"))
     }
 }
 
@@ -144,7 +144,7 @@ fun <T : Service> startForegroundServiceByClass(clazz: KClass<T>) {
     } catch (e: Throwable) {
         LogUtils.d(e)
         val prefix = if (isActivityVisible) "" else "${META.appName}: "
-        toast("${prefix}启动服务失败: ${e.message}", forced = true)
+        toast(li.songe.gkd.i18n.t("k_f1a01725808e", prefix, e.message), forced = true)
     }
 }
 

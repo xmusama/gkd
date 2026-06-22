@@ -58,7 +58,7 @@ fun CrashReportPage() {
                 },
                 title = {
                     Text(
-                        text = "崩溃记录",
+                        text = li.songe.gkd.i18n.t("k_90d5529440a8"),
                         modifier = Modifier.noRippleClickable(onClick = throttle { scrollKey.intValue++ })
                     )
                 },
@@ -71,13 +71,13 @@ fun CrashReportPage() {
                     TextButton(
                         onClick = throttle { mainVm.openUrl(ISSUES_URL) },
                     ) {
-                        Text(text = "问题反馈")
+                        Text(text = li.songe.gkd.i18n.t("k_8d263a68b816"))
                     }
                     Spacer(modifier = Modifier.width(itemHorizontalPadding))
                     TextButton(
                         onClick = { mainVm.showShareLogDlgFlow.value = true },
                     ) {
-                        Text(text = "导出日志")
+                        Text(text = li.songe.gkd.i18n.t("k_252fed947811"))
                     }
                     Spacer(modifier = Modifier.width(itemHorizontalPadding))
                 }

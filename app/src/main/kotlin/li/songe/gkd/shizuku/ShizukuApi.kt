@@ -180,7 +180,7 @@ val updateBinderMutex = MutexState()
 private fun updateShizukuBinder() = updateBinderMutex.launchTry(appScope, Dispatchers.IO) {
     if (shizukuUsedFlow.value) {
         if (!app.justStarted) {
-            toast("正在连接 Shizuku 服务...")
+            toast(li.songe.gkd.i18n.t("k_6fc15efa045e"))
         }
         val shizukuContext = ShizukuContext(
             serviceWrapper = buildServiceWrapper(),
@@ -212,12 +212,12 @@ private fun updateShizukuBinder() = updateBinderMutex.launchTry(appScope, Dispat
         val delayMillis = if (app.justStarted) 1200L else 0L
         if (shizukuContext.serviceWrapper == null) {
             if (shizukuContext.packageManager != null) {
-                toast("Shizuku 服务连接部分失败", delayMillis = delayMillis)
+                toast(li.songe.gkd.i18n.t("k_b06217b584eb"), delayMillis = delayMillis)
             } else {
-                toast("Shizuku 服务连接失败", delayMillis = delayMillis)
+                toast(li.songe.gkd.i18n.t("k_9b66e8878b4e"), delayMillis = delayMillis)
             }
         } else {
-            toast("Shizuku 服务连接成功", delayMillis = delayMillis)
+            toast(li.songe.gkd.i18n.t("k_4e700140c67e"), delayMillis = delayMillis)
         }
     } else if (shizukuContextFlow.value.ok) {
         val willRelaunch = uiAutomationFlow.value != null && !shizukuGrantedState.updateAndGet()
@@ -228,18 +228,18 @@ private fun updateShizukuBinder() = updateBinderMutex.launchTry(appScope, Dispat
             uiAutomationFlow.value?.shutdown(true)
             shizukuContextFlow.value.destroy()
             shizukuContextFlow.value = defaultShizukuContext
-            toast("Shizuku 服务已断开")
+            toast(li.songe.gkd.i18n.t("k_0335fe51da52"))
         }
     }
 }
 
 private suspend fun killRelaunchApp() {
     if (isActivityVisible) {
-        toast("Shizuku 断开，重启应用以释放自动化服务", forced = true)
+        toast(li.songe.gkd.i18n.t("k_756f3b92c067"), forced = true)
         delay(1500)
         app.startLaunchActivity()
     } else {
-        toast("Shizuku 断开，结束应用以释放自动化服务", forced = true)
+        toast(li.songe.gkd.i18n.t("k_d5650458c9bb"), forced = true)
         delay(1500)
     }
     android.os.Process.killProcess(android.os.Process.myPid())

@@ -90,7 +90,7 @@ private class ShareContext {
                         val newV = canDrawOverlaysState.updateAndGet()
                         canDrawOverlays = newV
                         if (!newV && oldV) {
-                            toast("当前界面拒绝显示悬浮窗")
+                            toast(li.songe.gkd.i18n.t("k_812f4a9e8abe"))
                             break
                         }
                         delay(500)

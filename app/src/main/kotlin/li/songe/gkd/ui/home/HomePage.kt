@@ -22,25 +22,25 @@ sealed class BottomNavItem(
 ) {
     object Control : BottomNavItem(
         key = 0,
-        label = "首页",
+        label = li.songe.gkd.i18n.t("k_ff93ad0e4ec6"),
         icon = PerfIcon.Home,
     )
 
     object SubsManage : BottomNavItem(
         key = 1,
-        label = "订阅",
+        label = li.songe.gkd.i18n.t("k_5319af762d35"),
         icon = PerfIcon.FormatListBulleted,
     )
 
     object AppList : BottomNavItem(
         key = 2,
-        label = "应用",
+        label = li.songe.gkd.i18n.t("k_4562024ddec7"),
         icon = PerfIcon.Apps,
     )
 
     object Settings : BottomNavItem(
         key = 3,
-        label = "设置",
+        label = li.songe.gkd.i18n.t("k_7debf9cb0372"),
         icon = PerfIcon.Settings,
     )
 

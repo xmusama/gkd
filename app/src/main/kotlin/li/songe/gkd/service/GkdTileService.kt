@@ -59,7 +59,7 @@ private suspend fun switchA11yService() {
     } else {
         if (!writeSecureSettingsState.updateAndGet()) {
             if (!writeSecureSettingsState.value) {
-                toast("请先授予「写入安全设置权限」")
+                toast(li.songe.gkd.i18n.t("k_c54815f2f854"))
                 return
             }
         }
@@ -75,7 +75,7 @@ private suspend fun switchA11yService() {
         delay(A11Y_AWAIT_START_TIME)
         // https://github.com/orgs/gkd-kit/discussions/799
         if (!A11yService.isRunning.value) {
-            toast("开启无障碍失败")
+            toast(li.songe.gkd.i18n.t("k_f744422fe212"))
             accessRestrictedSettingsShowFlow.value = true
             return
         }
@@ -129,7 +129,7 @@ private suspend fun fixA11yService() {
         app.putSecureA11yServices(names)
         delay(A11Y_AWAIT_START_TIME)
         if (currentAppUseA11y && !A11yService.isRunning.value) {
-            toast("重启无障碍失败")
+            toast(li.songe.gkd.i18n.t("k_96c728877653"))
             accessRestrictedSettingsShowFlow.value = true
         }
     }

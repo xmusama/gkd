@@ -87,7 +87,7 @@ fun AuthA11yPage() {
                     mainVm.popPage()
                 })
         }, title = {
-            Text(text = "工作模式")
+            Text(text = li.songe.gkd.i18n.t("k_f8b4c14ff903"))
         })
     }) { contentPadding ->
         Column(
@@ -121,7 +121,7 @@ fun AuthA11yPage() {
                     modifier = Modifier
                         .padding(horizontal = cardHorizontalPadding)
                         .padding(start = 4.dp),
-                    text = "基础",
+                    text = li.songe.gkd.i18n.t("k_5f83e7f6a1ee"),
                     style = MaterialTheme.typography.titleSmall
                 )
                 TextListItem(
@@ -130,8 +130,8 @@ fun AuthA11yPage() {
                         .padding(start = 8.dp, top = 4.dp),
                     style = MaterialTheme.typography.bodyMedium,
                     list = listOf(
-                        "授予「无障碍权限」",
-                        "无障碍关闭后需重新授权"
+                        li.songe.gkd.i18n.t("k_395a8879ce83"),
+                        li.songe.gkd.i18n.t("k_65be6189961d")
                     ),
                 )
                 AnimatedBooleanContent(
@@ -141,7 +141,7 @@ fun AuthA11yPage() {
                             modifier = Modifier
                                 .padding(horizontal = cardHorizontalPadding)
                                 .padding(start = 8.dp, top = 4.dp),
-                            text = "已持有「无障碍权限」可继续使用",
+                            text = li.songe.gkd.i18n.t("k_3075b3547202"),
                             style = MaterialTheme.typography.bodySmall,
                         )
                     },
@@ -157,7 +157,7 @@ fun AuthA11yPage() {
                                 onClick = throttle { openA11ySettings() },
                             ) {
                                 Text(
-                                    text = "手动授权",
+                                    text = li.songe.gkd.i18n.t("k_34fd16424687"),
                                     style = MaterialTheme.typography.bodyLarge,
                                 )
                             }
@@ -169,7 +169,7 @@ fun AuthA11yPage() {
                                         mainVm.navigateWebPage(ShortUrlSet.URL2)
                                     })
                                     .padding(horizontal = 4.dp),
-                                text = "无法开启无障碍?",
+                                text = li.songe.gkd.i18n.t("k_2735ce6e4632"),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.primary,
                             )
@@ -180,7 +180,7 @@ fun AuthA11yPage() {
                     modifier = Modifier
                         .padding(horizontal = cardHorizontalPadding)
                         .padding(start = 4.dp, top = 8.dp),
-                    text = "增强",
+                    text = li.songe.gkd.i18n.t("k_1dd014a84e4c"),
                     style = MaterialTheme.typography.titleSmall,
                 )
                 TextListItem(
@@ -189,8 +189,8 @@ fun AuthA11yPage() {
                         .padding(start = 8.dp, top = 4.dp),
                     style = MaterialTheme.typography.bodyMedium,
                     list = listOf(
-                        "授予「写入安全设置权限」",
-                        "应用可自行控制开关无障碍",
+                        li.songe.gkd.i18n.t("k_c0a335f6dd75"),
+                        li.songe.gkd.i18n.t("k_d17df339dd85"),
                     ),
                 )
                 AnimatedBooleanContent(
@@ -200,7 +200,7 @@ fun AuthA11yPage() {
                             modifier = Modifier
                                 .padding(horizontal = cardHorizontalPadding)
                                 .padding(start = 8.dp, top = 4.dp),
-                            text = "已持有「写入安全设置权限」 优先使用此项",
+                            text = li.songe.gkd.i18n.t("k_5ae6bc88fe3d"),
                             style = MaterialTheme.typography.bodySmall,
                         )
                     },
@@ -213,7 +213,7 @@ fun AuthA11yPage() {
                             ShizukuAuthButton()
                             TextButton(onClick = { vm.showCopyDlgFlow.value = true }) {
                                 Text(
-                                    text = "命令授权",
+                                    text = li.songe.gkd.i18n.t("k_92cab3865173"),
                                     style = MaterialTheme.typography.bodyLarge,
                                 )
                             }
@@ -225,16 +225,16 @@ fun AuthA11yPage() {
                         .padding(horizontal = cardHorizontalPadding),
                     onClick = throttle {
                         if (!writeSecureSettings) {
-                            toast("请先授予「${writeSecureSettingsState.name}」")
+                            toast(li.songe.gkd.i18n.t("k_cca66e7084d7", writeSecureSettingsState.name))
                         }
                         mainVm.dialogFlow.updateDialogOptions(
-                            title = "无感保活",
-                            text = "添加通知栏快捷开关\n\n1. 下拉通知栏至「快捷开关」标界面\n2. 找到名称为 ${META.appName} 的快捷开关\n3. 添加此开关到通知面板 \n\n只要此快捷开关在通知面板可见\n无论是系统杀后台还是自身崩溃\n简单下拉打开通知即可重启"
+                            title = li.songe.gkd.i18n.t("k_ad2ea87ca309"),
+                            text = li.songe.gkd.i18n.t("k_e45f7dd3eb68", META.appName)
                         )
                     }
                 ) {
                     Text(
-                        text = "无感保活",
+                        text = li.songe.gkd.i18n.t("k_ad2ea87ca309"),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -268,10 +268,10 @@ fun AuthA11yPage() {
                         .padding(start = 8.dp),
                     style = MaterialTheme.typography.bodyMedium,
                     list = listOf(
-                        "自动化驱动的无障碍",
-                        "不会导致界面显示异常",
-                        "不会被应用检测为无障碍",
-                        "若不兼容可配置「局部无障碍」",
+                        li.songe.gkd.i18n.t("k_e2c98e81ff6c"),
+                        li.songe.gkd.i18n.t("k_b2b5d9d8c08b"),
+                        li.songe.gkd.i18n.t("k_be143aca0c18"),
+                        li.songe.gkd.i18n.t("k_5d459f430029"),
                     ),
                 )
                 AnimatedBooleanContent(
@@ -281,7 +281,7 @@ fun AuthA11yPage() {
                             modifier = Modifier
                                 .padding(horizontal = cardHorizontalPadding)
                                 .padding(start = 8.dp, top = 8.dp),
-                            text = "已连接 Shizuku 服务，可继续使用",
+                            text = li.songe.gkd.i18n.t("k_787a6e40ac4f"),
                             style = MaterialTheme.typography.bodySmall,
                         )
                     },
@@ -300,7 +300,7 @@ fun AuthA11yPage() {
                     },
                 ) {
                     Text(
-                        text = "局部无障碍",
+                        text = li.songe.gkd.i18n.t("k_3721fe11a25f"),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -330,14 +330,14 @@ private fun ShizukuAuthButton(
         onClick = throttle(vm.viewModelScope.launchAsFn(Dispatchers.IO) {
             mainVm.guardShizukuContext()
             if (writeSecureSettingsState.value) {
-                toast("授权成功")
+                toast(li.songe.gkd.i18n.t("k_027b90522860"))
                 updateEnableAutomator(true)
                 fixRestartAutomatorService()
             }
         })
     ) {
         Text(
-            text = "Shizuku 授权",
+            text = li.songe.gkd.i18n.t("k_0f0c48af67b6"),
             style = MaterialTheme.typography.bodyLarge,
         )
     }

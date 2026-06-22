@@ -134,7 +134,12 @@ fun SubsSheet(
                     Column(
                         modifier = childModifier.clearAndSetSemantics {
                             contentDescription =
-                                "作者：${subscription.author ?: "未知"}, 版本号：v${subscription.version}, 更新时间：${subsItem.mtimeStr}"
+                                li.songe.gkd.i18n.t(
+                                    "k_4a0252ee3f49",
+                                    subscription.author ?: li.songe.gkd.i18n.t("k_d9c32a4c3dda"),
+                                    subscription.version,
+                                    subsItem.mtimeStr,
+                                )
                         }
                     ) {
                         Row(
@@ -143,7 +148,7 @@ fun SubsSheet(
                             horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             Text(
-                                text = "作者",
+                                text = li.songe.gkd.i18n.t("k_698bea51247b"),
                                 style = MaterialTheme.typography.labelLarge,
                             )
                             Text(
@@ -163,7 +168,7 @@ fun SubsSheet(
                         ) {
                             if (!subsItem.isLocal) {
                                 Text(
-                                    text = subscription.author ?: "未知",
+                                    text = subscription.author ?: li.songe.gkd.i18n.t("k_d9c32a4c3dda"),
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.let {
                                         if (subscription.author == null) {
@@ -193,7 +198,7 @@ fun SubsSheet(
                     if (subscription.globalGroups.isNotEmpty() || subsItem.isLocal) {
                         Row(
                             modifier = Modifier
-                                .clickable(onClickLabel = "查看全局规则列表", onClick = throttle {
+                                .clickable(onClickLabel = li.songe.gkd.i18n.t("k_cb45543dcbb5"), onClick = throttle {
                                     setSubsId(null)
                                     sheetSubsIdFlow.value = null
                                     mainVm.navigatePage(SubsGlobalGroupListRoute(subsItem.id))
@@ -206,11 +211,11 @@ fun SubsSheet(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = "全局规则",
+                                    text = li.songe.gkd.i18n.t("k_9effd4ccc90a"),
                                     style = MaterialTheme.typography.labelLarge,
                                 )
                                 Text(
-                                    text = if (subscription.globalGroups.isNotEmpty()) "共 ${subscription.globalGroups.size} 全局规则" else "暂无",
+                                    text = if (subscription.globalGroups.isNotEmpty()) li.songe.gkd.i18n.t("k_1a1b2a7bc200", subscription.globalGroups.size) else li.songe.gkd.i18n.t("k_5dbd015496af"),
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.let {
                                         if (subscription.globalGroups.isEmpty()) {
@@ -229,7 +234,7 @@ fun SubsSheet(
                     if (subscription.appGroups.isNotEmpty() || subsItem.isLocal) {
                         Row(
                             modifier = Modifier
-                                .clickable(onClickLabel = "查看应用规则列表", onClick = throttle {
+                                .clickable(onClickLabel = li.songe.gkd.i18n.t("k_03b83abff220"), onClick = throttle {
                                     setSubsId(null)
                                     sheetSubsIdFlow.value = null
                                     mainVm.navigatePage(SubsAppListRoute(subsItem.id))
@@ -242,11 +247,11 @@ fun SubsSheet(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = "应用规则",
+                                    text = li.songe.gkd.i18n.t("k_da6a6dc1af19"),
                                     style = MaterialTheme.typography.labelLarge,
                                 )
                                 Text(
-                                    text = if (subscription.appGroups.isNotEmpty()) "共 ${subscription.apps.size} 应用 ${subscription.appGroups.size} 规则" else "暂无",
+                                    text = if (subscription.appGroups.isNotEmpty()) li.songe.gkd.i18n.t("k_666c953891f2", subscription.apps.size, subscription.appGroups.size) else li.songe.gkd.i18n.t("k_5dbd015496af"),
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.let {
                                         if (subscription.appGroups.isEmpty()) {
@@ -266,7 +271,7 @@ fun SubsSheet(
                     if (subscription.categories.isNotEmpty() || subsItem.isLocal) {
                         Row(
                             modifier = Modifier
-                                .clickable(onClickLabel = "查看规则类别列表", onClick = throttle {
+                                .clickable(onClickLabel = li.songe.gkd.i18n.t("k_51b193fac4d1"), onClick = throttle {
                                     setSubsId(null)
                                     sheetSubsIdFlow.value = null
                                     mainVm.navigatePage(SubsCategoryRoute(subsItem.id))
@@ -279,11 +284,11 @@ fun SubsSheet(
                                 modifier = Modifier.weight(1f)
                             ) {
                                 Text(
-                                    text = "规则类别",
+                                    text = li.songe.gkd.i18n.t("k_53c76c1349fe"),
                                     style = MaterialTheme.typography.labelLarge,
                                 )
                                 Text(
-                                    text = if (subscription.categories.isNotEmpty()) "共 ${subscription.categories.size} 类别" else "暂无",
+                                    text = if (subscription.categories.isNotEmpty()) li.songe.gkd.i18n.t("k_da4d993203a6", subscription.categories.size) else li.songe.gkd.i18n.t("k_5dbd015496af"),
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant.let {
                                         if (subscription.categories.isEmpty()) {
@@ -302,9 +307,9 @@ fun SubsSheet(
                     if (!subsItem.isLocal && subsItem.updateUrl != null) {
                         Row(
                             modifier = Modifier
-                                .clickable(onClickLabel = "编辑订阅链接", onClick = throttle {
+                                .clickable(onClickLabel = li.songe.gkd.i18n.t("k_29741d0a116a"), onClick = throttle {
                                     if (updateSubsMutex.mutex.isLocked) {
-                                        toast("正在刷新订阅,请稍后操作")
+                                        toast(li.songe.gkd.i18n.t("k_2c20f3fd5e63"))
                                         return@throttle
                                     }
                                     mainVm.viewModelScope.launchTry {
@@ -321,7 +326,7 @@ fun SubsSheet(
                                 modifier = Modifier.weight(1f),
                             ) {
                                 Text(
-                                    text = "订阅链接",
+                                    text = li.songe.gkd.i18n.t("k_b1a934b24795"),
                                     style = MaterialTheme.typography.labelLarge,
                                 )
                                 Text(
@@ -332,7 +337,7 @@ fun SubsSheet(
                                     overflow = TextOverflow.MiddleEllipsis,
                                     modifier = Modifier
                                         .clearAndSetSemantics {}
-                                        .clickable(onClickLabel = "查看订阅链接", onClick = {
+                                        .clickable(onClickLabel = li.songe.gkd.i18n.t("k_dc010e5ae799"), onClick = {
                                             mainVm.textFlow.value = subsItem.updateUrl
                                         })
                                 )
@@ -356,12 +361,12 @@ fun SubsSheet(
                             CircularProgressIndicator()
                         } else {
                             Text(
-                                text = "文件加载错误或不存在",
+                                text = li.songe.gkd.i18n.t("k_c3159c4450e0"),
                                 style = MaterialTheme.typography.labelLarge,
                                 color = MaterialTheme.colorScheme.error,
                             )
                             TextButton(onClick = throttle { checkSubsUpdate(showToast = true) }) {
-                                Text(text = "重新加载")
+                                Text(text = li.songe.gkd.i18n.t("k_5982c44c18df"))
                             }
                         }
                     }
@@ -390,8 +395,8 @@ fun SubsSheet(
                             onClick = throttle(
                                 vm.viewModelScope.launchAsFn {
                                     mainVm.dialogFlow.waitResult(
-                                        title = "删除订阅",
-                                        text = "确定删除 ${subscription?.name ?: subsItem.id} ?",
+                                        title = li.songe.gkd.i18n.t("k_fe7b16b5c082"),
+                                        text = li.songe.gkd.i18n.t("k_1e287cd93af4", subscription?.name ?: subsItem.id),
                                         error = true,
                                     )
                                     sheetSubsIdFlow.value = null

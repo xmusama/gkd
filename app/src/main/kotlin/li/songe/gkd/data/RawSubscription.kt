@@ -129,7 +129,7 @@ data class RawSubscription(
         if (!c.desc.isNullOrBlank()) return c.desc
         val groupSize = categoryGroupsMap[categoryKey]?.size ?: 0
         val appSize = categoryAppsMap[categoryKey]?.size ?: 0
-        if (groupSize > 0) return "${appSize}应用/${groupSize}规则"
+        if (groupSize > 0) return li.songe.gkd.i18n.t("k_706ab1599b4d", appSize, groupSize)
         return null
     }
 
@@ -175,7 +175,7 @@ data class RawSubscription(
         val globalGroupSize = globalGroups.size
         if (appGroupsSize + globalGroupSize > 0) {
             if (globalGroupSize > 0) {
-                "${globalGroupSize}全局" + if (appGroupsSize > 0) {
+                li.songe.gkd.i18n.t("k_442b01674158", globalGroupSize) + if (appGroupsSize > 0) {
                     "/"
                 } else {
                     ""
@@ -183,12 +183,12 @@ data class RawSubscription(
             } else {
                 ""
             } + if (appGroupsSize > 0) {
-                "${appsSize}应用/${appGroupsSize}规则"
+                li.songe.gkd.i18n.t("k_706ab1599b4d", appsSize, appGroupsSize)
             } else {
                 ""
             }
         } else {
-            "暂无规则"
+            li.songe.gkd.i18n.t("k_cff584d9ab83")
         }
     }
 
@@ -609,13 +609,13 @@ data class RawSubscription(
                     selector.checkType(typeInfo)
                     cacheMap[source] = selector
                 } catch (e: Exception) {
-                    LogUtils.d("非法选择器", source, e.toString())
-                    return "非法选择器\n$source\n${e.message}"
+                    LogUtils.d(li.songe.gkd.i18n.t("k_845a701ae8b5"), source, e.toString())
+                    return li.songe.gkd.i18n.t("k_4ed5a2106f6e", source, e.message)
                 }
             }
             rules.forEach { r ->
                 if (r.position?.isValid == false) {
-                    return "非法位置:${r.position}"
+                    return li.songe.gkd.i18n.t("k_e1297904f091", r.position)
                 }
             }
             return null

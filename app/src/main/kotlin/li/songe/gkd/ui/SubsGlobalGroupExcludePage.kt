@@ -120,8 +120,8 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
         context.justHideSoftInput()
         if (vm.changedValue != null) {
             mainVm.dialogFlow.waitResult(
-                title = "提示",
-                text = "当前内容未保存，是否放弃编辑？",
+                title = li.songe.gkd.i18n.t("k_ab3656a956f5"),
+                text = li.songe.gkd.i18n.t("k_aebc19562108"),
             )
         }
         editable = false
@@ -158,13 +158,13 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                             onValueChange = { newValue ->
                                 searchStr = newValue.trim()
                             },
-                            hint = "请输入应用名称/ID",
+                            hint = li.songe.gkd.i18n.t("k_6d8630c59351"),
                             modifier = Modifier.autoFocus(),
                         )
                     } else {
                         TowLineText(
                             title = group.name,
-                            subtitle = "编辑禁用",
+                            subtitle = li.songe.gkd.i18n.t("k_427bec757501"),
                             modifier = Modifier.noRippleClickable { vm.resetKey.intValue++ }
                         )
                     }
@@ -187,9 +187,9 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                                             exclude = newExclude.stringify()
                                         )
                                         DbSet.subsConfigDao.insert(subsConfig)
-                                        toast("更新成功")
+                                        toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                                     } else {
-                                        toast("未修改")
+                                        toast(li.songe.gkd.i18n.t("k_fff8cc4d9427"))
                                     }
                                     context.justHideSoftInput()
                                     editable = false
@@ -228,7 +228,7 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                                         expanded = expanded,
                                         onDismissRequest = { expanded = false }
                                     ) {
-                                        MenuGroupCard(inTop = true, title = "排序") {
+                                        MenuGroupCard(inTop = true, title = li.songe.gkd.i18n.t("k_dc35af8d69c5")) {
                                             var sortType by vm.sortTypeFlow.asMutableState()
                                             AppSortOption.objects.forEach { option ->
                                                 MenuItemRadioButton(
@@ -238,7 +238,7 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                                                 )
                                             }
                                         }
-                                        MenuGroupCard(title = "分组") {
+                                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_97d8a6c05b4c")) {
                                             var appGroupType by vm.appGroupTypeFlow.asMutableState()
                                             AppGroupOption.normalObjects.forEach { option ->
                                                 val newValue = option.invert(appGroupType)
@@ -250,13 +250,13 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                                                 )
                                             }
                                         }
-                                        MenuGroupCard(title = "筛选") {
+                                        MenuGroupCard(title = li.songe.gkd.i18n.t("k_dcce9a144a40")) {
                                             MenuItemCheckbox(
-                                                text = "内置禁用",
+                                                text = li.songe.gkd.i18n.t("k_f10b25a414c1"),
                                                 stateFlow = vm.showInnerDisabledAppFlow,
                                             )
                                             MenuItemCheckbox(
-                                                text = "白名单",
+                                                text = li.songe.gkd.i18n.t("k_8f74cd015bef"),
                                                 stateFlow = vm.showBlockAppFlow,
                                             )
                                         }
@@ -274,7 +274,7 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                     editable = !editable
                 },
                 imageVector = PerfIcon.Edit,
-                contentDescription = "编辑禁用名单"
+                contentDescription = li.songe.gkd.i18n.t("k_7063fdc01d98")
             )
         }
     ) { contentPadding ->
@@ -365,7 +365,7 @@ fun SubsGlobalGroupExcludePage(route: SubsGlobalGroupExcludeRoute) {
                 item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                     Spacer(modifier = Modifier.height(EmptyHeight))
                     if (showAppInfos.isEmpty() && searchStr.isNotEmpty()) {
-                        EmptyText(text = if (vm.appFilter.showAllAppFlow.collectAsState().value) "暂无搜索结果" else "暂无搜索结果，或修改筛选")
+                        EmptyText(text = if (vm.appFilter.showAllAppFlow.collectAsState().value) li.songe.gkd.i18n.t("k_8f8274c754b5") else li.songe.gkd.i18n.t("k_9e7d3ee61c36"))
                         Spacer(modifier = Modifier.height(EmptyHeight / 2))
                     }
                 }
@@ -397,12 +397,4 @@ fun getGlobalGroupChecked(
     return group.matchAnyApp ?: true
 }
 
-private val tipText = """
-以换行或英文逗号分割每条禁用
-示例1-禁用单个页面
-appId/activityId
-示例2-禁用整个应用(移除/)
-appId
-示例3-开启此应用(前置!)
-!appId
-""".trimIndent()
+private val tipText get() = li.songe.gkd.i18n.t("manual_exclude_tip")

@@ -134,8 +134,8 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
             )
             val resetAll = suspend {
                 mainVm.dialogFlow.waitResult(
-                    title = "重置开关",
-                    text = "重置当前类别下所有规则开关为默认值？\n重置后规则可由类别批量控制开关",
+                    title = li.songe.gkd.i18n.t("k_b2f0b173ebfd"),
+                    text = li.songe.gkd.i18n.t("k_902609e57e08"),
                 )
                 val updatedList = DbSet.subsConfigDao.batchResetAppGroupEnable(
                     subs.id,
@@ -143,9 +143,9 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                         .map { g -> g to subs.getAppByGroup(g) },
                 )
                 if (updatedList.isNotEmpty()) {
-                    toast("重置 ${updatedList.size} 规则")
+                    toast(li.songe.gkd.i18n.t("k_86c5caba14bf", updatedList.size))
                 } else {
-                    toast("无可重置规则")
+                    toast(li.songe.gkd.i18n.t("k_8e1d999ba43d"))
                 }
             }
             if (subs.isLocal) {
@@ -162,7 +162,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                         if (groupSize > 0) {
                             DropdownMenuItem(
                                 leadingIcon = { PerfIcon(imageVector = ResetSettings) },
-                                text = { Text(text = "重置") },
+                                text = { Text(text = li.songe.gkd.i18n.t("k_3d81345303ab")) },
                                 onClick = throttle(vm.viewModelScope.launchAsFn {
                                     expanded = false
                                     resetAll()
@@ -171,7 +171,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                         }
                         DropdownMenuItem(
                             leadingIcon = { PerfIcon(imageVector = PerfIcon.Edit) },
-                            text = { Text(text = "编辑") },
+                            text = { Text(text = li.songe.gkd.i18n.t("k_a7f814c0a40d")) },
                             onClick = {
                                 expanded = false
                                 vm.showEditCategoryFlow.value = true
@@ -179,7 +179,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                         )
                         DropdownMenuItem(
                             leadingIcon = { PerfIcon(imageVector = PerfIcon.Delete) },
-                            text = { Text(text = "删除") },
+                            text = { Text(text = li.songe.gkd.i18n.t("k_3755f56f2f83")) },
                             colors = MenuDefaults.itemColors(
                                 textColor = MaterialTheme.colorScheme.error,
                                 leadingIconColor = MaterialTheme.colorScheme.error,
@@ -187,8 +187,8 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                             onClick = throttle(mainVm.viewModelScope.launchAsFn {
                                 expanded = false
                                 mainVm.dialogFlow.waitResult(
-                                    title = "删除类别",
-                                    text = "确定删除 ${category.name} ?",
+                                    title = li.songe.gkd.i18n.t("k_0bfb53c9cd81"),
+                                    text = li.songe.gkd.i18n.t("k_1e287cd93af4", category.name),
                                     error = true,
                                 )
                                 mainVm.popPage()
@@ -202,7 +202,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                                     subs.id,
                                     category.key
                                 )
-                                toast("删除成功")
+                                toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                             })
                         )
                     }
@@ -224,7 +224,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                 modifier = Modifier.wrapContentSize(Alignment.TopStart)
             ) {
                 DropdownMenu(expanded = sortExpanded, onDismissRequest = { sortExpanded = false }) {
-                    MenuGroupCard(inTop = true, title = "排序") {
+                    MenuGroupCard(inTop = true, title = li.songe.gkd.i18n.t("k_dc35af8d69c5")) {
                         var sortType by vm.sortTypeFlow.asMutableState()
                         AppSortOption.objects.forEach { option ->
                             MenuItemRadioButton(
@@ -234,7 +234,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                             )
                         }
                     }
-                    MenuGroupCard(title = "分组") {
+                    MenuGroupCard(title = li.songe.gkd.i18n.t("k_97d8a6c05b4c")) {
                         var appGroupType by vm.appGroupTypeFlow.asMutableState()
                         AppGroupOption.allObjects.forEach { option ->
                             val newValue = option.invert(appGroupType)
@@ -246,9 +246,9 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
                             )
                         }
                     }
-                    MenuGroupCard(title = "筛选") {
+                    MenuGroupCard(title = li.songe.gkd.i18n.t("k_dcce9a144a40")) {
                         MenuItemCheckbox(
-                            text = "白名单",
+                            text = li.songe.gkd.i18n.t("k_8f74cd015bef"),
                             stateFlow = vm.showBlockAppFlow,
                         )
                     }
@@ -308,7 +308,7 @@ fun SubsCategoryGroupPage(route: SubsCategoryGroupRoute) {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (apps.isEmpty()) {
-                    EmptyText(text = if (vm.showAllAppFlow.collectAsState().value) "暂无数据" else "暂无数据，或修改筛选")
+                    EmptyText(text = if (vm.showAllAppFlow.collectAsState().value) li.songe.gkd.i18n.t("k_b246458f20c8") else li.songe.gkd.i18n.t("k_53e5dc587c92"))
                     Spacer(modifier = Modifier.height(EmptyHeight))
                 }
             }

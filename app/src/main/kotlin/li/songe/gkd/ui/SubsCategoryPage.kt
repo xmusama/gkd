@@ -84,17 +84,17 @@ fun SubsCategoryPage(@Suppress("unused") route: SubsCategoryRoute) {
         }, title = {
             TowLineText(
                 title = subs.name,
-                subtitle = "规则类别",
+                subtitle = li.songe.gkd.i18n.t("k_53c76c1349fe"),
                 modifier = Modifier.noRippleClickable(onClick = { scrollKey.intValue++ })
             )
         }, actions = {
             PerfIconButton(imageVector = PerfIcon.Info, onClick = throttle {
                 mainVm.dialogFlow.updateDialogOptions(
-                    title = "类别说明",
+                    title = li.songe.gkd.i18n.t("k_a866534a0dcd"),
                     text = arrayOf(
-                        "类别会捕获以当前类别开头的所有应用规则, 因此可调整类别开关(分类手动配置)来批量开关规则",
-                        "规则开关优先级为:\n规则手动配置 > 分类手动配置 > 分类默认 > 规则默认",
-                        "因此如果手动开关了规则(规则手动配置), 则该规则不会被批量开关, 可通过点击类别-重置规则开关, 来移除类别下所有规则手动配置",
+                        li.songe.gkd.i18n.t("k_d47ef08e87f7"),
+                        li.songe.gkd.i18n.t("k_3b6fbde587a3"),
+                        li.songe.gkd.i18n.t("k_b3dc46f15df4"),
                     ).joinToString("\n\n"),
                 )
             })
@@ -123,7 +123,7 @@ fun SubsCategoryPage(@Suppress("unused") route: SubsCategoryRoute) {
             item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                 Spacer(modifier = Modifier.height(EmptyHeight))
                 if (categories.isEmpty()) {
-                    EmptyText(text = "暂无类别")
+                    EmptyText(text = li.songe.gkd.i18n.t("k_90fa56d24c12"))
                 }
             }
         }
@@ -183,7 +183,7 @@ private fun CategoryItemCard(
                     )
                 } else {
                     Text(
-                        text = "暂无规则",
+                        text = li.songe.gkd.i18n.t("k_cff584d9ab83"),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                     )
@@ -221,7 +221,7 @@ fun UpsertCategoryDialog(
     val onClick = appScope.launchAsFn {
         if (category != null) {
             if (subs.categories.any { c -> c.key != category.key && c.name == nameValue }) {
-                error("不可添加同名类别")
+                error(li.songe.gkd.i18n.t("k_5ba40c1f0788"))
             }
             onDismissRequest()
             val changed = category.name != nameValue || (category.desc ?: "") != descValue
@@ -234,13 +234,13 @@ fun UpsertCategoryDialog(
                         )
                     })
                 )
-                toast("更新成功")
+                toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
             } else {
-                toast("未修改")
+                toast(li.songe.gkd.i18n.t("k_fff8cc4d9427"))
             }
         } else {
             if (subs.categories.any { c -> c.name == nameValue }) {
-                error("不可添加同名类别")
+                error(li.songe.gkd.i18n.t("k_5ba40c1f0788"))
             }
             onDismissRequest()
             updateSubscription(
@@ -254,7 +254,7 @@ fun UpsertCategoryDialog(
                     add(c)
                 })
             )
-            toast("添加成功")
+            toast(li.songe.gkd.i18n.t("k_6950d05c09db"))
         }
     }
     FullscreenDialog(onDismissRequest = onDismissRequest) {
@@ -267,7 +267,7 @@ fun UpsertCategoryDialog(
                             onClick = throttle(onDismissRequest),
                         )
                     },
-                    title = { Text(text = if (category == null) "添加类别" else "编辑类别") },
+                    title = { Text(text = if (category == null) li.songe.gkd.i18n.t("k_f0250d57b96e") else li.songe.gkd.i18n.t("k_40635c42282f")) },
                     actions = {
                         PerfIconButton(
                             imageVector = PerfIcon.Save,
@@ -284,22 +284,22 @@ fun UpsertCategoryDialog(
                     .padding(horizontal = 16.dp),
             ) {
                 OutlinedTextField(
-                    label = { Text("类别名称") },
+                    label = { Text(li.songe.gkd.i18n.t("k_54900435fc0a")) },
                     value = nameValue,
                     onValueChange = { nameValue = it.trim() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .autoFocus(),
-                    placeholder = { Text(text = "请输入类别名称") },
+                    placeholder = { Text(text = li.songe.gkd.i18n.t("k_b4676e271599")) },
                     singleLine = true,
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 OutlinedTextField(
-                    label = { Text("类别描述") },
+                    label = { Text(li.songe.gkd.i18n.t("k_3aba810f58bc")) },
                     value = descValue,
                     onValueChange = { descValue = it.trim() },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text(text = "请输入类别描述") },
+                    placeholder = { Text(text = li.songe.gkd.i18n.t("k_90059a73fcc9")) },
                     singleLine = true,
                 )
             }

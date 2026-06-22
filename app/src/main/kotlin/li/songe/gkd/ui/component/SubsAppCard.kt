@@ -43,9 +43,9 @@ fun SubsAppCard(
             AppNameText(appInfo = data.appInfo, fallbackName = data.rawApp.name)
             if (rawApp.groups.isNotEmpty()) {
                 val enableDesc = when (data.enableSize) {
-                    0 -> "${rawApp.groups.size}组规则/${rawApp.groups.size}关闭"
-                    rawApp.groups.size -> "${rawApp.groups.size}组规则"
-                    else -> "${rawApp.groups.size}组规则/${data.enableSize}启用/${rawApp.groups.size - data.enableSize}关闭"
+                    0 -> li.songe.gkd.i18n.t("k_9799ba269576", rawApp.groups.size, rawApp.groups.size)
+                    rawApp.groups.size -> li.songe.gkd.i18n.t("k_a4385b6df0e1", rawApp.groups.size)
+                    else -> li.songe.gkd.i18n.t("k_1162991670d6", rawApp.groups.size, data.enableSize, rawApp.groups.size - data.enableSize)
                 }
                 Text(
                     text = enableDesc,

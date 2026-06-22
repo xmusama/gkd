@@ -55,10 +55,10 @@ interface OnSimpleLife {
         @Loc loc: String = "",
     ) {
         onCreated {
-            toast("${name}已启动", loc = loc, delayMillis = delayMillis)
+            toast(li.songe.gkd.i18n.t("k_24784e9011cd", name), loc = loc, delayMillis = delayMillis)
         }
         onDestroyed {
-            toast("${name}已关闭", loc = loc)
+            toast(li.songe.gkd.i18n.t("k_1dd869559529", name), loc = loc)
         }
     }
 

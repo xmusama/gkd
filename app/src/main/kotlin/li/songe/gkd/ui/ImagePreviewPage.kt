@@ -360,7 +360,7 @@ private fun UriImage(
             uri = uri,
             listener = object : EventListener() {
                 override fun onStart(request: ImageRequest) {
-                    phaseTextFlow.value = "请求中"
+                    phaseTextFlow.value = li.songe.gkd.i18n.t("k_174a6484e7f1")
                 }
 
                 override fun fetchStart(
@@ -368,7 +368,7 @@ private fun UriImage(
                     fetcher: Fetcher,
                     options: Options,
                 ) {
-                    phaseTextFlow.value = if (isNetworkImage) "下载中" else "读取中"
+                    phaseTextFlow.value = if (isNetworkImage) li.songe.gkd.i18n.t("k_327d59b5bd11") else li.songe.gkd.i18n.t("k_b21b631cd5c1")
                 }
 
                 override fun decodeStart(
@@ -376,7 +376,7 @@ private fun UriImage(
                     decoder: Decoder,
                     options: Options,
                 ) {
-                    phaseTextFlow.value = "解码中"
+                    phaseTextFlow.value = li.songe.gkd.i18n.t("k_b24cf81d3e34")
                 }
 
                 override fun onSuccess(request: ImageRequest, result: SuccessResult) {
@@ -451,7 +451,7 @@ private fun UriImage(
                         modifier = Modifier.pointerInput(uri) {
                             detectTapGestures(onTap = { reload() })
                         },
-                        text = "加载失败, 点击重试",
+                        text = li.songe.gkd.i18n.t("k_ceac8790d13c"),
                         color = MaterialTheme.colorScheme.error,
                         style = MaterialTheme.typography.bodyMedium
                     )

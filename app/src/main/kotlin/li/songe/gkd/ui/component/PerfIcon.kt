@@ -145,22 +145,22 @@ fun PerfIconButton(
 }
 
 fun getIconDefaultDesc(imageVector: ImageVector): String? = when (imageVector) {
-    PerfIcon.Add -> "添加"
-    PerfIcon.Edit -> "编辑"
-    PerfIcon.Save -> "保存"
-    PerfIcon.Delete -> "删除"
-    PerfIcon.Share -> "分享"
-    PerfIcon.Settings -> "设置"
-    PerfIcon.Close -> "关闭"
-    PerfIcon.ArrowBack -> "返回"
-    PerfIcon.HelpOutline -> "帮助"
-    PerfIcon.ToggleOff -> "关闭"
-    PerfIcon.ToggleOn -> "开启"
-    PerfIcon.History -> "历史记录"
-    PerfIcon.Sort -> "排序筛选"
-    PerfIcon.OpenInNew -> "新页面打开"
-    PerfIcon.ContentCopy -> "复制文本"
-    PerfIcon.MoreVert -> "更多操作"
+    PerfIcon.Add -> li.songe.gkd.i18n.t("k_94191ce210d3")
+    PerfIcon.Edit -> li.songe.gkd.i18n.t("k_a7f814c0a40d")
+    PerfIcon.Save -> li.songe.gkd.i18n.t("k_fadf24dbc5a9")
+    PerfIcon.Delete -> li.songe.gkd.i18n.t("k_3755f56f2f83")
+    PerfIcon.Share -> li.songe.gkd.i18n.t("k_7a9243411482")
+    PerfIcon.Settings -> li.songe.gkd.i18n.t("k_7debf9cb0372")
+    PerfIcon.Close -> li.songe.gkd.i18n.t("k_6c14bd7f6f9e")
+    PerfIcon.ArrowBack -> li.songe.gkd.i18n.t("k_11d024154013")
+    PerfIcon.HelpOutline -> li.songe.gkd.i18n.t("k_adf465ebf0e6")
+    PerfIcon.ToggleOff -> li.songe.gkd.i18n.t("k_6c14bd7f6f9e")
+    PerfIcon.ToggleOn -> li.songe.gkd.i18n.t("k_256783b7d4ea")
+    PerfIcon.History -> li.songe.gkd.i18n.t("k_19e0e3f3df89")
+    PerfIcon.Sort -> li.songe.gkd.i18n.t("k_e2b9cf17145c")
+    PerfIcon.OpenInNew -> li.songe.gkd.i18n.t("k_2c0e7c71e594")
+    PerfIcon.ContentCopy -> li.songe.gkd.i18n.t("k_4641d26be58a")
+    PerfIcon.MoreVert -> li.songe.gkd.i18n.t("k_77836d3a9942")
     else -> null
 }
 

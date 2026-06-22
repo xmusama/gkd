@@ -76,9 +76,9 @@ fun info2nodeList(root: AccessibilityNodeInfo?): List<NodeInfo> {
             }
             if (times > MAX_KEEP_SIZE) {
                 // https://github.com/gkd-kit/gkd/issues/28
-                toast("节点数量至多保留$MAX_KEEP_SIZE,丢弃后续节点")
+                toast(li.songe.gkd.i18n.t("k_44b8af53cf3c", MAX_KEEP_SIZE))
                 LogUtils.d(
-                    "节点数量过多",
+                    li.songe.gkd.i18n.t("k_07555b102b79"),
                     root.packageName,
                     topActivityFlow.value.activityId,
                 )
@@ -205,8 +205,8 @@ fun info2nodeList(root: AccessibilityNodeInfo?): List<NodeInfo> {
 
     LogUtils.d(
         topActivityFlow.value,
-        "快照节点数量:${nodes.size}, 总耗时:${collectTime + qfTime}ms",
-        "收集节点耗时:${collectTime}ms, 收集 fastQuery 耗时:${qfTime}ms",
+        li.songe.gkd.i18n.t("k_d99eccad0847", nodes.size, collectTime + qfTime),
+        li.songe.gkd.i18n.t("k_1e79dbebb8dd", collectTime, qfTime),
     )
 
     return nodes.map { n ->

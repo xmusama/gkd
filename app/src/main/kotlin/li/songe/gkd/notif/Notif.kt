@@ -68,7 +68,7 @@ data class Notif(
             )
             notification
                 .setDeleteIntent(deleteIntent)
-                .addAction(0, "停止", deleteIntent)
+                .addAction(0, li.songe.gkd.i18n.t("k_a17f70a8d3d6"), deleteIntent)
         }
         return notification.build()
     }
@@ -97,43 +97,43 @@ val abNotif by lazy {
     Notif(
         id = 100,
         title = META.appName,
-        text = "无障碍正在运行",
+        text = li.songe.gkd.i18n.t("k_f106cde067c2"),
     )
 }
 
 val screenshotNotif = Notif(
     id = 101,
-    title = "截屏服务正在运行",
-    text = "保存快照时截取屏幕",
+    title = li.songe.gkd.i18n.t("k_57e70da3fd3f"),
+    text = li.songe.gkd.i18n.t("k_5d6266ee33c0"),
     uri = "gkd://page/1",
     stopService = ScreenshotService::class,
 )
 
 val buttonNotif = Notif(
     id = 102,
-    title = "快照按钮服务正在运行",
-    text = "点击按钮捕获快照",
+    title = li.songe.gkd.i18n.t("k_beb79c5e2c6e"),
+    text = li.songe.gkd.i18n.t("k_34a7b235f70e"),
     uri = "gkd://page/1",
     stopService = ButtonService::class,
 )
 
 val httpNotif = Notif(
     id = 103,
-    title = "HTTP服务正在运行",
+    title = li.songe.gkd.i18n.t("k_9662efa45c3c"),
     uri = "gkd://page/1",
     stopService = HttpService::class,
 )
 
 val exposeNotif = Notif(
     id = 104,
-    title = "运行外部调用任务中",
-    text = "任务完成后自动关闭",
+    title = li.songe.gkd.i18n.t("k_3ab5c7597f89"),
+    text = li.songe.gkd.i18n.t("k_013126c11539"),
 )
 
 val snapshotNotif = Notif(
     channel = NotifChannel.Snapshot,
     id = 105,
-    title = "快照已保存",
+    title = li.songe.gkd.i18n.t("k_502b37c69925"),
     ongoing = false,
     autoCancel = true,
     uri = "gkd://page/2",
@@ -141,21 +141,21 @@ val snapshotNotif = Notif(
 
 val recordNotif = Notif(
     id = 106,
-    title = "记录服务正在运行",
+    title = li.songe.gkd.i18n.t("k_120cd9d42a5b"),
     uri = "gkd://page/1",
     stopService = ActivityService::class,
 )
 
 val eventNotif = Notif(
     id = 107,
-    title = "事件服务正在运行",
+    title = li.songe.gkd.i18n.t("k_3067d10f92ff"),
     uri = "gkd://page/1",
     stopService = EventService::class,
 )
 
 val trackNotif = Notif(
     id = 108,
-    title = "轨迹服务正在运行",
+    title = li.songe.gkd.i18n.t("k_41ae4345a1ff"),
     uri = "gkd://page?tab=3",
     stopService = TrackService::class,
 )

@@ -89,8 +89,8 @@ fun WebViewPage(route: WebViewRoute) {
                 if (chromeVersion in 1..<MINI_CHROME_VERSION) {
                     PerfIconButton(imageVector = PerfIcon.WarningAmber, onClick = throttle {
                         mainVm.dialogFlow.updateDialogOptions(
-                            title = "兼容性提示",
-                            text = "检测到您的系统内置浏览器版本($chromeVersion)过低, 可能无法正常浏览网页文档\n\n建议自行升级版本后重启 GKD 再查看文档, 或点击右上角后在外部浏览器打开查阅\n\n若能正常浏览文档请忽略此项提示"
+                            title = li.songe.gkd.i18n.t("k_6276f4ee6dbd"),
+                            text = li.songe.gkd.i18n.t("k_7257b9d1f52c", chromeVersion)
                         )
                     })
                 }
@@ -107,7 +107,7 @@ fun WebViewPage(route: WebViewRoute) {
                         if (webViewState.loadingState !is LoadingState.Loading) {
                             DropdownMenuItem(
                                 text = {
-                                    Text(text = "刷新页面")
+                                    Text(text = li.songe.gkd.i18n.t("k_5a5a7a890c0c"))
                                 },
                                 onClick = {
                                     expanded = false
@@ -117,7 +117,7 @@ fun WebViewPage(route: WebViewRoute) {
                         }
                         DropdownMenuItem(
                             text = {
-                                Text(text = "复制链接")
+                                Text(text = li.songe.gkd.i18n.t("k_abb22bd95c4a"))
                             },
                             onClick = {
                                 expanded = false
@@ -126,7 +126,7 @@ fun WebViewPage(route: WebViewRoute) {
                         )
                         DropdownMenuItem(
                             text = {
-                                Text(text = "外部打开")
+                                Text(text = li.songe.gkd.i18n.t("k_fc350beec525"))
                             },
                             onClick = {
                                 expanded = false

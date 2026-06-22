@@ -37,7 +37,7 @@ class ScreenshotService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
     init {
         useLogLifecycle()
         useAliveFlow(isRunning)
-        useAliveToast("截屏服务")
+        useAliveToast(li.songe.gkd.i18n.t("k_df95c4025b9c"))
         StopServiceReceiver.autoRegister()
         onCreated { screenshotNotif.notifyService() }
         onCreated { instance = this }

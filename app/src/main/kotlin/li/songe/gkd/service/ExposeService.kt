@@ -36,12 +36,12 @@ class ExposeService : Service() {
             -1 -> StatusService.autoStart()
             0 -> SnapshotExt.captureSnapshot()
             1 -> {
-                toast("执行成功", forced = true)
+                toast(li.songe.gkd.i18n.t("k_6c189aad4dfe"), forced = true)
                 syncFixState()
             }
 
             else -> {
-                toast("未知调用: expose=$expose data=$data", forced = true)
+                toast(li.songe.gkd.i18n.t("k_463cc70b4eae", expose, data), forced = true)
             }
         }
     }

@@ -217,14 +217,16 @@ sealed class ResetMatchType(val value: String) {
     }
 }
 
-sealed class RuleStatus(val name: String) {
-    data object StatusOk : RuleStatus("ok")
-    data object Status1 : RuleStatus("达到最大执行次数")
-    data object Status2 : RuleStatus("需要提前触发某个规则")
-    data object Status3 : RuleStatus("处于匹配延迟")
-    data object Status4 : RuleStatus("超出匹配时间")
-    data object Status5 : RuleStatus("处于冷却时间")
-    data object Status6 : RuleStatus("处于触发延迟")
+sealed class RuleStatus(private val nameKey: String?) {
+    val name get() = nameKey?.let { li.songe.gkd.i18n.t(it) } ?: "ok"
+
+    data object StatusOk : RuleStatus(null)
+    data object Status1 : RuleStatus("k_d5095638aad5")
+    data object Status2 : RuleStatus("k_7fbc73f659d2")
+    data object Status3 : RuleStatus("k_91efd77bac8b")
+    data object Status4 : RuleStatus("k_6a4df80794af")
+    data object Status5 : RuleStatus("k_7f15f0c481b0")
+    data object Status6 : RuleStatus("k_7bca750babf2")
 
     val ok: Boolean
         get() = this === StatusOk

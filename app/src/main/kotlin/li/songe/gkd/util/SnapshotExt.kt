@@ -193,18 +193,18 @@ object SnapshotExt {
     private val captureLoading = MutableStateFlow(false)
     suspend fun captureSnapshot(forcedCropStatusBar: Boolean = false): ComplexSnapshot {
         if (A11yRuleEngine.instance == null) {
-            throw RpcError("服务不可用，请先授权")
+            throw RpcError(li.songe.gkd.i18n.t("k_6445f099392a"))
         }
         if (captureLoading.value) {
-            throw RpcError("正在保存快照，不可重复操作")
+            throw RpcError(li.songe.gkd.i18n.t("k_5aca26a85040"))
         }
         captureLoading.value = true
         try {
             val rootNode =
                 A11yRuleEngine.instance?.safeActiveWindow
-                    ?: throw RpcError("当前应用没有无障碍信息，捕获失败")
+                    ?: throw RpcError(li.songe.gkd.i18n.t("k_b4450d038aa5"))
             if (storeFlow.value.showSaveSnapshotToast) {
-                toast("正在保存快照...", forced = true)
+                toast(li.songe.gkd.i18n.t("k_cf174a6fa988"), forced = true)
             }
             val (snapshot, screenResult) = coroutineScope {  // 快照数据+截图(图片 && 状态)
                 val d1 = async(Dispatchers.IO) {
@@ -241,7 +241,7 @@ object SnapshotExt {
 
                     val (finalBitmap, status) = when {
                         rawPicture == null -> {
-                            emptyScreenBitmap("无截图权限\n请自行替换") to ScreenWhy.NotHave
+                            emptyScreenBitmap(li.songe.gkd.i18n.t("k_083cb2bece34")) to ScreenWhy.NotHave
                         }
                         isAppProtected(rawPicture) -> {
                             rawPicture to ScreenWhy.Block
@@ -279,13 +279,13 @@ object SnapshotExt {
                 DbSet.snapshotDao.insert(snapshot.toSnapshot())
             }
             val tip = when (currentStatus) {
-                ScreenWhy.NotHave -> "快照成功 (无截图)"
-                ScreenWhy.Block -> "快照成功 (应用可能禁止截图)"
-                ScreenWhy.Pass -> "快照成功"
+                ScreenWhy.NotHave -> li.songe.gkd.i18n.t("k_73ff87059af1")
+                ScreenWhy.Block -> li.songe.gkd.i18n.t("k_63cbbfdb3294")
+                ScreenWhy.Pass -> li.songe.gkd.i18n.t("k_d2feae9969e2")
             }
             toast(tip, forced = true)
             val desc = snapshot.appInfo?.name ?: snapshot.appId
-            snapshotNotif.copy(text = "快照「$desc」已保存至记录").notifySelf()
+            snapshotNotif.copy(text = li.songe.gkd.i18n.t("k_54af22afbaef", desc)).notifySelf()
             return snapshot
         } finally {
             captureLoading.value = false

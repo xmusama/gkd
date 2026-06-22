@@ -17,7 +17,7 @@ sealed class NotifChannel(
 
     data object Snapshot : NotifChannel(
         id = "1",
-        name = "保存快照通知",
+        name = li.songe.gkd.i18n.t("k_da9350a059c6"),
     )
 }
 

@@ -102,8 +102,8 @@ fun useControlPage(): ScaffoldExt {
             }, actions = {
                 PerfIconButton(
                     imageVector = PerfIcon.RocketLaunch,
-                    onClickLabel = "前往工作模式页面",
-                    contentDescription = "工作模式",
+                    onClickLabel = li.songe.gkd.i18n.t("k_bb296f384176"),
+                    contentDescription = li.songe.gkd.i18n.t("k_f8b4c14ff903"),
                     onClick = throttle {
                         mainVm.navigatePage(AuthA11yRoute)
                     },
@@ -128,7 +128,7 @@ fun useControlPage(): ScaffoldExt {
                     modifier = Modifier
                         .fillMaxWidth()
                         .semantics(mergeDescendants = true) {
-                            this.onClick(label = "前往解除限制页面", action = null)
+                            this.onClick(label = li.songe.gkd.i18n.t("k_25e98173d173"), action = null)
                         },
                     shape = MaterialTheme.shapes.large,
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
@@ -146,7 +146,7 @@ fun useControlPage(): ScaffoldExt {
                         PerfIcon(imageVector = PerfIcon.WarningAmber)
                         Text(
                             modifier = Modifier.weight(1f),
-                            text = "检测到权限受限制，请前往解除",
+                            text = li.songe.gkd.i18n.t("k_7917327c689f"),
                             style = MaterialTheme.typography.bodyLarge,
                         )
                         PerfIcon(imageVector = PerfIcon.KeyboardArrowRight)
@@ -156,19 +156,19 @@ fun useControlPage(): ScaffoldExt {
             if (store.useA11y || actualA11yScopeAppList.contains(topAppIdFlow.collectAsState().value)) {
                 PageSwitchItemCard(
                     imageVector = PerfIcon.Memory,
-                    title = "服务状态",
+                    title = li.songe.gkd.i18n.t("k_d42da9e2ace9"),
                     subtitle = if (a11yRunning) {
-                        "无障碍正在运行"
+                        li.songe.gkd.i18n.t("k_f106cde067c2")
                     } else if (mainVm.a11yServiceEnabledFlow.collectAsState().value) {
-                        "无障碍发生故障"
+                        li.songe.gkd.i18n.t("k_653c78b0b0a6")
                     } else if (writeSecureSettings) {
                         if (store.enableAutomator && a11yPartDisabledFlow.collectAsState().value) {
-                            "无障碍局部关闭"
+                            li.songe.gkd.i18n.t("k_6b683e741bcb")
                         } else {
-                            "无障碍已关闭"
+                            li.songe.gkd.i18n.t("k_a6fa6ad6cb84")
                         }
                     } else {
-                        "无障碍未授权"
+                        li.songe.gkd.i18n.t("k_9d1239c185c4")
                     },
                     checked = a11yRunning,
                     onCheckedChange = { newEnabled ->
@@ -182,16 +182,16 @@ fun useControlPage(): ScaffoldExt {
             } else {
                 PageSwitchItemCard(
                     imageVector = PerfIcon.Memory,
-                    title = "服务状态",
+                    title = li.songe.gkd.i18n.t("k_d42da9e2ace9"),
                     subtitle = if (uiAutomationFlow.collectAsState().value != null) {
-                        "自动化正在运行"
+                        li.songe.gkd.i18n.t("k_88ad0447cf6d")
                     } else if (!shizukuContextFlow.collectAsState().value.ok) {
-                        "自动化未授权"
+                        li.songe.gkd.i18n.t("k_5ad8b271e978")
                     } else {
                         if (store.enableAutomator && a11yPartDisabledFlow.collectAsState().value) {
-                            "自动化局部关闭"
+                            li.songe.gkd.i18n.t("k_544facd55388")
                         } else {
-                            "自动化已关闭"
+                            li.songe.gkd.i18n.t("k_a8ece9678b0e")
                         }
                     },
                     checked = uiAutomationFlow.collectAsState().value != null,
@@ -206,8 +206,8 @@ fun useControlPage(): ScaffoldExt {
 
             PageSwitchItemCard(
                 imageVector = PerfIcon.Notifications,
-                title = "常驻通知",
-                subtitle = "显示运行状态及统计数据",
+                title = li.songe.gkd.i18n.t("k_ccecf0f93b12"),
+                subtitle = li.songe.gkd.i18n.t("k_8ffb15fe7b95"),
                 checked = manageRunning && store.enableStatusService,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {
@@ -224,30 +224,30 @@ fun useControlPage(): ScaffoldExt {
             ServerStatusCard()
 
             PageItemCard(
-                title = "触发记录",
-                subtitle = "规则误触可定位关闭",
+                title = li.songe.gkd.i18n.t("k_50532745b5a4"),
+                subtitle = li.songe.gkd.i18n.t("k_48ec1b5fd3ea"),
                 imageVector = PerfIcon.History,
-                onClickLabel = "打开触发记录页面",
+                onClickLabel = li.songe.gkd.i18n.t("k_dcdd69a9d715"),
                 onClick = {
                     mainVm.navigatePage(ActionLogRoute())
                 })
 
             if (ActivityService.isRunning.collectAsState().value) {
                 PageItemCard(
-                    title = "界面日志",
-                    subtitle = "记录打开的应用及界面",
+                    title = li.songe.gkd.i18n.t("k_48ff47e21fda"),
+                    subtitle = li.songe.gkd.i18n.t("k_8f63dbc43072"),
                     imageVector = PerfIcon.Layers,
-                    onClickLabel = "打开界面日志页面",
+                    onClickLabel = li.songe.gkd.i18n.t("k_01a10cb43ab4"),
                     onClick = {
                         mainVm.navigatePage(ActivityLogRoute)
                     })
             }
 
             PageItemCard(
-                title = "了解 GKD",
-                subtitle = "查阅规则文档和常见问题",
+                title = li.songe.gkd.i18n.t("k_eaa2069ca828"),
+                subtitle = li.songe.gkd.i18n.t("k_a9d3ec7ec4ea"),
                 imageVector = PerfIcon.HelpOutline,
-                onClickLabel = "打开 GKD 文档页面",
+                onClickLabel = li.songe.gkd.i18n.t("k_11b5b7a56c1c"),
                 onClick = {
                     mainVm.navigatePage(WebViewRoute(initUrl = HOME_PAGE_URL))
                 })
@@ -308,7 +308,7 @@ private fun PageSwitchItemCard(
         modifier = Modifier
             .fillMaxWidth()
             .semantics(mergeDescendants = true) {
-                this.onClick(label = "切换$title", action = null)
+                this.onClick(label = li.songe.gkd.i18n.t("k_b96ab0fab650", title), action = null)
             },
         shape = MaterialTheme.shapes.large,
         colors = surfaceCardColors,
@@ -372,7 +372,7 @@ private fun ServerStatusCard() {
         modifier = Modifier
             .fillMaxWidth()
             .semantics {
-                onClick(label = "不执行操作", action = null)
+                onClick(label = li.songe.gkd.i18n.t("k_4a192ce2868e"), action = null)
             }, shape = RoundedCornerShape(20.dp), colors = surfaceCardColors, onClick = {}) {
         Row(
             modifier = Modifier
@@ -398,13 +398,13 @@ private fun ServerStatusCard() {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "数据概览",
+                    text = li.songe.gkd.i18n.t("k_354077c7646a"),
                     style = MaterialTheme.typography.bodyLarge,
                 )
                 val usedSubsItemCount by vm.usedSubsItemCountFlow.collectAsState()
                 AnimatedVisibility(usedSubsItemCount > 0) {
                     Text(
-                        text = "已开启 $usedSubsItemCount 条订阅",
+                        text = li.songe.gkd.i18n.t("k_f0651ad04df2", usedSubsItemCount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -432,7 +432,7 @@ private fun ServerStatusCard() {
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
                         .clip(MaterialTheme.shapes.extraSmall)
-                        .clickable(onClickLabel = "前往应用的规则汇总页面", onClick = throttle {
+                        .clickable(onClickLabel = li.songe.gkd.i18n.t("k_3e9db10c1ccb"), onClick = throttle {
                             latestRecordFlow.value?.let {
                                 mainVm.navigatePage(
                                     AppConfigRoute(
@@ -449,7 +449,7 @@ private fun ServerStatusCard() {
                     ) {
                         GroupNameText(
                             modifier = Modifier.fillMaxWidth(),
-                            preText = "最近触发: ",
+                            preText = li.songe.gkd.i18n.t("k_cb28015338ea"),
                             isGlobal = latestRecordFlow.collectAsState().value?.groupType == SubsConfig.GlobalGroupType,
                             text = latestRecordDesc ?: "",
                             style = MaterialTheme.typography.bodyMedium,

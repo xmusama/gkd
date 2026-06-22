@@ -3,6 +3,8 @@ package li.songe.gkd.util
 import androidx.compose.ui.graphics.vector.ImageVector
 import li.songe.gkd.ui.component.PerfIcon
 
+private fun trLabel(key: String) = li.songe.gkd.i18n.t(key)
+
 sealed interface Option<T> {
     val value: T
     val label: String
@@ -21,12 +23,13 @@ fun <V, T : Option<V>> Iterable<T>.findOption(value: V): T {
     return find { it.value == value } ?: first()
 }
 
-sealed class AppSortOption(override val value: Int, override val label: String) : Option<Int> {
+sealed class AppSortOption(override val value: Int, private val labelKey: String) : Option<Int> {
+    override val label get() = trLabel(labelKey)
     override val options get() = objects
 
-    data object ByAppName : AppSortOption(0, "按应用名称")
-    data object ByActionTime : AppSortOption(2, "按最近触发")
-    data object ByUsedTime : AppSortOption(3, "按最近使用")
+    data object ByAppName : AppSortOption(0, "k_0170e6ea452c")
+    data object ByActionTime : AppSortOption(2, "k_99d9660d5d6e")
+    data object ByUsedTime : AppSortOption(3, "k_ffa2f767bab9")
 
     companion object {
         val objects by lazy { listOf(ByAppName, ByUsedTime, ByActionTime) }
@@ -35,14 +38,15 @@ sealed class AppSortOption(override val value: Int, override val label: String) 
 
 sealed class UpdateTimeOption(
     override val value: Long,
-    override val label: String
+    private val labelKey: String
 ) : Option<Long> {
+    override val label get() = trLabel(labelKey)
     override val options get() = objects
 
-    data object Pause : UpdateTimeOption(-1, "暂停")
-    data object Everyday : UpdateTimeOption(24 * 60 * 60_000, "每天")
-    data object Every3Days : UpdateTimeOption(24 * 60 * 60_000 * 3, "每3天")
-    data object Every7Days : UpdateTimeOption(24 * 60 * 60_000 * 7, "每7天")
+    data object Pause : UpdateTimeOption(-1, "k_130448bce675")
+    data object Everyday : UpdateTimeOption(24 * 60 * 60_000, "k_5e4715ffc008")
+    data object Every3Days : UpdateTimeOption(24 * 60 * 60_000 * 3, "k_713c348d8b72")
+    data object Every7Days : UpdateTimeOption(24 * 60 * 60_000 * 7, "k_713c3b3f44d4")
 
     companion object {
         val objects by lazy { listOf(Pause, Everyday, Every3Days, Every7Days) }
@@ -51,42 +55,63 @@ sealed class UpdateTimeOption(
 
 sealed class DarkThemeOption(
     override val value: Boolean?,
-    override val label: String,
-    override val menuLabel: String,
+    private val labelKey: String,
+    private val menuLabelKey: String,
     override val icon: ImageVector
 ) : Option<Boolean?>, OptionIcon, OptionMenuLabel {
+    override val label get() = trLabel(labelKey)
+    override val menuLabel get() = trLabel(menuLabelKey)
     override val options get() = objects
 
-    data object FollowSystem : DarkThemeOption(null, "自动", "自动", PerfIcon.AutoMode)
-    data object AlwaysEnable : DarkThemeOption(true, "启用", "深色", PerfIcon.DarkMode)
-    data object AlwaysDisable : DarkThemeOption(false, "关闭", "浅色", PerfIcon.LightMode)
+    data object FollowSystem : DarkThemeOption(null, "k_4afad877551a", "k_4afad877551a", PerfIcon.AutoMode)
+    data object AlwaysEnable : DarkThemeOption(true, "k_d4e9ca3dd494", "k_30b2c979ac87", PerfIcon.DarkMode)
+    data object AlwaysDisable : DarkThemeOption(false, "k_6c14bd7f6f9e", "k_80ec9e2b1bc4", PerfIcon.LightMode)
 
     companion object {
         val objects by lazy { listOf(FollowSystem, AlwaysEnable, AlwaysDisable) }
     }
 }
 
-sealed class EnableGroupOption(
-    override val value: Boolean?,
-    override val label: String
-) : Option<Boolean?> {
+sealed class LanguageOption(
+    override val value: String,
+    private val labelKey: String?,
+    private val fallbackLabel: String,
+) : Option<String> {
+    override val label get() = labelKey?.let(::trLabel) ?: fallbackLabel
     override val options get() = objects
 
-    data object FollowSubs : EnableGroupOption(null, "跟随订阅")
-    data object AllEnable : EnableGroupOption(true, "全部启用")
-    data object AllDisable : EnableGroupOption(false, "全部关闭")
+    data object English : LanguageOption("en", null, "English")
+    data object Chinese : LanguageOption("zh", "k_7be2d2d20c10", "Chinese")
+    data object Indonesian : LanguageOption("id", null, "Indonesia")
+
+    companion object {
+        val objects by lazy { listOf(English, Chinese, Indonesian) }
+    }
+}
+
+sealed class EnableGroupOption(
+    override val value: Boolean?,
+    private val labelKey: String
+) : Option<Boolean?> {
+    override val label get() = trLabel(labelKey)
+    override val options get() = objects
+
+    data object FollowSubs : EnableGroupOption(null, "k_8789f6741642")
+    data object AllEnable : EnableGroupOption(true, "k_6bc71e03428d")
+    data object AllDisable : EnableGroupOption(false, "k_6fe9dcf20a67")
 
     companion object {
         val objects by lazy { listOf(FollowSubs, AllEnable, AllDisable) }
     }
 }
 
-sealed class RuleSortOption(override val value: Int, override val label: String) : Option<Int> {
+sealed class RuleSortOption(override val value: Int, private val labelKey: String) : Option<Int> {
+    override val label get() = trLabel(labelKey)
     override val options get() = objects
 
-    data object ByDefault : RuleSortOption(0, "按默认顺序")
-    data object ByActionTime : RuleSortOption(1, "按最近触发")
-    data object ByRuleName : RuleSortOption(2, "按规则名称")
+    data object ByDefault : RuleSortOption(0, "k_53fd5ea8dd21")
+    data object ByActionTime : RuleSortOption(1, "k_99d9660d5d6e")
+    data object ByRuleName : RuleSortOption(2, "k_4d3a4b7c823a")
 
     companion object {
         val objects by lazy { listOf(ByDefault, ByActionTime, ByRuleName) }
@@ -95,20 +120,21 @@ sealed class RuleSortOption(override val value: Int, override val label: String)
 
 sealed class UpdateChannelOption(
     override val value: Int,
-    override val label: String,
+    private val labelKey: String,
     val url: String
 ) : Option<Int> {
+    override val label get() = trLabel(labelKey)
     override val options get() = objects
 
     data object Stable : UpdateChannelOption(
         0,
-        "稳定版",
+        "k_18b6cea8849b",
         "https://registry.npmmirror.com/@gkd-kit/app/latest/files/index.json"
     )
 
     data object Beta : UpdateChannelOption(
         1,
-        "测试版",
+        "k_6bb1fe4c8fb9",
         "https://registry.npmmirror.com/@gkd-kit/app-beta/latest/files/index.json"
     )
 
@@ -131,13 +157,14 @@ sealed interface BinaryOption : Option<Int> {
 
 sealed class AppGroupOption(
     override val value: Int,
-    override val label: String
+    private val labelKey: String
 ) : BinaryOption {
+    override val label get() = trLabel(labelKey)
     override val options get() = allObjects
 
-    data object SystemGroup : AppGroupOption(1 shl 0, "系统应用")
-    data object UserGroup : AppGroupOption(1 shl 1, "用户应用")
-    data object UnInstalledGroup : AppGroupOption(1 shl 2, "未安装应用")
+    data object SystemGroup : AppGroupOption(1 shl 0, "k_a4be5dfa64b2")
+    data object UserGroup : AppGroupOption(1 shl 1, "k_ee2a5dad81fc")
+    data object UnInstalledGroup : AppGroupOption(1 shl 2, "k_dcaf1ae9ae72")
 
     companion object {
         val normalObjects by lazy { listOf(SystemGroup, UserGroup) }
@@ -147,15 +174,15 @@ sealed class AppGroupOption(
 
 sealed class AutomatorModeOption(
     override val value: Int,
-    override val label: String,
+    private val labelKey: String,
 ) : Option<Int> {
+    override val label get() = trLabel(labelKey)
     override val options get() = objects
 
-    data object A11yMode : AutomatorModeOption(1, "无障碍")
-    data object AutomationMode : AutomatorModeOption(2, "自动化")
+    data object A11yMode : AutomatorModeOption(1, "k_04c62c8f3d82")
+    data object AutomationMode : AutomatorModeOption(2, "k_90e4e9bd1a78")
 
     companion object {
         val objects by lazy { listOf(A11yMode, AutomationMode) }
     }
 }
-

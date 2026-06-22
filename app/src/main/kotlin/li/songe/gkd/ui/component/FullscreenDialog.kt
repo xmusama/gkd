@@ -25,7 +25,7 @@ fun FullscreenDialog(
         dismissOnClickOutside = false,
         usePlatformDefaultWidth = false,
         decorFitsSystemWindows = false,
-        windowTitle = "全局弹窗",
+        windowTitle = li.songe.gkd.i18n.t("k_6786e8550874"),
     )
 ) {
     val activity = LocalActivity.current!!

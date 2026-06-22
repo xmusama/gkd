@@ -37,8 +37,8 @@ fun EditBlockAppListPage() {
         if (vm.getChangedSet() != null) {
             context.justHideSoftInput()
             mainVm.dialogFlow.waitResult(
-                title = "提示",
-                text = "当前内容未保存，是否放弃编辑？",
+                title = li.songe.gkd.i18n.t("k_ab3656a956f5"),
+                text = li.songe.gkd.i18n.t("k_aebc19562108"),
             )
         } else {
             context.hideSoftInput()
@@ -55,7 +55,7 @@ fun EditBlockAppListPage() {
                     onClick = onBack,
                 )
             },
-            title = { Text(text = "应用白名单") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_7395ba05d020")) },
             actions = {
                 PerfIconButton(
                     imageVector = PerfIcon.Save,
@@ -63,9 +63,9 @@ fun EditBlockAppListPage() {
                         val newSet = vm.getChangedSet()
                         if (newSet != null) {
                             blockMatchAppListFlow.value = newSet
-                            toast("更新成功")
+                            toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                         } else {
-                            toast("未修改")
+                            toast(li.songe.gkd.i18n.t("k_fff8cc4d9427"))
                         }
                         context.hideSoftInput()
                         mainVm.popPage()

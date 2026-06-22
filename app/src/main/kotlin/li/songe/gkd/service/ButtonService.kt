@@ -42,7 +42,7 @@ class ButtonService : OverlayWindowService(
 
     init {
         useAliveFlow(isRunning)
-        useAliveToast("快照按钮服务")
+        useAliveToast(li.songe.gkd.i18n.t("k_4c9421d05608"))
         onCreated { buttonNotif.notifyService() }
         StopServiceReceiver.autoRegister()
     }

@@ -60,23 +60,23 @@ class StatusService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
             META.appName
         }
         return if (appOpsRestrictedFlow.value) {
-            Triple(title, "权限受限，请解除限制", "gkd://page/3")
+            Triple(title, li.songe.gkd.i18n.t("k_a70211092628"), "gkd://page/3")
         } else if (shizukuWarn) {
-            Triple(title, "Shizuku 未连接，请授权或关闭优化", "gkd://page/1")
+            Triple(title, li.songe.gkd.i18n.t("k_e0c2cc150349"), "gkd://page/1")
         } else if (!automationRunning && !abRunning) {
             if (currentAppUseA11y) {
                 val text = if (a11yServiceEnabledFlow.value) {
-                    "无障碍发生故障"
+                    li.songe.gkd.i18n.t("k_653c78b0b0a6")
                 } else if (writeSecureSettingsState.updateAndGet()) {
                     if (store.enableAutomator && store.enableBlockA11yAppList && a11yPartDisabledFlow.value) {
                         val name =
                             appInfoMapFlow.value[topAppIdFlow.value]?.name ?: topAppIdFlow.value
-                        "局部关闭 · $name"
+                        li.songe.gkd.i18n.t("k_81e14c7b5606", name)
                     } else {
-                        "无障碍已关闭"
+                        li.songe.gkd.i18n.t("k_a6fa6ad6cb84")
                     }
                 } else {
-                    "无障碍未授权"
+                    li.songe.gkd.i18n.t("k_9d1239c185c4")
                 }
                 Triple(title, text, abNotif.uri)
             } else {
@@ -84,14 +84,14 @@ class StatusService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
                     if (store.enableAutomator && store.enableBlockA11yAppList && a11yPartDisabledFlow.value) {
                         val name =
                             appInfoMapFlow.value[topAppIdFlow.value]?.name ?: topAppIdFlow.value
-                        "局部关闭 · $name"
+                        li.songe.gkd.i18n.t("k_81e14c7b5606", name)
                     } else {
-                        "自动化已关闭"
+                        li.songe.gkd.i18n.t("k_a8ece9678b0e")
                     }
                 Triple(title, text, abNotif.uri)
             }
         } else if (!store.enableMatch) {
-            Triple(title, "暂停规则匹配", "gkd://page?tab=1")
+            Triple(title, li.songe.gkd.i18n.t("k_2bd91e39a74d"), "gkd://page?tab=1")
         } else if (store.useCustomNotifText) {
             Triple(
                 title,
@@ -106,7 +106,7 @@ class StatusService : Service(), OnSimpleLife by DefaultSimpleLifeImpl() {
     init {
         useAliveFlow(isRunning)
         useAliveToast(
-            name = "常驻通知",
+            name = li.songe.gkd.i18n.t("k_ccecf0f93b12"),
             delayMillis = if (app.justStarted) 1000 else 0,
         )
         onCreated {

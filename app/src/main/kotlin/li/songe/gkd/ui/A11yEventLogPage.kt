@@ -97,7 +97,7 @@ fun A11yEventLogPage() {
             },
             title = {
                 Text(
-                    text = "事件日志",
+                    text = li.songe.gkd.i18n.t("k_12b64fb2df35"),
                     modifier = Modifier.noRippleClickable { vm.resetKey.intValue++ },
                 )
             },
@@ -107,12 +107,12 @@ fun A11yEventLogPage() {
                         imageVector = PerfIcon.Delete,
                         onClick = throttle(fn = vm.viewModelScope.launchAsFn {
                             mainVm.dialogFlow.waitResult(
-                                title = "删除日志",
-                                text = "确定删除所有事件日志?",
+                                title = li.songe.gkd.i18n.t("k_0c42f43e4703"),
+                                text = li.songe.gkd.i18n.t("k_b13a1d7e0172"),
                                 error = true,
                             )
                             DbSet.a11yEventLogDao.deleteAll()
-                            toast("删除成功")
+                            toast(li.songe.gkd.i18n.t("k_86e8d12a79b3"))
                         })
                     )
                 }
@@ -144,7 +144,7 @@ fun A11yEventLogPage() {
                 item(ListPlaceholder.KEY, ListPlaceholder.TYPE) {
                     Spacer(modifier = Modifier.height(EmptyHeight))
                     if (logCount == 0 && list.loadState.refresh !is LoadState.Loading) {
-                        EmptyText(text = "暂无数据")
+                        EmptyText(text = li.songe.gkd.i18n.t("k_b246458f20c8"))
                     }
                 }
             }
@@ -170,7 +170,7 @@ fun A11yEventLogPage() {
         }
         AlertDialog(
             onDismissRequest = onDismissRequest,
-            title = { Text(text = "事件详情") },
+            title = { Text(text = li.songe.gkd.i18n.t("k_60f0ae8cbf5a")) },
             text = {
                 val textModifier = Modifier
                     .background(
@@ -179,9 +179,9 @@ fun A11yEventLogPage() {
                     )
                     .padding(horizontal = 4.dp)
                 Column {
-                    Text(text = "类型: " + if (eventLog.isStateChanged) "状态变化" else "内容变化")
+                    Text(text = li.songe.gkd.i18n.t("k_cd42ed46a66f") + if (eventLog.isStateChanged) li.songe.gkd.i18n.t("k_c5277e6e6ff3") else li.songe.gkd.i18n.t("k_458dd653a487"))
                     Spacer(modifier = Modifier.height(12.dp))
-                    Text(text = "应用ID")
+                    Text(text = li.songe.gkd.i18n.t("k_be8af550f337"))
                     Row {
                         Text(
                             text = eventLog.appId,
@@ -193,7 +193,7 @@ fun A11yEventLogPage() {
                         })
                     }
                     Spacer(modifier = Modifier.height(12.dp))
-                    Text(text = "事件数据")
+                    Text(text = li.songe.gkd.i18n.t("k_ef3d433a35bf"))
                     Box(
                         modifier = Modifier.fillMaxWidth()
                     ) {
@@ -226,7 +226,7 @@ fun A11yEventLogPage() {
                                 "[${key}=${v}]"
                             }
                         }
-                        Text(text = "特征选择器")
+                        Text(text = li.songe.gkd.i18n.t("k_17f4155b4bec"))
                         Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {
@@ -244,7 +244,7 @@ fun A11yEventLogPage() {
             },
             confirmButton = {
                 TextButton(onClick = onDismissRequest) {
-                    Text(text = "关闭")
+                    Text(text = li.songe.gkd.i18n.t("k_6c14bd7f6f9e"))
                 }
             },
         )

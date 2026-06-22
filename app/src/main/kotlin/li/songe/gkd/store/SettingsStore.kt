@@ -5,6 +5,7 @@ import li.songe.gkd.META
 import li.songe.gkd.util.AppGroupOption
 import li.songe.gkd.util.AppSortOption
 import li.songe.gkd.util.AutomatorModeOption
+import li.songe.gkd.util.LanguageOption
 import li.songe.gkd.util.RuleSortOption
 import li.songe.gkd.util.UpdateChannelOption
 import li.songe.gkd.util.UpdateTimeOption
@@ -28,12 +29,13 @@ data class SettingsStore(
     val autoClearMemorySubs: Boolean = false,
     val hideSnapshotStatusBar: Boolean = false,
     val enableDarkTheme: Boolean? = null,
+    val language: String = LanguageOption.English.value,
     val enableDynamicColor: Boolean = true,
     val showSaveSnapshotToast: Boolean = true,
     val useSystemToast: Boolean = false,
     val useCustomNotifText: Boolean = false,
     val customNotifTitle: String = META.appName,
-    val customNotifText: String = $$"${i}全局/${k}应用/${u}规则/${n}触发",
+    val customNotifText: String = $$"${i} global/${k} apps/${u} rules/${n} triggers",
     val updateChannel: Int = if (META.isBeta) UpdateChannelOption.Beta.value else UpdateChannelOption.Stable.value,
     val appSort: Int = AppSortOption.ByUsedTime.value,
     val showBlockApp: Boolean = true,

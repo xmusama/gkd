@@ -2,6 +2,7 @@ package li.songe.gkd.ui.home
 
 import android.view.KeyEvent
 import androidx.activity.compose.LocalActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -50,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.core.os.LocaleListCompat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
@@ -94,6 +96,7 @@ import li.songe.gkd.ui.style.titleItemPadding
 import li.songe.gkd.util.AndroidTarget
 import li.songe.gkd.util.BackupUtils
 import li.songe.gkd.util.DarkThemeOption
+import li.songe.gkd.util.LanguageOption
 import li.songe.gkd.util.findOption
 import li.songe.gkd.util.launchAsFn
 import li.songe.gkd.util.mapState
@@ -125,11 +128,11 @@ fun useSettingsPage(): ScaffoldExt {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(text = "触发提示")
+                    Text(text = li.songe.gkd.i18n.t("k_5bf7ff408fc6"))
                     PerfIconButton(
                         imageVector = PerfIcon.HelpOutline,
-                        contentDescription = "文案规则",
-                        onClickLabel = "打开文案规则弹窗",
+                        contentDescription = li.songe.gkd.i18n.t("k_d88d6e6c2594"),
+                        onClickLabel = li.songe.gkd.i18n.t("k_f93b6e228e6c"),
                         onClick = throttle {
                             showToastInputDlg = false
                             val confirmAction = {
@@ -137,8 +140,8 @@ fun useSettingsPage(): ScaffoldExt {
                                 showToastInputDlg = true
                             }
                             mainVm.dialogFlow.updateDialogOptions(
-                                title = "文案规则",
-                                text = $$"触发文案支持变量替换，规则如下\n${1} 子规则名称\n${2} 规则名称\n${3} 触发次数\n\n示例模板\n${1}/${2}/${3}\n\n替换结果\n子规则a/规则A/3",
+                                title = li.songe.gkd.i18n.t("k_d88d6e6c2594"),
+                                text = li.songe.gkd.i18n.t("manual_action_toast_help"),
                                 confirmAction = confirmAction,
                                 onDismissRequest = confirmAction,
                             )
@@ -150,7 +153,7 @@ fun useSettingsPage(): ScaffoldExt {
                 OutlinedTextField(
                     value = value,
                     placeholder = {
-                        Text(text = "请输入提示内容")
+                        Text(text = li.songe.gkd.i18n.t("k_29207cc69597"))
                     },
                     onValueChange = {
                         value = it.take(maxCharLen)
@@ -172,16 +175,16 @@ fun useSettingsPage(): ScaffoldExt {
                 TextButton(enabled = value.isNotEmpty(), onClick = {
                     if (value != storeFlow.value.actionToast) {
                         storeFlow.update { it.copy(actionToast = value) }
-                        toast("更新成功")
+                        toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                     }
                     showToastInputDlg = false
                 }) {
-                    Text(text = "确认")
+                    Text(text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showToastInputDlg = false }) {
-                    Text(text = "取消")
+                    Text(text = li.songe.gkd.i18n.t("k_4d0b4688c787"))
                 }
             }
         )
@@ -199,11 +202,11 @@ fun useSettingsPage(): ScaffoldExt {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text(text = "通知文案")
+                    Text(text = li.songe.gkd.i18n.t("k_ce7c7d71a7fc"))
                     PerfIconButton(
                         imageVector = PerfIcon.HelpOutline,
-                        contentDescription = "文案规则",
-                        onClickLabel = "打开文案规则弹窗",
+                        contentDescription = li.songe.gkd.i18n.t("k_d88d6e6c2594"),
+                        onClickLabel = li.songe.gkd.i18n.t("k_f93b6e228e6c"),
                         onClick = throttle {
                             showNotifTextInputDlg = false
                             val confirmAction = {
@@ -211,8 +214,8 @@ fun useSettingsPage(): ScaffoldExt {
                                 showNotifTextInputDlg = true
                             }
                             mainVm.dialogFlow.updateDialogOptions(
-                                title = "文案规则",
-                                text = $$"通知文案支持变量替换，规则如下\n${i} 全局规则数\n${k} 应用数\n${u} 应用规则数\n${n} 触发次数\n\n示例模板\n${i}全局/${k}应用/${u}规则/${n}触发\n\n替换结果\n0全局/1应用/2规则/3触发",
+                                title = li.songe.gkd.i18n.t("k_d88d6e6c2594"),
+                                text = li.songe.gkd.i18n.t("manual_notif_text_help"),
                                 confirmAction = confirmAction,
                                 onDismissRequest = confirmAction,
                             )
@@ -227,9 +230,9 @@ fun useSettingsPage(): ScaffoldExt {
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     CustomOutlinedTextField(
-                        label = { Text("主标题") },
+                        label = { Text(li.songe.gkd.i18n.t("k_e6dc2df4a417")) },
                         value = titleValue,
-                        placeholder = { Text(text = "请输入内容，支持变量替换") },
+                        placeholder = { Text(text = li.songe.gkd.i18n.t("k_d8eb8652a1ea")) },
                         onValueChange = {
                             titleValue = (if (it.length > titleMaxLen) it.take(titleMaxLen) else it)
                                 .filter { c -> c !in "\n\r" }
@@ -247,9 +250,9 @@ fun useSettingsPage(): ScaffoldExt {
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     CustomOutlinedTextField(
-                        label = { Text("副标题") },
+                        label = { Text(li.songe.gkd.i18n.t("k_8344831e7c44")) },
                         value = textValue,
-                        placeholder = { Text(text = "请输入内容，支持变量替换") },
+                        placeholder = { Text(text = li.songe.gkd.i18n.t("k_d8eb8652a1ea")) },
                         onValueChange = {
                             textValue = if (it.length > textMaxLen) it.take(textMaxLen) else it
                         },
@@ -281,19 +284,19 @@ fun useSettingsPage(): ScaffoldExt {
                                 customNotifText = textValue
                             )
                         }
-                        toast("更新成功")
+                        toast(li.songe.gkd.i18n.t("k_e2cff7737269"))
                     }
                     showNotifTextInputDlg = false
                 }) {
                     Text(
-                        text = "确认",
+                        text = li.songe.gkd.i18n.t("k_b56d9ac6c5a0"),
                     )
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showNotifTextInputDlg = false }) {
                     Text(
-                        text = "取消",
+                        text = li.songe.gkd.i18n.t("k_4d0b4688c787"),
                     )
                 }
             })
@@ -308,13 +311,13 @@ fun useSettingsPage(): ScaffoldExt {
         TextListDialog(
             onDismiss = { vm.showBackupDlgFlow.value = false },
             textList = listOf(
-                "导入备份" to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
+                li.songe.gkd.i18n.t("k_a26f1abe645c") to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
                     val uri = context.pickFile("application/zip")
                     if (uri != null) {
                         BackupUtils.importBackUpData(uri)
                     }
                 },
-                "导出备份" to {
+                li.songe.gkd.i18n.t("k_d11b66842a9c") to {
                     vm.showExportBackupDlgFlow.value = true
                 },
             )
@@ -324,11 +327,11 @@ fun useSettingsPage(): ScaffoldExt {
         TextListDialog(
             onDismiss = { vm.showExportBackupDlgFlow.value = false },
             textList = listOf(
-                "分享到其他应用" to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
+                li.songe.gkd.i18n.t("k_ad1a01b57aef") to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
                     val file = BackupUtils.exportBackUpData()
-                    context.shareFile(file, "分享备份文件")
+                    context.shareFile(file, li.songe.gkd.i18n.t("k_475c9ebcff83"))
                 },
-                "保存到下载" to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
+                li.songe.gkd.i18n.t("k_973f07187d90") to vm.viewModelScope.launchAsFn(Dispatchers.IO) {
                     val file = BackupUtils.exportBackUpData()
                     context.saveFileToDownloads(file)
                 },
@@ -366,17 +369,17 @@ fun useSettingsPage(): ScaffoldExt {
         ) {
 
             Text(
-                text = "常规",
+                text = li.songe.gkd.i18n.t("k_f1484fa78b69"),
                 modifier = Modifier.titleItemPadding(showTop = false),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
             val showToastSettingsDlg by vm.showToastSettingsDlgFlow.asMutableState()
             TextSwitch(
-                title = "触发提示",
+                title = li.songe.gkd.i18n.t("k_5bf7ff408fc6"),
                 subtitle = store.actionToast,
                 checked = store.toastWhenClick,
-                onClickLabel = "打开触发提示弹窗",
+                onClickLabel = li.songe.gkd.i18n.t("k_2313ce7d2230"),
                 onClick = {
                     showToastInputDlg = true
                 },
@@ -384,10 +387,10 @@ fun useSettingsPage(): ScaffoldExt {
                     PerfCustomIconButton(
                         size = 32.dp,
                         iconSize = 20.dp,
-                        onClickLabel = "打开提示设置弹窗",
+                        onClickLabel = li.songe.gkd.i18n.t("k_be1e5b4074ef"),
                         onClick = { vm.showToastSettingsDlgFlow.update { !it } },
                         id = R.drawable.ic_page_info,
-                        contentDescription = "提示设置",
+                        contentDescription = li.songe.gkd.i18n.t("k_aaa3b3883f13"),
                         tint = if (showToastSettingsDlg) MaterialTheme.colorScheme.primary else LocalContentColor.current,
                     )
                 },
@@ -400,13 +403,13 @@ fun useSettingsPage(): ScaffoldExt {
             AnimatedVisibility(visible = showToastSettingsDlg) {
                 Column {
                     TextSwitch(
-                        title = "提示样式",
-                        subtitle = "使用系统样式",
-                        suffix = "查看限制",
+                        title = li.songe.gkd.i18n.t("k_29ea25d303f4"),
+                        subtitle = li.songe.gkd.i18n.t("k_565e1ff87ac2"),
+                        suffix = li.songe.gkd.i18n.t("k_aa3e8507f9b1"),
                         onSuffixClick = {
                             mainVm.dialogFlow.updateDialogOptions(
-                                title = "限制说明",
-                                text = "系统 Toast 存在频率限制, 触发过于频繁会被系统强制不显示\n\n如果只使用开屏一类低频率规则可使用系统提示, 否则建议关闭此项使用自定义样式提示",
+                                title = li.songe.gkd.i18n.t("k_1b2219a307a1"),
+                                text = li.songe.gkd.i18n.t("k_5118a8094418"),
                             )
                         },
                         checked = store.useSystemToast,
@@ -416,15 +419,15 @@ fun useSettingsPage(): ScaffoldExt {
                             )
                         })
                     TextSwitch(
-                        title = "轨迹提示",
-                        subtitle = "显示触发位置信息",
+                        title = li.songe.gkd.i18n.t("k_6a1b839874f4"),
+                        subtitle = li.songe.gkd.i18n.t("k_e78582fda34f"),
                         checked = TrackService.isRunning.collectAsState().value,
                         onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                             if (it) {
                                 mainVm.dialogFlow.waitResult(
-                                    title = "使用须知",
-                                    text = "开启「轨迹提示」后点击或滑动后会在屏幕上使用悬浮窗绘制轨迹(一段时间后消失)，如果新触摸事件恰好在悬浮窗区域内，可能会被目标应用拒绝，从而导致点击或滑动无响应",
-                                    confirmText = "继续",
+                                    title = li.songe.gkd.i18n.t("k_59e2c8e61dcd"),
+                                    text = li.songe.gkd.i18n.t("k_881aca9e2390"),
+                                    confirmText = li.songe.gkd.i18n.t("k_1fc1afc5c55e"),
                                 )
                                 requiredPermission(context, foregroundServiceSpecialUseState)
                                 requiredPermission(context, notificationState)
@@ -440,14 +443,14 @@ fun useSettingsPage(): ScaffoldExt {
 
             val subsStatus by vm.subsStatusFlow.collectAsState()
             TextSwitch(
-                title = "通知文案",
+                title = li.songe.gkd.i18n.t("k_ce7c7d71a7fc"),
                 subtitle = if (store.useCustomNotifText) {
                     store.customNotifTitle + " / " + store.customNotifText
                 } else {
                     subsStatus
                 },
                 checked = store.useCustomNotifText,
-                onClickLabel = "打开修改通知文案弹窗",
+                onClickLabel = li.songe.gkd.i18n.t("k_ac04fdc8b3d9"),
                 onClick = { showNotifTextInputDlg = true },
                 onCheckedChange = {
                     storeFlow.value = store.copy(
@@ -456,15 +459,15 @@ fun useSettingsPage(): ScaffoldExt {
                 })
 
             TextSwitch(
-                title = "后台隐藏",
-                subtitle = "在「最近任务」隐藏卡片",
+                title = li.songe.gkd.i18n.t("k_8c91b02262ba"),
+                subtitle = li.songe.gkd.i18n.t("k_95a85cd30d36"),
                 checked = store.excludeFromRecents,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {
                         mainVm.dialogFlow.waitResult(
-                            title = "后台隐藏",
-                            text = "隐藏卡片后可能导致部分设备无法给任务卡片加锁后台，建议先加锁后再隐藏，若已加锁或没有锁后台机制请继续",
-                            confirmText = "继续",
+                            title = li.songe.gkd.i18n.t("k_8c91b02262ba"),
+                            text = li.songe.gkd.i18n.t("k_7834885df6aa"),
+                            confirmText = li.songe.gkd.i18n.t("k_1fc1afc5c55e"),
                         )
                     }
                     storeFlow.value = store.copy(
@@ -482,14 +485,14 @@ fun useSettingsPage(): ScaffoldExt {
                     modifier = Modifier
                         .fillMaxWidth()
                         .titleItemPadding(),
-                    text = "无障碍",
+                    text = li.songe.gkd.i18n.t("k_04c62c8f3d82"),
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.primary,
                 )
             }
             TextSwitch(
-                title = "局部关闭",
-                subtitle = "白名单内关闭服务",
+                title = li.songe.gkd.i18n.t("k_86613e925dea"),
+                subtitle = li.songe.gkd.i18n.t("k_2e268f4e6417"),
                 checked = store.enableBlockA11yAppList && shizukuContextFlow.collectAsState().value.ok,
                 onCheckedChange = vm.viewModelScope.launchAsFn<Boolean> {
                     if (it) {
@@ -501,29 +504,40 @@ fun useSettingsPage(): ScaffoldExt {
                 },
             )
             AnimatedVisibility(visible = lazyOn.value) {
-                SettingItem(title = "白名单", onClickLabel = "进入无障碍白名单页面", onClick = {
+                SettingItem(title = li.songe.gkd.i18n.t("k_8f74cd015bef"), onClickLabel = li.songe.gkd.i18n.t("k_7e4c9176baeb"), onClick = {
                     mainVm.navigatePage(BlockA11yAppListRoute)
                 })
             }
 
             Text(
-                text = "外观",
+                text = li.songe.gkd.i18n.t("k_09b58aa3422c"),
                 modifier = Modifier.titleItemPadding(),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
 
             TextMenu(
-                title = "深色模式",
+                title = li.songe.gkd.i18n.t("k_750642ccd6d4"),
                 option = DarkThemeOption.objects.findOption(store.enableDarkTheme),
                 onOptionChange = {
                     storeFlow.update { s -> s.copy(enableDarkTheme = it.value) }
                 }
             )
 
+            TextMenu(
+                title = "Language",
+                option = LanguageOption.objects.findOption(store.language),
+                onOptionChange = {
+                    storeFlow.update { s -> s.copy(language = it.value) }
+                    AppCompatDelegate.setApplicationLocales(
+                        LocaleListCompat.forLanguageTags(it.value)
+                    )
+                }
+            )
+
             if (AndroidTarget.S) {
                 TextSwitch(
-                    title = "动态配色",
+                    title = li.songe.gkd.i18n.t("k_a75357bc3501"),
                     checked = store.enableDynamicColor,
                     onCheckedChange = {
                         storeFlow.update { s -> s.copy(enableDynamicColor = it) }
@@ -532,20 +546,20 @@ fun useSettingsPage(): ScaffoldExt {
             }
 
             Text(
-                text = "其他",
+                text = li.songe.gkd.i18n.t("k_1a26edf94a81"),
                 modifier = Modifier.titleItemPadding(),
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.primary,
             )
 
-            SettingItem(title = "高级设置", onClick = {
+            SettingItem(title = li.songe.gkd.i18n.t("k_dd07e641ca66"), onClick = {
                 mainVm.navigatePage(AdvancedPageRoute)
             })
-            SettingItem(title = "备份恢复", onClick = {
+            SettingItem(title = li.songe.gkd.i18n.t("k_8233960bfd9a"), onClick = {
                 vm.showBackupDlgFlow.value = true
             })
 
-            SettingItem(title = "关于", onClick = {
+            SettingItem(title = li.songe.gkd.i18n.t("k_bed172efc953"), onClick = {
                 mainVm.navigatePage(AboutRoute)
             })
 
@@ -567,12 +581,12 @@ private fun BlockA11yDialog(onDismissRequest: () -> Unit) = FullscreenDialog(onD
                 navigationIcon = {
                     PerfIconButton(
                         imageVector = PerfIcon.Close,
-                        onClickLabel = "关闭弹窗",
+                        onClickLabel = li.songe.gkd.i18n.t("k_81f18d4d4814"),
                         onClick = onDismissRequest,
                     )
                 },
                 title = {
-                    Text(text = "局部关闭")
+                    Text(text = li.songe.gkd.i18n.t("k_86613e925dea"))
                 },
             )
         },
@@ -587,7 +601,7 @@ private fun BlockA11yDialog(onDismissRequest: () -> Unit) = FullscreenDialog(onD
                         storeFlow.update { it.copy(enableBlockA11yAppList = true) }
                     }
                 ) {
-                    Text(text = "继续")
+                    Text(text = li.songe.gkd.i18n.t("k_1fc1afc5c55e"))
                 }
                 Spacer(modifier = Modifier.width(itemHorizontalPadding))
             }
@@ -601,23 +615,23 @@ private fun BlockA11yDialog(onDismissRequest: () -> Unit) = FullscreenDialog(onD
                 .padding(horizontal = itemHorizontalPadding)
         ) {
             CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.bodyMedium) {
-                Text(text = "「局部关闭」可在白名单应用内关闭服务，来解决界面异常，游戏掉帧或无障碍检测的问题")
+                Text(text = li.songe.gkd.i18n.t("k_be7bf1f6b39f"))
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "使用须知", style = MaterialTheme.typography.titleMedium)
+                Text(text = li.songe.gkd.i18n.t("k_59e2c8e61dcd"), style = MaterialTheme.typography.titleMedium)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    RequiredTextItem(text = "切换服务会造成短暂触摸卡顿，请自行测试后再编辑白名单")
-                    RequiredTextItem(text = "使用其它无障碍应用可能导致优化无效，可在服务关闭后自行确认")
-                    RequiredTextItem(text = "必须确保服务关闭后的持续后台运行，否则会被系统暂停或结束运行导致重启失败")
+                    RequiredTextItem(text = li.songe.gkd.i18n.t("k_cbdc0c0a7a64"))
+                    RequiredTextItem(text = li.songe.gkd.i18n.t("k_ace5fab37400"))
+                    RequiredTextItem(text = li.songe.gkd.i18n.t("k_610a7f9c6123"))
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "使用条件", style = MaterialTheme.typography.titleMedium)
+                Text(text = li.songe.gkd.i18n.t("k_b412fa069ded"), style = MaterialTheme.typography.titleMedium)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     RequiredTextItem(
-                        text = "Shizuku 授权",
+                        text = li.songe.gkd.i18n.t("k_0f0c48af67b6"),
                         enabled = !shizukuContext.ok,
                         imageVector = if (shizukuContext.ok) PerfIcon.Check else PerfIcon.ArrowForward,
                         onClick = mainVm.viewModelScope.launchAsFn(Dispatchers.IO) {
@@ -625,7 +639,7 @@ private fun BlockA11yDialog(onDismissRequest: () -> Unit) = FullscreenDialog(onD
                         },
                     )
                     RequiredTextItem(
-                        text = "开启「常驻通知」",
+                        text = li.songe.gkd.i18n.t("k_6325cb01afda"),
                         enabled = !statusRunning,
                         imageVector = if (statusRunning) PerfIcon.Check else PerfIcon.ArrowForward,
                         onClick = mainVm.viewModelScope.launchAsFn {
@@ -633,40 +647,40 @@ private fun BlockA11yDialog(onDismissRequest: () -> Unit) = FullscreenDialog(onD
                         },
                     )
                     RequiredTextItem(
-                        text = "省电策略设置为无限制",
+                        text = li.songe.gkd.i18n.t("k_37cf171b6d8d"),
                         enabled = !ignoreBatteryOptimizations,
                         imageVector = if (ignoreBatteryOptimizations) PerfIcon.Check else PerfIcon.ArrowForward,
-                        onClickLabel = "打开忽略电池优化设置页面",
+                        onClickLabel = li.songe.gkd.i18n.t("k_b2c141c8e179"),
                         onClick = mainVm.viewModelScope.launchAsFn {
                             requiredPermission(context, ignoreBatteryOptimizationsState)
                         },
                     )
                     RequiredTextItem(
-                        text = "(可选) 允许自启动",
+                        text = li.songe.gkd.i18n.t("k_a31eb38058a9"),
                         enabled = true,
                         imageVector = PerfIcon.OpenInNew,
-                        onClickLabel = "打开应用详情页面",
+                        onClickLabel = li.songe.gkd.i18n.t("k_3714fd13744b"),
                         onClick = {
                             openAppDetailsSettings()
                         },
                     )
                     RequiredTextItem(
-                        text = "(可选) 在「最近任务」锁定",
+                        text = li.songe.gkd.i18n.t("k_5e5ac93cc0c5"),
                         enabled = true,
                         imageVector = PerfIcon.OpenInNew,
-                        onClickLabel = "打开应用详情页面",
+                        onClickLabel = li.songe.gkd.i18n.t("k_3714fd13744b"),
                         onClick = {
                             val m = shizukuContextFlow.value.inputManager
                             if (m != null) {
                                 m.key(KeyEvent.KEYCODE_APP_SWITCH)
                             } else {
-                                toast("请先授权 Shizuku")
+                                toast(li.songe.gkd.i18n.t("k_7b29e9051add"))
                             }
                         },
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "某些场景下服务刚启动时概率不工作，如多次遇到此情况则不建议使用此功能")
+                Text(text = li.songe.gkd.i18n.t("k_d0cd80bc26b5"))
             }
             Spacer(modifier = Modifier.height(EmptyHeight))
         }

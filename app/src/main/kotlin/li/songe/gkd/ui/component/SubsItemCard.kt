@@ -92,12 +92,12 @@ fun SubsItemCard(
             .padding(16.dp, 4.dp)
             .semantics {
                 stateDescription = if (isSelectedMode) {
-                    if (isSelected) "已选中" else "未选中"
+                    if (isSelected) li.songe.gkd.i18n.t("k_0a3020158512") else li.songe.gkd.i18n.t("k_989d92f2bdd2")
                 } else {
-                    if (subsItem.enable) "已启用" else "已禁用"
+                    if (subsItem.enable) li.songe.gkd.i18n.t("k_25d284315063") else li.songe.gkd.i18n.t("k_0fe5a98e9f8c")
                 }
-                this.onClick(label = "查看订阅详情", action = null)
-                this.onLongClick(label = "进入多选模式", action = null)
+                this.onClick(label = li.songe.gkd.i18n.t("k_923ad9f85567"), action = null)
+                this.onLongClick(label = li.songe.gkd.i18n.t("k_d45124396303"), action = null)
             },
         shape = MaterialTheme.shapes.small,
         interactionSource = interactionSource,
@@ -116,7 +116,7 @@ fun SubsItemCard(
                 if (subscription != null) {
                     Text(
                         modifier = Modifier.semantics {
-                            contentDescription = "订阅顺序：$index, 订阅名称 ${subscription.name}"
+                            contentDescription = li.songe.gkd.i18n.t("k_8c258695f1ef", index, subscription.name)
                         },
                         text = "$index. ${subscription.name}",
                         maxLines = 1,
@@ -140,7 +140,7 @@ fun SubsItemCard(
                             if (subscription.author != null) {
                                 Text(
                                     modifier = Modifier.semantics {
-                                        contentDescription = "作者 ${subscription.author}"
+                                        contentDescription = li.songe.gkd.i18n.t("k_7bba3a45bf92", subscription.author)
                                     },
                                     text = subscription.author,
                                     style = MaterialTheme.typography.labelSmall,
@@ -148,7 +148,7 @@ fun SubsItemCard(
                             }
                             Text(
                                 modifier = Modifier.semantics {
-                                    contentDescription = "订阅版本号 ${subscription.version}"
+                                    contentDescription = li.songe.gkd.i18n.t("k_e11c87f9cbab", subscription.version)
                                 },
                                 text = "v" + (subscription.version.toString()),
                                 style = MaterialTheme.typography.labelSmall,
@@ -164,7 +164,7 @@ fun SubsItemCard(
                         val timeStr = formatTimeAgo(subsItem.mtime)
                         Text(
                             modifier = Modifier.semantics {
-                                contentDescription = "更新时间 $timeStr"
+                                contentDescription = li.songe.gkd.i18n.t("k_c1237d549c43", timeStr)
                             },
                             text = timeStr,
                             style = MaterialTheme.typography.labelSmall,
@@ -185,14 +185,14 @@ fun SubsItemCard(
                     }
                     Text(
                         text = subsLoadError?.message
-                            ?: if (subsRefreshing) "加载中..." else "文件不存在",
+                            ?: if (subsRefreshing) li.songe.gkd.i18n.t("k_514c33af5cf4") else li.songe.gkd.i18n.t("k_ffcf0a1eb083"),
                         style = MaterialTheme.typography.bodyMedium,
                         color = color
                     )
                 }
                 if (subsRefreshError != null) {
                     Text(
-                        text = "更新错误: ${subsRefreshError?.message}",
+                        text = li.songe.gkd.i18n.t("k_b408a7d88e71", subsRefreshError?.message),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.error
                     )
